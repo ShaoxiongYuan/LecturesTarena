@@ -1,0 +1,69 @@
+前情回顾：
+
+1. 什么是操作系统?  OS
+
+2. Linux操作系统
+    特点 ：　开源，类Ｕｎｉｘ，多用户多任务
+    应用领域： 服务器，桌面，嵌入式设备
+    结构：　内核　　文件系统　　　shell命令行    应用
+
+3. 文件系统
+
+   树型结构  --》 绝对路径和相对路径
+
+   环境变量  --》 在该目录下的执行文件可以在任意地方执行
+
+4. vi编译器
+
+   插入模式   命令模式     i  o  :wq
+
+5. shell命令
+
+   ls  cd   cp  mv  rm  touch  mkdir  man
+
+
+实验1：
+
+    1. 从有道下载.deb安装包
+    2. dpkg -i  youdaoxxxxx.deb
+    3. 因为依赖关系安装失败  dpkg -P  youdao-dict
+
+    4. sudo apt-get update  跟新本地的软件源
+    5. sudo apt-get install  sl  (安装后用sl运行)
+    6. sudo apt-get remove --purge sl  卸载软件
+    7. sudo apt-get clean 清理软件包 （软件包位置： /var/cache/apt/archives）
+
+实验2 创建新用户：
+
+    1. 创建新用户  sudo adduser  --home  /home/levi  levi
+    2. 配置该用户的管理员权限
+       sudo vi /etc/sudoers
+
+       在其中  root ALL=(ALL:ALL) ALL 下增加一行  levi ALL=(ALL:ALL) ALL
+       强制保存，退出  （:w!  :q）
+
+    3. 切换用户查看，新用户已经诞生
+
+实验3 删除一个用户：
+
+    1. sudo  deluser  --remove-home  levi
+    2. sudo delgroup levi
+    3. sudo vipw  进入到用户配置文件，找到levi用户那一行，删除
+       ctrl-o  保存
+       ctrl-x  退出
+
+实验4  建立ssh秘钥信任
+
+      1. 个人电脑  ssh-keygen 生成秘钥对
+      2. 在 ~/.ssh中将公钥给服务器 （id_rsa.pub）
+      3. 在服务器中将公钥内容 写入到一个authorized_keys文件中
+
+
+作业： 1. Linux命令熟悉，实验
+      2. 复习函数的用法
+
+
+邮箱： lvze@tedu.cn
+
+
+

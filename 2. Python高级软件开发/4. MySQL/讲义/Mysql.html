@@ -1,0 +1,2005 @@
+<!DOCTYPE html><html><head>
+      <title>Mysql</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\lvze\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.4.3\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      
+      
+
+      
+      
+      
+      
+      
+      
+
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <p>MySQL&#x6570;&#x636E;&#x5E93;</p>
+<table>
+<thead>
+<tr>
+<th>Tedu Python &#x6559;&#x5B66;&#x90E8;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Author&#xFF1A;&#x5415;&#x6CFD;</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0">&#x6570;&#x636E;&#x5E93;&#x6982;&#x8FF0;</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E9%98%B6%E6%AE%B5">&#x6570;&#x636E;&#x5B58;&#x50A8;&#x9636;&#x6BB5;</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BA%94%E7%94%A8">&#x6570;&#x636E;&#x5E93;&#x5E94;&#x7528;</a></li>
+<li><a href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5">&#x57FA;&#x7840;&#x6982;&#x5FF5;</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB%E5%92%8C%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93">&#x6570;&#x636E;&#x5E93;&#x5206;&#x7C7B;&#x548C;&#x5E38;&#x89C1;&#x6570;&#x636E;&#x5E93;</a></li>
+<li><a href="#%E8%AE%A4%E8%AF%86%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8Cmysql">&#x8BA4;&#x8BC6;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#x548C;MySQL</a></li>
+</ul>
+</li>
+<li><a href="#sql%E8%AF%AD%E5%8F%A5">SQL&#x8BED;&#x53E5;</a></li>
+<li><a href="#%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%95%B0%E6%8D%AE%E8%A1%A8">&#x5EFA;&#x7ACB;&#x6570;&#x636E;&#x5E93;&#x548C;&#x6570;&#x636E;&#x8868;</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C">&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E7%AE%A1%E7%90%86">&#x6570;&#x636E;&#x8868;&#x7684;&#x7BA1;&#x7406;</a>
+<ul>
+<li><a href="#%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%88%9D%E6%AD%A5">&#x8868;&#x7ED3;&#x6784;&#x8BBE;&#x8BA1;&#x521D;&#x6B65;</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%94%AF%E6%8C%81">&#x6570;&#x636E;&#x7C7B;&#x578B;&#x652F;&#x6301;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80">&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x57FA;&#x7840;</a>
+<ul>
+<li><a href="#%E6%8F%92%E5%85%A5insert">&#x63D2;&#x5165;(insert)</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2select">&#x67E5;&#x8BE2;(select)</a></li>
+<li><a href="#where%E5%AD%90%E5%8F%A5">where&#x5B50;&#x53E5;</a>
+<ul>
+<li><a href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6">&#x7B97;&#x6570;&#x8FD0;&#x7B97;&#x7B26;</a></li>
+<li><a href="#%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6">&#x6BD4;&#x8F83;&#x8FD0;&#x7B97;&#x7B26;</a></li>
+<li><a href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6">&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x7B26;</a></li>
+<li><a href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6">&#x4F4D;&#x8FD0;&#x7B97;&#x7B26;</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9B%B4%E6%96%B0%E8%A1%A8%E8%AE%B0%E5%BD%95update">&#x66F4;&#x65B0;&#x8868;&#x8BB0;&#x5F55;(update)</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E8%AE%B0%E5%BD%95delete">&#x5220;&#x9664;&#x8868;&#x8BB0;&#x5F55;&#xFF08;delete&#xFF09;</a></li>
+<li><a href="#%E8%A1%A8%E5%AD%97%E6%AE%B5%E7%9A%84%E6%93%8D%E4%BD%9Calter">&#x8868;&#x5B57;&#x6BB5;&#x7684;&#x64CD;&#x4F5C;(alter)</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE">&#x65F6;&#x95F4;&#x7C7B;&#x578B;&#x6570;&#x636E;</a>
+<ul>
+<li><a href="#%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F">&#x65F6;&#x95F4;&#x683C;&#x5F0F;</a></li>
+<li><a href="#%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0">&#x65E5;&#x671F;&#x65F6;&#x95F4;&#x51FD;&#x6570;</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E6%93%8D%E4%BD%9C">&#x65F6;&#x95F4;&#x64CD;&#x4F5C;</a></li>
+</ul>
+</li>
+<li><a href="#%E9%AB%98%E7%BA%A7%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5">&#x9AD8;&#x7EA7;&#x67E5;&#x8BE2;&#x8BED;&#x53E5;</a>
+<ul>
+<li><a href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E5%92%8C%E6%AD%A3%E5%88%99%E6%9F%A5%E8%AF%A2">&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#x548C;&#x6B63;&#x5219;&#x67E5;&#x8BE2;</a></li>
+<li><a href="#as-%E7%94%A8%E6%B3%95">as &#x7528;&#x6CD5;</a></li>
+<li><a href="#%E6%8E%92%E5%BA%8F">&#x6392;&#x5E8F;</a></li>
+<li><a href="#%E5%88%86%E9%A1%B5%E9%99%90%E5%88%B6">&#x5206;&#x9875;(&#x9650;&#x5236;)</a></li>
+<li><a href="#%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2">&#x8054;&#x5408;&#x67E5;&#x8BE2;</a></li>
+<li><a href="#%E5%AD%90%E6%9F%A5%E8%AF%A2">&#x5B50;&#x67E5;&#x8BE2;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C">&#x805A;&#x5408;&#x64CD;&#x4F5C;</a>
+<ul>
+<li><a href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0">&#x805A;&#x5408;&#x51FD;&#x6570;</a></li>
+<li><a href="#%E8%81%9A%E5%90%88%E5%88%86%E7%BB%84">&#x805A;&#x5408;&#x5206;&#x7EC4;</a></li>
+<li><a href="#%E8%81%9A%E5%90%88%E7%AD%9B%E9%80%89">&#x805A;&#x5408;&#x7B5B;&#x9009;</a></li>
+<li><a href="#%E5%8E%BB%E9%87%8D%E8%AF%AD%E5%8F%A5">&#x53BB;&#x91CD;&#x8BED;&#x53E5;</a></li>
+<li><a href="#%E8%81%9A%E5%90%88%E8%BF%90%E7%AE%97">&#x805A;&#x5408;&#x8FD0;&#x7B97;</a></li>
+</ul>
+</li>
+<li><a href="#%E7%B4%A2%E5%BC%95%E6%93%8D%E4%BD%9C">&#x7D22;&#x5F15;&#x64CD;&#x4F5C;</a>
+<ul>
+<li><a href="#%E7%B4%A2%E5%BC%95%E6%A6%82%E8%BF%B0">&#x7D22;&#x5F15;&#x6982;&#x8FF0;</a></li>
+<li><a href="#%E7%B4%A2%E5%BC%95%E5%88%86%E7%B1%BB">&#x7D22;&#x5F15;&#x5206;&#x7C7B;</a></li>
+<li><a href="#%E7%B4%A2%E5%BC%95%E5%88%9B%E5%BB%BA">&#x7D22;&#x5F15;&#x521B;&#x5EFA;</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E5%92%8C%E8%A1%A8%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB">&#x5916;&#x952E;&#x7EA6;&#x675F;&#x548C;&#x8868;&#x5173;&#x8054;&#x5173;&#x7CFB;</a>
+<ul>
+<li><a href="#%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F">&#x5916;&#x952E;&#x7EA6;&#x675F;</a></li>
+<li><a href="#%E8%A1%A8%E5%85%B3%E8%81%94%E8%AE%BE%E8%AE%A1">&#x8868;&#x5173;&#x8054;&#x8BBE;&#x8BA1;</a>
+<ul>
+<li><a href="#e-r%E6%A8%A1%E5%9E%8B">E-R&#x6A21;&#x578B;</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A1%A8%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2">&#x8868;&#x5173;&#x8054;&#x67E5;&#x8BE2;</a>
+<ul>
+<li><a href="#%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2">&#x591A;&#x8868;&#x67E5;&#x8BE2;</a></li>
+<li><a href="#%E5%86%85%E8%BF%9E%E6%8E%A5">&#x5185;&#x8FDE;&#x63A5;</a></li>
+<li><a href="#%E5%A4%96%E9%93%BE%E6%8E%A5">&#x5916;&#x94FE;&#x63A5;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%A7%86%E5%9B%BE">&#x89C6;&#x56FE;</a>
+<ul>
+<li><a href="#%E8%A7%86%E5%9B%BE%E6%A6%82%E5%BF%B5">&#x89C6;&#x56FE;&#x6982;&#x5FF5;</a></li>
+<li><a href="#%E8%A7%86%E5%9B%BE%E6%93%8D%E4%BD%9C">&#x89C6;&#x56FE;&#x64CD;&#x4F5C;</a></li>
+<li><a href="#%E8%A7%86%E5%9B%BE%E4%BD%9C%E7%94%A8">&#x89C6;&#x56FE;&#x4F5C;&#x7528;</a></li>
+</ul>
+</li>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B">&#x51FD;&#x6570;&#x548C;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;</a>
+<ul>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%88%9B%E5%BB%BA">&#x51FD;&#x6570;&#x521B;&#x5EFA;</a></li>
+<li><a href="#%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%88%9B%E5%BB%BA">&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x521B;&#x5EFA;</a></li>
+<li><a href="#%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%AD%98%E5%82%A8%E5%87%BD%E6%95%B0%E6%93%8D%E4%BD%9C">&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x548C;&#x5B58;&#x50A8;&#x51FD;&#x6570;&#x64CD;&#x4F5C;</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%8C%BA%E5%88%AB">&#x51FD;&#x6570;&#x548C;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x533A;&#x522B;</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8B%E5%8A%A1%E6%8E%A7%E5%88%B6">&#x4E8B;&#x52A1;&#x63A7;&#x5236;</a>
+<ul>
+<li><a href="#%E4%BA%8B%E5%8A%A1%E6%A6%82%E8%BF%B0">&#x4E8B;&#x52A1;&#x6982;&#x8FF0;</a></li>
+<li><a href="#%E4%BA%8B%E5%8A%A1%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7">&#x4E8B;&#x52A1;&#x56DB;&#x5927;&#x7279;&#x6027;</a></li>
+<li><a href="#%E4%BA%8B%E5%8A%A1%E6%93%8D%E4%BD%9C">&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;</a></li>
+<li><a href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB">&#x4E8B;&#x52A1;&#x9694;&#x79BB;&#x7EA7;&#x522B;</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96">&#x6570;&#x636E;&#x5E93;&#x4F18;&#x5316;</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E8%8C%83%E5%BC%8F">&#x6570;&#x636E;&#x5E93;&#x8BBE;&#x8BA1;&#x8303;&#x5F0F;</a></li>
+<li><a href="#mysql%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E">MySQL&#x5B58;&#x50A8;&#x5F15;&#x64CE;</a></li>
+<li><a href="#%E5%AD%97%E6%AE%B5%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%80%89%E6%8B%A9">&#x5B57;&#x6BB5;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x9009;&#x62E9;</a></li>
+<li><a href="#%E9%94%AE%E7%9A%84%E8%AE%BE%E7%BD%AE">&#x952E;&#x7684;&#x8BBE;&#x7F6E;</a></li>
+<li><a href="#explain%E8%AF%AD%E5%8F%A5">explain&#x8BED;&#x53E5;</a></li>
+<li><a href="#sql%E4%BC%98%E5%8C%96">SQL&#x4F18;&#x5316;</a></li>
+<li><a href="#%E8%A1%A8%E7%9A%84%E6%8B%86%E5%88%86">&#x8868;&#x7684;&#x62C6;&#x5206;</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%92%8C%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86">&#x6570;&#x636E;&#x5E93;&#x5907;&#x4EFD;&#x548C;&#x7528;&#x6237;&#x7BA1;&#x7406;</a>
+<ul>
+<li><a href="#%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6">&#x8868;&#x7684;&#x590D;&#x5236;</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD">&#x6570;&#x636E;&#x5907;&#x4EFD;</a></li>
+<li><a href="#%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86">&#x7528;&#x6237;&#x6743;&#x9650;&#x7BA1;&#x7406;</a></li>
+</ul>
+</li>
+<li><a href="#pymysql%E6%A8%A1%E5%9D%97">pymysql&#x6A21;&#x5757;</a>
+<ul>
+<li><a href="#pymysql%E5%AE%89%E8%A3%85">pymysql&#x5B89;&#x88C5;</a></li>
+<li><a href="#pymysql%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B">pymysql&#x4F7F;&#x7528;&#x6D41;&#x7A0B;</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0">&#x5E38;&#x7528;&#x51FD;&#x6570;</a></li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0">&#x6570;&#x636E;&#x5E93;&#x6982;&#x8FF0;</h2>
+
+<h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E9%98%B6%E6%AE%B5">&#x6570;&#x636E;&#x5B58;&#x50A8;&#x9636;&#x6BB5;</h3>
+
+<p>&#x3010;1&#x3011; &#x4EBA;&#x5DE5;&#x7BA1;&#x7406;&#x9636;&#x6BB5;</p>
+<p>&#x7F3A;&#x70B9; &#xFF1A;  &#x6570;&#x636E;&#x65E0;&#x6CD5;&#x5171;&#x4EAB;,&#x4E0D;&#x80FD;&#x5355;&#x72EC;&#x4FDD;&#x6301;,&#x6570;&#x636E;&#x5B58;&#x50A8;&#x91CF;&#x6709;&#x9650;</p>
+<p>&#x3010;2&#x3011; &#x6587;&#x4EF6;&#x7BA1;&#x7406;&#x9636;&#x6BB5; &#xFF08;.txt  .doc  .xls&#xFF09;</p>
+<p>&#x4F18;&#x70B9; &#xFF1A; &#x6570;&#x636E;&#x53EF;&#x4EE5;&#x957F;&#x671F;&#x4FDD;&#x5B58;,&#x53EF;&#x4EE5;&#x5B58;&#x50A8;&#x5927;&#x91CF;&#x7684;&#x6570;&#x636E;,&#x4F7F;&#x7528;&#x7B80;&#x5355;</p>
+<p>&#x7F3A;&#x70B9; &#xFF1A;  &#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027;&#x5DEE;,&#x6570;&#x636E;&#x67E5;&#x627E;&#x4FEE;&#x6539;&#x4E0D;&#x65B9;&#x4FBF;,&#x6570;&#x636E;&#x5197;&#x4F59;&#x5EA6;&#x53EF;&#x80FD;&#x6BD4;&#x8F83;&#x5927;</p>
+<p>&#x3010;3&#x3011;&#x6570;&#x636E;&#x5E93;&#x7BA1;&#x7406;&#x9636;&#x6BB5;</p>
+<p>&#x4F18;&#x70B9; &#xFF1A; &#x6570;&#x636E;&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;&#x5316;&#x964D;&#x4F4E;&#x4E86;&#x5197;&#x4F59;&#x5EA6;,&#x63D0;&#x9AD8;&#x4E86;&#x589E;&#x5220;&#x6539;&#x67E5;&#x7684;&#x6548;&#x7387;,&#x5BB9;&#x6613;&#x6269;&#x5C55;,&#x65B9;&#x4FBF;&#x7A0B;&#x5E8F;&#x8C03;&#x7528;&#xFF0C;&#x505A;&#x81EA;&#x52A8;&#x5316;&#x5904;&#x7406;</p>
+<p>&#x7F3A;&#x70B9; &#xFF1A;&#x9700;&#x8981;&#x4F7F;&#x7528;sql &#x6216;&#x8005; &#x5176;&#x4ED6;&#x7279;&#x5B9A;&#x7684;&#x8BED;&#x53E5;&#xFF0C;&#x76F8;&#x5BF9;&#x6BD4;&#x8F83;&#x590D;&#x6742;</p>
+<h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BA%94%E7%94%A8">&#x6570;&#x636E;&#x5E93;&#x5E94;&#x7528;</h3>
+
+<blockquote>
+<p>&#x878D;&#x673A;&#x6784;&#x3001;&#x6E38;&#x620F;&#x7F51;&#x7AD9;&#x3001;&#x8D2D;&#x7269;&#x7F51;&#x7AD9;&#x3001;&#x8BBA;&#x575B;&#x7F51;&#x7AD9; ... ...</p>
+</blockquote>
+<p><img src="img/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F.png" alt></p>
+<h3 class="mume-header" id="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5">&#x57FA;&#x7840;&#x6982;&#x5FF5;</h3>
+
+<blockquote>
+<p>&#x6570;&#x636E; &#xFF1A; &#x80FD;&#x591F;&#x8F93;&#x5165;&#x5230;&#x8BA1;&#x7B97;&#x673A;&#x4E2D;&#x5E76;&#x88AB;&#x8BC6;&#x522B;&#x5904;&#x7406;&#x7684;&#x4FE1;&#x606F;&#x96C6;&#x5408;</p>
+</blockquote>
+<blockquote>
+<p>&#x6570;&#x636E;&#x7ED3;&#x6784; &#xFF1A;&#x7814;&#x7A76;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x96C6;&#x5408;&#x4E2D;&#x6570;&#x636E;&#x4E4B;&#x95F4;&#x5173;&#x7CFB;&#x7684;</p>
+</blockquote>
+<blockquote>
+<p>&#x6570;&#x636E;&#x5E93; &#xFF1A; &#x6309;&#x7167;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x5B58;&#x50A8;&#x7BA1;&#x7406;&#x6570;&#x636E;&#x7684;&#x4ED3;&#x5E93;&#x3002;&#x6570;&#x636E;&#x5E93;&#x662F;&#x5728;&#x6570;&#x636E;&#x5E93;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;&#x7BA1;&#x7406;&#x548C;&#x63A7;&#x5236;&#x4E0B;&#xFF0C;&#x5728;&#x4E00;&#x5B9A;&#x4ECB;&#x8D28;&#x4E0A;&#x7684;&#x6570;&#x636E;&#x96C6;&#x5408;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>&#x6570;&#x636E;&#x5E93;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF; &#xFF1A;&#x7BA1;&#x7406;&#x6570;&#x636E;&#x5E93;&#x7684;&#x8F6F;&#x4EF6;&#xFF0C;&#x7528;&#x4E8E;&#x5EFA;&#x7ACB;&#x548C;&#x7EF4;&#x62A4;&#x6570;&#x636E;&#x5E93;</p>
+</blockquote>
+<blockquote>
+<p>&#x6570;&#x636E;&#x5E93;&#x7CFB;&#x7EDF; &#xFF1A; &#x7531;&#x6570;&#x636E;&#x5E93;&#x548C;&#x6570;&#x636E;&#x5E93;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;&#xFF0C;&#x5F00;&#x53D1;&#x5DE5;&#x5177;&#x7B49;&#x7EC4;&#x6210;&#x7684;&#x96C6;&#x5408;</p>
+</blockquote>
+<h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB%E5%92%8C%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93">&#x6570;&#x636E;&#x5E93;&#x5206;&#x7C7B;&#x548C;&#x5E38;&#x89C1;&#x6570;&#x636E;&#x5E93;</h3>
+
+<ul>
+<li>&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#x548C;&#x975E;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;</li>
+</ul>
+<blockquote>
+<p>&#x5173;&#x7CFB;&#x578B;&#xFF1A; &#x91C7;&#x7528;&#x5173;&#x7CFB;&#x6A21;&#x578B;&#xFF08;&#x4E8C;&#x7EF4;&#x8868;&#xFF09;&#x6765;&#x7EC4;&#x7EC7;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x6570;&#x636E;&#x5E93;</p>
+</blockquote>
+<blockquote>
+<p>&#x975E;&#x5173;&#x7CFB;&#x578B;&#xFF1A; &#x4E0D;&#x91C7;&#x7528;&#x5173;&#x7CFB;&#x6A21;&#x578B;&#x7EC4;&#x7EC7;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x6570;&#x636E;&#x5E93;</p>
+</blockquote>
+<ul>
+<li>&#x5F00;&#x6E90;&#x6570;&#x636E;&#x5E93;&#x548C;&#x975E;&#x5F00;&#x6E90;&#x6570;&#x636E;&#x5E93;</li>
+</ul>
+<blockquote>
+<p>&#x5F00;&#x6E90;&#xFF1A;MySQL&#x3001;SQLite&#x3001;MongoDB</p>
+</blockquote>
+<blockquote>
+<p>&#x975E;&#x5F00;&#x6E90;&#xFF1A;Oracle&#x3001;DB2&#x3001;SQL_Server</p>
+</blockquote>
+<ul>
+<li>&#x5E38;&#x89C1;&#x7684;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;</li>
+</ul>
+<blockquote>
+<p>MySQL&#x3001;Oracle&#x3001;SQL_Server&#x3001;DB2 SQLite</p>
+</blockquote>
+<h3 class="mume-header" id="%E8%AE%A4%E8%AF%86%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8Cmysql">&#x8BA4;&#x8BC6;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#x548C;MySQL</h3>
+
+<ol>
+<li>&#x6570;&#x636E;&#x5E93;&#x7ED3;&#x6784;</li>
+</ol>
+<blockquote>
+<p>&#x6570;&#x636E;&#x5143;&#x7D20; --&gt; &#x8BB0;&#x5F55; --&gt;&#x6570;&#x636E;&#x8868; --&gt; &#x6570;&#x636E;&#x5E93;</p>
+</blockquote>
+<p><img src="img/%E5%BA%93%E7%BB%93%E6%9E%84.png" alt></p>
+<ol start="2">
+<li>&#x6570;&#x636E;&#x5E93;&#x6982;&#x5FF5;&#x89E3;&#x6790;</li>
+</ol>
+<blockquote>
+<p>&#x6570;&#x636E;&#x8868;&#xFF08;table&#xFF09; &#xFF1A; &#x5B58;&#x653E;&#x6570;&#x636E;&#x7684;&#x8868;&#x683C;</p>
+</blockquote>
+<blockquote>
+<p>&#x5B57;&#x6BB5;&#xFF08;column&#xFF09;&#xFF1A; &#x6BCF;&#x4E2A;&#x5217;&#xFF0C;&#x7528;&#x6765;&#x8868;&#x793A;&#x8BE5;&#x5217;&#x6570;&#x636E;&#x7684;&#x542B;&#x4E49;</p>
+</blockquote>
+<blockquote>
+<p>&#x8BB0;&#x5F55;&#xFF08;row&#xFF09;&#xFF1A; &#x6BCF;&#x4E2A;&#x884C;&#xFF0C;&#x8868;&#x793A;&#x4E00;&#x7EC4;&#x5B8C;&#x6574;&#x7684;&#x6570;&#x636E;</p>
+</blockquote>
+<p><img src="img/%E8%A1%A8%E7%BB%93%E6%9E%84.png" alt></p>
+<ol start="3">
+<li>MySQL&#x7279;&#x70B9;</li>
+</ol>
+<ul>
+<li>&#x662F;&#x5F00;&#x6E90;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x4F7F;&#x7528;C&#x548C;C++&#x7F16;&#x5199;</li>
+<li>&#x80FD;&#x591F;&#x5DE5;&#x4F5C;&#x5728;&#x4F17;&#x591A;&#x4E0D;&#x540C;&#x7684;&#x5E73;&#x53F0;&#x4E0A;</li>
+<li>&#x63D0;&#x4F9B;&#x4E86;&#x7528;&#x4E8E;C&#x3001;C++&#x3001;Python&#x3001;Java&#x3001;Perl&#x3001;PHP&#x3001;Ruby&#x4F17;&#x591A;&#x8BED;&#x8A00;&#x7684;API</li>
+<li>&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#x4F18;&#x826F;&#xFF0C;&#x8FD0;&#x884C;&#x901F;&#x5EA6;&#x5FEB;</li>
+<li>&#x529F;&#x80FD;&#x5168;&#x9762;&#x4E30;&#x5BCC;</li>
+</ul>
+<ol start="4">
+<li>MySQL&#x5B89;&#x88C5;</li>
+</ol>
+<blockquote>
+<p>Ubuntu&#x5B89;&#x88C5;MySQL&#x670D;&#x52A1;</p>
+<blockquote>
+<p>&#x5B89;&#x88C5;&#x670D;&#x52A1;&#x7AEF;: sudo apt-get install mysql-server<br>
+&#x5B89;&#x88C5;&#x5BA2;&#x6237;&#x7AEF;: sudo apt-get install mysql-client</p>
+<ul>
+<li>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;/etc/mysql</li>
+<li>&#x547D;&#x4EE4;&#x96C6;&#xFF1A; /usr/bin</li>
+<li>&#x6570;&#x636E;&#x5E93;&#x5B58;&#x50A8;&#x76EE;&#x5F55; &#xFF1A;/var/lib/mysql</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>Windows&#x5B89;&#x88C5;MySQL</p>
+<blockquote>
+<p>&#x4E0B;&#x8F7D;MySQL&#x5B89;&#x88C5;&#x5305;(windows)  <a href="https://dev.mysql.com/downloads/mysql/">https://dev.mysql.com/downloads/mysql/</a><br>
+mysql-installer***5.7.***.msi</p>
+</blockquote>
+<blockquote>
+<p>&#x5B89;&#x88C5;&#x6559;&#x7A0B;&#x53BB;&#x5B89;&#x88C5;</p>
+</blockquote>
+</blockquote>
+<ol start="5">
+<li>&#x542F;&#x52A8;&#x548C;&#x8FDE;&#x63A5;MySQL&#x670D;&#x52A1;</li>
+</ol>
+<blockquote>
+<p>&#x670D;&#x52A1;&#x7AEF;&#x542F;&#x52A8;</p>
+<blockquote>
+<ul>
+<li>&#x67E5;&#x770B;MySQL&#x72B6;&#x6001;: sudo /etc/init.d/mysql status</li>
+<li>&#x542F;&#x52A8;&#x670D;&#x52A1;&#xFF1A;sudo /etc/init.d/mysql start | stop | restart  &#x6216;&#x8005; service mysql   start|stop|restart</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;</p>
+<blockquote>
+<p>&#x547D;&#x4EE4;&#x683C;&#x5F0F;</p>
+<ul>
+<li>mysql -h&#x4E3B;&#x673A;&#x5730;&#x5740; -u&#x7528;&#x6237;&#x540D; -p&#x5BC6;&#x7801;</li>
+<li>mysql -hlocalhost -uroot -p123456</li>
+<li>&#x672C;&#x5730;&#x8FDE;&#x63A5;&#x53EF;&#x7701;&#x7565; -h &#x9009;&#x9879;: mysql -uroot -p123456</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>&#x5173;&#x95ED;&#x8FDE;&#x63A5;</p>
+<blockquote>
+<p>ctrl-D<br>
+exit</p>
+</blockquote>
+</blockquote>
+<h2 class="mume-header" id="sql%E8%AF%AD%E5%8F%A5">SQL&#x8BED;&#x53E5;</h2>
+
+<blockquote>
+<p>&#x4EC0;&#x4E48;&#x662F;SQL</p>
+<blockquote>
+<p>&#x7ED3;&#x6784;&#x5316;&#x67E5;&#x8BE2;&#x8BED;&#x8A00;(Structured Query Language)&#xFF0C;&#x4E00;&#x79CD;&#x7279;&#x6B8A;&#x76EE;&#x7684;&#x7684;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#xFF0C;&#x662F;&#x4E00;&#x79CD;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x548C;&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;&#x8BED;&#x8A00;&#xFF0C;&#x7528;&#x4E8E;&#x5B58;&#x53D6;&#x6570;&#x636E;&#x4EE5;&#x53CA;&#x67E5;&#x8BE2;&#x3001;&#x66F4;&#x65B0;&#x548C;&#x7BA1;&#x7406;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x7CFB;&#x7EDF;&#x3002;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>SQL&#x8BED;&#x53E5;&#x4F7F;&#x7528;&#x7279;&#x70B9;</p>
+<ul>
+<li>SQL&#x8BED;&#x8A00;&#x57FA;&#x672C;&#x4E0A;&#x72EC;&#x7ACB;&#x4E8E;&#x6570;&#x636E;&#x5E93;&#x672C;&#x8EAB;</li>
+<li>&#x5404;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x5E93;&#x5BF9;SQL&#x8BED;&#x8A00;&#x7684;&#x652F;&#x6301;&#x4E0E;&#x6807;&#x51C6;&#x5B58;&#x5728;&#x7740;&#x7EC6;&#x5FAE;&#x7684;&#x4E0D;&#x540C;</li>
+<li>&#x6BCF;&#x6761;&#x547D;&#x4EE4;&#x5FC5;&#x987B;&#x4EE5; ; &#x7ED3;&#x5C3E;</li>
+<li>SQL&#x547D;&#x4EE4;&#xFF08;&#x9664;&#x4E86;&#x6570;&#x636E;&#x5E93;&#x540D;&#x548C;&#x8868;&#x540D;&#xFF09;&#x53EF;&#x4EE5;&#x4E0D;&#x533A;&#x5206;&#x5B57;&#x6BCD;&#x5927;&#x5C0F;&#x5199;</li>
+</ul>
+</blockquote>
+<h2 class="mume-header" id="%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%95%B0%E6%8D%AE%E8%A1%A8">&#x5EFA;&#x7ACB;&#x6570;&#x636E;&#x5E93;&#x548C;&#x6570;&#x636E;&#x8868;</h2>
+
+<h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C">&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;</h3>
+
+<p>1.&#x67E5;&#x770B;&#x5DF2;&#x6709;&#x5E93;</p>
+<blockquote>
+<p>show databases;</p>
+</blockquote>
+<p>2.&#x521B;&#x5EFA;&#x5E93;</p>
+<blockquote>
+<p>create database &#x5E93;&#x540D; [character set utf8];</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> &#x521B;&#x5EFA;stu&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x7F16;&#x7801;&#x4E3A;utf8
+<span class="token keyword">create</span> <span class="token keyword">database</span> stu <span class="token keyword">character</span> <span class="token keyword">set</span> utf8<span class="token punctuation">;</span>
+<span class="token keyword">create</span> <span class="token keyword">database</span> stu <span class="token keyword">charset</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span>
+</pre><p>3.&#x67E5;&#x770B;&#x521B;&#x5EFA;&#x5E93;&#x7684;&#x8BED;&#x53E5;</p>
+<blockquote>
+<p>show create database &#x5E93;&#x540D;;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> &#x67E5;&#x770B;stu&#x521B;&#x5EFA;&#x65B9;&#x6CD5;
+<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">database</span> stu<span class="token punctuation">;</span>
+</pre><p>4.&#x67E5;&#x770B;&#x5F53;&#x524D;&#x6240;&#x5728;&#x5E93;</p>
+<blockquote>
+<p>select database();</p>
+</blockquote>
+<p>5.&#x5207;&#x6362;&#x5E93;</p>
+<blockquote>
+<p>use &#x5E93;&#x540D;;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> &#x4F7F;&#x7528;stu&#x6570;&#x636E;&#x5E93;
+<span class="token keyword">use</span> stu<span class="token punctuation">;</span>
+</pre><p>6.&#x5220;&#x9664;&#x5E93;</p>
+<blockquote>
+<p>drop database &#x5E93;&#x540D;;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> &#x5220;&#x9664;test&#x6570;&#x636E;&#x5E93;
+<span class="token keyword">drop</span> <span class="token keyword">database</span> test<span class="token punctuation">;</span>
+</pre><p>7.&#x5E93;&#x540D;&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;</p>
+<blockquote>
+<ul>
+<li>&#x6570;&#x5B57;&#x3001;&#x5B57;&#x6BCD;&#x3001;&#x4E0B;&#x5212;&#x7EBF;,&#x4F46;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x7EAF;&#x6570;&#x5B57;</li>
+<li>&#x5E93;&#x540D;&#x533A;&#x5206;&#x5B57;&#x6BCD;&#x5927;&#x5C0F;&#x5199;</li>
+<li>&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#x548C;mysql&#x5173;&#x952E;&#x5B57;</li>
+</ul>
+</blockquote>
+<h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E7%AE%A1%E7%90%86">&#x6570;&#x636E;&#x8868;&#x7684;&#x7BA1;&#x7406;</h3>
+
+<h4 class="mume-header" id="%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%88%9D%E6%AD%A5">&#x8868;&#x7ED3;&#x6784;&#x8BBE;&#x8BA1;&#x521D;&#x6B65;</h4>
+
+<p>&#x3010;1&#x3011; &#x5206;&#x6790;&#x5B58;&#x50A8;&#x5185;&#x5BB9;<br>
+&#x3010;2&#x3011; &#x786E;&#x5B9A;&#x5B57;&#x6BB5;&#x6784;&#x6210;<br>
+&#x3010;3&#x3011; &#x8BBE;&#x8BA1;&#x5B57;&#x6BB5;&#x7C7B;&#x578B;</p>
+<h4 class="mume-header" id="%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%94%AF%E6%8C%81">&#x6570;&#x636E;&#x7C7B;&#x578B;&#x652F;&#x6301;</h4>
+
+<blockquote>
+<p>&#x6570;&#x5B57;&#x7C7B;&#x578B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6574;&#x6570;&#x7C7B;&#x578B;&#xFF08;&#x7CBE;&#x786E;&#x503C;&#xFF09; - INTEGER&#xFF0C;INT&#xFF0C;SMALLINT&#xFF0C;TINYINT&#xFF0C;MEDIUMINT&#xFF0C;BIGINT<br>
+&#x5B9A;&#x70B9;&#x7C7B;&#x578B;&#xFF08;&#x7CBE;&#x786E;&#x503C;&#xFF09; - DECIMAL<br>
+&#x6D6E;&#x70B9;&#x7C7B;&#x578B;&#xFF08;&#x8FD1;&#x4F3C;&#x503C;&#xFF09; - FLOAT&#xFF0C;DOUBLE<br>
+&#x6BD4;&#x7279;&#x503C;&#x7C7B;&#x578B; - BIT</p>
+</blockquote>
+</blockquote>
+<p><img src="img/%E6%95%B4%E5%9E%8B.png" alt></p>
+<blockquote>
+<p>&#x5BF9;&#x4E8E;&#x7CBE;&#x5EA6;&#x6BD4;&#x8F83;&#x9AD8;&#x7684;&#x4E1C;&#x897F;&#xFF0C;&#x6BD4;&#x5982;money&#xFF0C;&#x7528;decimal&#x7C7B;&#x578B;&#x63D0;&#x9AD8;&#x7CBE;&#x5EA6;&#x51CF;&#x5C11;&#x8BEF;&#x5DEE;&#x3002;&#x5217;&#x7684;&#x58F0;&#x660E;&#x8BED;&#x6CD5;&#x662F;DECIMAL(M,D)&#x3002;</p>
+<blockquote>
+<p>M&#x662F;&#x6570;&#x5B57;&#x7684;&#x6700;&#x5927;&#x4F4D;&#x6570;&#xFF08;&#x7CBE;&#x5EA6;&#xFF09;&#x3002;&#x5176;&#x8303;&#x56F4;&#x4E3A;1&#xFF5E;65&#xFF0C;M &#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x662F;10&#x3002;<br>
+D&#x662F;&#x5C0F;&#x6570;&#x70B9;&#x53F3;&#x4FA7;&#x6570;&#x5B57;&#x7684;&#x6570;&#x76EE;&#xFF08;&#x6807;&#x5EA6;&#xFF09;&#x3002;&#x5176;&#x8303;&#x56F4;&#x662F;0&#xFF5E;30&#xFF0C;&#x4F46;&#x4E0D;&#x5F97;&#x8D85;&#x8FC7;M&#x3002;<br>
+&#x6BD4;&#x5982; DECIMAL(6,2)&#x6700;&#x591A;&#x5B58;6&#x4F4D;&#x6570;&#x5B57;&#xFF0C;&#x5C0F;&#x6570;&#x70B9;&#x540E;&#x5360;2&#x4F4D;,&#x53D6;&#x503C;&#x8303;&#x56F4;-9999.99&#x5230;9999.99&#x3002;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>&#x6BD4;&#x7279;&#x503C;&#x7C7B;&#x578B;&#x6307;0&#xFF0C;1&#x503C;&#x8868;&#x8FBE;2&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#x771F;&#xFF0C;&#x5047;</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>&#x5B57;&#x7B26;&#x4E32;&#x7C7B;&#x578B;&#xFF1A;</p>
+<blockquote>
+<p>CHAR&#x548C;VARCHAR&#x7C7B;&#x578B;<br>
+BLOB&#x548C;TEXT&#x7C7B;&#x578B;<br>
+ENUM&#x7C7B;&#x578B;&#x548C;SET&#x7C7B;&#x578B;</p>
+</blockquote>
+</blockquote>
+<p><img src="img/%E5%AD%97%E7%AC%A6%E4%B8%B2.png" alt></p>
+<ul>
+<li>char &#x548C; varchar</li>
+</ul>
+<blockquote>
+<p>char&#xFF1A;&#x5B9A;&#x957F;&#xFF0C;&#x6548;&#x7387;&#x9AD8;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x56FA;&#x5B9A;&#x957F;&#x5EA6;&#x7684;&#x8868;&#x5355;&#x63D0;&#x4EA4;&#x6570;&#x636E;&#x5B58;&#x50A8;&#xFF0C;&#x9ED8;&#x8BA4;1&#x5B57;&#x7B26;<br>
+varchar&#xFF1A;&#x4E0D;&#x5B9A;&#x957F;&#xFF0C;&#x6548;&#x7387;&#x504F;&#x4F4E; &#xFF0C;&#x4F46;&#x662F;&#x8282;&#x7701;&#x7A7A;&#x95F4;&#x3002;</p>
+</blockquote>
+<ul>
+<li>text &#x548C;blob</li>
+</ul>
+<blockquote>
+<p>text&#x7528;&#x6765;&#x5B58;&#x50A8;&#x975E;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x672C;<br>
+blob&#x7528;&#x6765;&#x5B58;&#x50A8;&#x4E8C;&#x8FDB;&#x5236;&#x5B57;&#x8282;&#x4E32;</p>
+</blockquote>
+<ul>
+<li>enum &#x548C; set</li>
+</ul>
+<blockquote>
+<p>enum&#x7528;&#x6765;&#x5B58;&#x50A8;&#x7ED9;&#x51FA;&#x7684;&#x4E00;&#x4E2A;&#x503C;<br>
+set&#x7528;&#x6765;&#x5B58;&#x50A8;&#x7ED9;&#x51FA;&#x7684;&#x503C;&#x4E2D;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x503C;</p>
+</blockquote>
+<hr>
+<ol>
+<li>&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;</li>
+</ol>
+<blockquote>
+<p>&#x521B;&#x5EFA;&#x8868;</p>
+<blockquote>
+<p>create table &#x8868;&#x540D;(<br>
+&#x5B57;&#x6BB5;&#x540D; &#x6570;&#x636E;&#x7C7B;&#x578B;,<br>
+&#x5B57;&#x6BB5;&#x540D; &#x6570;&#x636E;&#x7C7B;&#x578B;,<br>
+...<br>
+&#x5B57;&#x6BB5;&#x540D; &#x6570;&#x636E;&#x7C7B;&#x578B;<br>
+);</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>&#x5982;&#x679C;&#x4F60;&#x60F3;&#x8BBE;&#x7F6E;&#x6570;&#x5B57;&#x4E3A;&#x65E0;&#x7B26;&#x53F7;&#x5219;&#x52A0;&#x4E0A; unsigned</li>
+<li>&#x5982;&#x679C;&#x4F60;&#x4E0D;&#x60F3;&#x5B57;&#x6BB5;&#x4E3A; NULL &#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x5B57;&#x6BB5;&#x7684;&#x5C5E;&#x6027;&#x4E3A; NOT NULL&#xFF0C; &#x5728;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E93;&#x65F6;&#x5982;&#x679C;&#x8F93;&#x5165;&#x8BE5;&#x5B57;&#x6BB5;&#x7684;&#x6570;&#x636E;&#x4E3A;NULL &#xFF0C;&#x5C31;&#x4F1A;&#x62A5;&#x9519;&#x3002;</li>
+<li>DEFAULT &#x8868;&#x793A;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x7684;&#x9ED8;&#x8BA4;&#x503C;</li>
+<li>AUTO_INCREMENT&#x5B9A;&#x4E49;&#x5217;&#x4E3A;&#x81EA;&#x589E;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x4E3B;&#x952E;&#xFF0C;&#x6570;&#x503C;&#x4F1A;&#x81EA;&#x52A8;&#x52A0;1&#x3002;</li>
+<li>PRIMARY KEY &#x5173;&#x952E;&#x5B57;&#x7528;&#x4E8E;&#x5B9A;&#x4E49;&#x5217;&#x4E3A;&#x4E3B;&#x952E;&#x3002;&#x4E3B;&#x952E;&#x7684;&#x503C;&#x4E0D;&#x80FD;&#x91CD;&#x590D;,&#x4E14;&#x4E0D;&#x80FD;&#x4E3A;&#x7A7A;&#x3002;</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>  &#x521B;&#x5EFA;&#x73ED;&#x7EA7;&#x8868;
+<span class="token keyword">create</span> <span class="token keyword">table</span> class_1 <span class="token punctuation">(</span>id <span class="token keyword">int</span> <span class="token keyword">primary</span> <span class="token keyword">key</span> <span class="token keyword">auto_increment</span><span class="token punctuation">,</span>name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>age <span class="token keyword">tinyint</span> <span class="token keyword">unsigned</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>sex <span class="token keyword">enum</span><span class="token punctuation">(</span><span class="token string">&apos;w&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;m&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>score <span class="token keyword">float</span> <span class="token keyword">default</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> &#x521B;&#x5EFA;&#x5174;&#x8DA3;&#x73ED;&#x8868;
+<span class="token keyword">create</span> <span class="token keyword">table</span> interest <span class="token punctuation">(</span>id <span class="token keyword">int</span> <span class="token keyword">primary</span> <span class="token keyword">key</span> <span class="token keyword">auto_increment</span><span class="token punctuation">,</span>name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>hobby <span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">&apos;sing&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;dance&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;draw&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">level</span> <span class="token keyword">char</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>price <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>remark <span class="token keyword">text</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><blockquote>
+<p>&#x67E5;&#x770B;&#x6570;&#x636E;&#x8868;</p>
+<blockquote>
+<p>show tables&#xFF1B;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>&#x67E5;&#x770B;&#x5DF2;&#x6709;&#x8868;&#x7684;&#x5B57;&#x7B26;&#x96C6;</p>
+<blockquote>
+<p>show create table &#x8868;&#x540D;;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>&#x67E5;&#x770B;&#x8868;&#x7ED3;&#x6784;</p>
+<blockquote>
+<p>desc &#x8868;&#x540D;;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>&#x5220;&#x9664;&#x8868;</p>
+<blockquote>
+<p>drop table &#x8868;&#x540D;;</p>
+</blockquote>
+</blockquote>
+<h2 class="mume-header" id="%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80">&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x57FA;&#x7840;</h2>
+
+<h3 class="mume-header" id="%E6%8F%92%E5%85%A5insert">&#x63D2;&#x5165;(insert)</h3>
+
+<pre data-role="codeBlock" data-info="SQL" class="language-sql"><span class="token keyword">insert</span> <span class="token keyword">into</span> &#x8868;&#x540D; <span class="token keyword">values</span><span class="token punctuation">(</span>&#x503C;<span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>&#x503C;<span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">;</span>
+<span class="token keyword">insert</span> <span class="token keyword">into</span> &#x8868;&#x540D;<span class="token punctuation">(</span>&#x5B57;&#x6BB5;<span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">values</span><span class="token punctuation">(</span>&#x503C;<span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> 
+<span class="token keyword">insert</span> <span class="token keyword">into</span> class_1 <span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">&apos;Baron&apos;</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token string">&apos;m&apos;</span><span class="token punctuation">,</span><span class="token number">91</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">&apos;Jame&apos;</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token string">&apos;m&apos;</span><span class="token punctuation">,</span><span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="%E6%9F%A5%E8%AF%A2select">&#x67E5;&#x8BE2;(select)</h3>
+
+<pre data-role="codeBlock" data-info="SQL" class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> &#x8868;&#x540D; <span class="token punctuation">[</span><span class="token keyword">where</span> &#x6761;&#x4EF6;<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> &#x5B57;&#x6BB5;<span class="token number">1</span><span class="token punctuation">,</span>&#x5B57;&#x6BB5;<span class="token number">2</span> <span class="token keyword">from</span> &#x8868;&#x540D; <span class="token punctuation">[</span><span class="token keyword">where</span> &#x6761;&#x4EF6;<span class="token punctuation">]</span><span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> 
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1<span class="token punctuation">;</span>
+
+<span class="token keyword">select</span> name<span class="token punctuation">,</span>age <span class="token keyword">from</span> class_1<span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="where%E5%AD%90%E5%8F%A5">where&#x5B50;&#x53E5;</h3>
+
+<p>where&#x5B50;&#x53E5;&#x5728;sql&#x8BED;&#x53E5;&#x4E2D;&#x626E;&#x6F14;&#x4E86;&#x91CD;&#x8981;&#x89D2;&#x8272;&#xFF0C;&#x4E3B;&#x8981;&#x901A;&#x8FC7;&#x4E00;&#x5B9A;&#x7684;&#x8FD0;&#x7B97;&#x6761;&#x4EF6;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x7684;&#x7B5B;&#x9009;</p>
+<p>MySQL &#x4E3B;&#x8981;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x8FD0;&#x7B97;&#x7B26;&#xFF1A;</p>
+<blockquote>
+<p>&#x7B97;&#x672F;&#x8FD0;&#x7B97;&#x7B26;<br>
+&#x6BD4;&#x8F83;&#x8FD0;&#x7B97;&#x7B26;<br>
+&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x7B26;<br>
+&#x4F4D;&#x8FD0;&#x7B97;&#x7B26;</p>
+</blockquote>
+<h4 class="mume-header" id="%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6">&#x7B97;&#x6570;&#x8FD0;&#x7B97;&#x7B26;</h4>
+
+<p><img src="img/%E7%AE%97%E6%95%B0.png" alt></p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> age <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6">&#x6BD4;&#x8F83;&#x8FD0;&#x7B97;&#x7B26;</h4>
+
+<p><img src="img/%E6%AF%94%E8%BE%83.png" alt></p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> age <span class="token operator">&gt;</span> <span class="token number">8</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> <span class="token operator">between</span> <span class="token number">8</span> <span class="token operator">and</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> age <span class="token operator">in</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6">&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x7B26;</h4>
+
+<p><img src="img/%E9%80%BB%E8%BE%91.png" alt></p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> sex<span class="token operator">=</span><span class="token string">&apos;m&apos;</span> <span class="token operator">and</span> age<span class="token operator">&gt;</span><span class="token number">9</span><span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6">&#x4F4D;&#x8FD0;&#x7B97;&#x7B26;</h4>
+
+<p><img src="img/%E4%BD%8D.png" alt></p>
+<p><img src="img/%E8%BF%90%E7%AE%97%E7%AC%A6.png" alt></p>
+<h3 class="mume-header" id="%E6%9B%B4%E6%96%B0%E8%A1%A8%E8%AE%B0%E5%BD%95update">&#x66F4;&#x65B0;&#x8868;&#x8BB0;&#x5F55;(update)</h3>
+
+<pre data-role="codeBlock" data-info="SQL" class="language-sql"><span class="token keyword">update</span> &#x8868;&#x540D; <span class="token keyword">set</span> &#x5B57;&#x6BB5;<span class="token number">1</span><span class="token operator">=</span>&#x503C;<span class="token number">1</span><span class="token punctuation">,</span>&#x5B57;&#x6BB5;<span class="token number">2</span><span class="token operator">=</span>&#x503C;<span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">where</span> &#x6761;&#x4EF6;<span class="token punctuation">;</span>
+
+&#x6CE8;&#x610F;:<span class="token keyword">update</span>&#x8BED;&#x53E5;&#x540E;&#x5982;&#x679C;&#x4E0D;&#x52A0;<span class="token keyword">where</span>&#x6761;&#x4EF6;<span class="token punctuation">,</span>&#x6240;&#x6709;&#x8BB0;&#x5F55;&#x5168;&#x90E8;&#x66F4;&#x65B0;
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>
+<span class="token keyword">update</span> class_1 <span class="token keyword">set</span> age<span class="token operator">=</span><span class="token number">11</span> <span class="token keyword">where</span> name<span class="token operator">=</span><span class="token string">&apos;Abby&apos;</span><span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="%E5%88%A0%E9%99%A4%E8%A1%A8%E8%AE%B0%E5%BD%95delete">&#x5220;&#x9664;&#x8868;&#x8BB0;&#x5F55;&#xFF08;delete&#xFF09;</h3>
+
+<pre data-role="codeBlock" data-info="SQL" class="language-sql"><span class="token keyword">delete</span> <span class="token keyword">from</span> &#x8868;&#x540D; <span class="token keyword">where</span> &#x6761;&#x4EF6;<span class="token punctuation">;</span>
+
+&#x6CE8;&#x610F;:<span class="token keyword">delete</span>&#x8BED;&#x53E5;&#x540E;&#x5982;&#x679C;&#x4E0D;&#x52A0;<span class="token keyword">where</span>&#x6761;&#x4EF6;<span class="token punctuation">,</span>&#x6240;&#x6709;&#x8BB0;&#x5F55;&#x5168;&#x90E8;&#x6E05;&#x7A7A;
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>
+<span class="token keyword">delete</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> name<span class="token operator">=</span><span class="token string">&apos;Abby&apos;</span><span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="%E8%A1%A8%E5%AD%97%E6%AE%B5%E7%9A%84%E6%93%8D%E4%BD%9Calter">&#x8868;&#x5B57;&#x6BB5;&#x7684;&#x64CD;&#x4F5C;(alter)</h3>
+
+<pre data-role="codeBlock" data-info="SQL" class="language-sql">&#x8BED;&#x6CD5; &#xFF1A;<span class="token keyword">alter</span> <span class="token keyword">table</span> &#x8868;&#x540D; &#x6267;&#x884C;&#x52A8;&#x4F5C;<span class="token punctuation">;</span>
+
+<span class="token operator">*</span> &#x6DFB;&#x52A0;&#x5B57;&#x6BB5;<span class="token punctuation">(</span><span class="token keyword">add</span><span class="token punctuation">)</span>
+    <span class="token keyword">alter</span> <span class="token keyword">table</span> &#x8868;&#x540D; <span class="token keyword">add</span> &#x5B57;&#x6BB5;&#x540D; &#x6570;&#x636E;&#x7C7B;&#x578B;<span class="token punctuation">;</span>
+    <span class="token keyword">alter</span> <span class="token keyword">table</span> &#x8868;&#x540D; <span class="token keyword">add</span> &#x5B57;&#x6BB5;&#x540D; &#x6570;&#x636E;&#x7C7B;&#x578B; <span class="token keyword">first</span><span class="token punctuation">;</span>
+    <span class="token keyword">alter</span> <span class="token keyword">table</span> &#x8868;&#x540D; <span class="token keyword">add</span> &#x5B57;&#x6BB5;&#x540D; &#x6570;&#x636E;&#x7C7B;&#x578B; <span class="token keyword">after</span> &#x5B57;&#x6BB5;&#x540D;<span class="token punctuation">;</span>
+<span class="token operator">*</span> &#x5220;&#x9664;&#x5B57;&#x6BB5;<span class="token punctuation">(</span><span class="token keyword">drop</span><span class="token punctuation">)</span>
+    <span class="token keyword">alter</span> <span class="token keyword">table</span> &#x8868;&#x540D; <span class="token keyword">drop</span> &#x5B57;&#x6BB5;&#x540D;<span class="token punctuation">;</span>
+<span class="token operator">*</span> &#x4FEE;&#x6539;&#x6570;&#x636E;&#x7C7B;&#x578B;<span class="token punctuation">(</span><span class="token keyword">modify</span><span class="token punctuation">)</span>
+    <span class="token keyword">alter</span> <span class="token keyword">table</span> &#x8868;&#x540D; <span class="token keyword">modify</span> &#x5B57;&#x6BB5;&#x540D; &#x65B0;&#x6570;&#x636E;&#x7C7B;&#x578B;<span class="token punctuation">;</span>
+<span class="token operator">*</span> &#x4FEE;&#x6539;&#x5B57;&#x6BB5;&#x540D;<span class="token punctuation">(</span>change<span class="token punctuation">)</span>
+    <span class="token keyword">alter</span> <span class="token keyword">table</span> &#x8868;&#x540D; change &#x65E7;&#x5B57;&#x6BB5;&#x540D; &#x65B0;&#x5B57;&#x6BB5;&#x540D; &#x65B0;&#x6570;&#x636E;&#x7C7B;&#x578B;<span class="token punctuation">;</span>
+<span class="token operator">*</span> &#x8868;&#x91CD;&#x547D;&#x540D;<span class="token punctuation">(</span><span class="token keyword">rename</span><span class="token punctuation">)</span>
+    <span class="token keyword">alter</span> <span class="token keyword">table</span> &#x8868;&#x540D; <span class="token keyword">rename</span> &#x65B0;&#x8868;&#x540D;<span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> 
+<span class="token keyword">alter</span> <span class="token keyword">table</span> interest <span class="token keyword">add</span> tel <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token keyword">after</span> name<span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE">&#x65F6;&#x95F4;&#x7C7B;&#x578B;&#x6570;&#x636E;</h3>
+
+<blockquote>
+<p>&#x65F6;&#x95F4;&#x548C;&#x65E5;&#x671F;&#x7C7B;&#x578B;:</p>
+<blockquote>
+<p>&#x65E5;&#x671F;DATE&#xFF0C;&#x65E5;&#x671F;&#x65F6;&#x95F4;DATETIME&#xFF0C;&#x65F6;&#x95F4;&#x6233;TIMESTAMP<br>
+&#x65F6;&#x95F4;TIME<br>
+&#x5E74;&#x4EFD;YEAR</p>
+</blockquote>
+</blockquote>
+<p><img src="img/%E6%97%B6%E9%97%B4.png" alt></p>
+<h4 class="mume-header" id="%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F">&#x65F6;&#x95F4;&#x683C;&#x5F0F;</h4>
+
+<blockquote>
+<p>date &#xFF1A;&quot;YYYY-MM-DD&quot;<br>
+time &#xFF1A;&quot;HH:MM:SS&quot;<br>
+datetime &#xFF1A;&quot;YYYY-MM-DD HH:MM:SS&quot;<br>
+timestamp &#xFF1A;&quot;YYYY-MM-DD HH:MM:SS&quot;<br>
+&#x6CE8;&#x610F;<br>
+1&#x3001;datetime &#xFF1A;&#x4EE5;&#x7CFB;&#x7EDF;&#x65F6;&#x95F4;&#x5B58;&#x50A8;<br>
+2&#x3001;timestamp &#xFF1A;&#x4EE5;&#x6807;&#x51C6;&#x65F6;&#x95F4;&#x5B58;&#x50A8;&#x4F46;&#x662F;&#x67E5;&#x770B;&#x65F6;&#x8F6C;&#x6362;&#x4E3A;&#x7CFB;&#x7EDF;&#x65F6;&#x533A;&#xFF0C;&#x6240;&#x4EE5;&#x8868;&#x73B0;&#x5F62;&#x5F0F;&#x548C;datetime&#x76F8;&#x540C;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>
+<span class="token keyword">create</span> <span class="token keyword">table</span> marathon <span class="token punctuation">(</span>id <span class="token keyword">int</span> <span class="token keyword">primary</span> <span class="token keyword">key</span> <span class="token keyword">auto_increment</span><span class="token punctuation">,</span>athlete <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">,</span>birthday <span class="token keyword">date</span><span class="token punctuation">,</span>registration_time <span class="token keyword">datetime</span><span class="token punctuation">,</span>performance <span class="token keyword">time</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0">&#x65E5;&#x671F;&#x65F6;&#x95F4;&#x51FD;&#x6570;</h4>
+
+<ul>
+<li>now()  &#x8FD4;&#x56DE;&#x670D;&#x52A1;&#x5668;&#x5F53;&#x524D;&#x65E5;&#x671F;&#x65F6;&#x95F4;,&#x683C;&#x5F0F;&#x5BF9;&#x5E94;datetime&#x7C7B;&#x578B;</li>
+<li>curdate() &#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x65E5;&#x671F;&#xFF0C;&#x683C;&#x5F0F;&#x5BF9;&#x5E94;date&#x7C7B;&#x578B;</li>
+<li>curtime() &#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#xFF0C;&#x683C;&#x5F0F;&#x5BF9;&#x5E94;time&#x7C7B;&#x578B;</li>
+</ul>
+<h4 class="mume-header" id="%E6%97%B6%E9%97%B4%E6%93%8D%E4%BD%9C">&#x65F6;&#x95F4;&#x64CD;&#x4F5C;</h4>
+
+<ul>
+<li>&#x67E5;&#x627E;&#x64CD;&#x4F5C;</li>
+</ul>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">  <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> marathon <span class="token keyword">where</span> birthday<span class="token operator">&gt;=</span><span class="token string">&apos;2000-01-01&apos;</span><span class="token punctuation">;</span>
+  <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> marathon <span class="token keyword">where</span> birthday<span class="token operator">&gt;=</span><span class="token string">&quot;2000-07-01&quot;</span> <span class="token operator">and</span> performance<span class="token operator">&lt;=</span><span class="token string">&quot;2:30:00&quot;</span><span class="token punctuation">;</span>
+</pre><ul>
+<li>
+<p>&#x65E5;&#x671F;&#x65F6;&#x95F4;&#x8FD0;&#x7B97;</p>
+<ul>
+<li>
+<p>&#x8BED;&#x6CD5;&#x683C;&#x5F0F;</p>
+<p>select * from &#x8868;&#x540D;  where &#x5B57;&#x6BB5;&#x540D; &#x8FD0;&#x7B97;&#x7B26; (&#x65F6;&#x95F4;-interval &#x65F6;&#x95F4;&#x95F4;&#x9694;&#x5355;&#x4F4D;);</p>
+</li>
+<li>
+<p>&#x65F6;&#x95F4;&#x95F4;&#x9694;&#x5355;&#x4F4D;&#xFF1A;   2 hour | 1 minute | 2 second | 2 year | 3 month |  1 day</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">  <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> marathon <span class="token keyword">where</span> registration_time <span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token keyword">interval</span> <span class="token number">7</span> <span class="token keyword">day</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="%E9%AB%98%E7%BA%A7%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5">&#x9AD8;&#x7EA7;&#x67E5;&#x8BE2;&#x8BED;&#x53E5;</h3>
+
+<h4 class="mume-header" id="%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E5%92%8C%E6%AD%A3%E5%88%99%E6%9F%A5%E8%AF%A2">&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#x548C;&#x6B63;&#x5219;&#x67E5;&#x8BE2;</h4>
+
+<p>LIKE&#x7528;&#x4E8E;&#x5728;where&#x5B50;&#x53E5;&#x4E2D;&#x8FDB;&#x884C;&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#xFF0C;SQL LIKE &#x5B50;&#x53E5;&#x4E2D;&#x4F7F;&#x7528;&#x767E;&#x5206;&#x53F7; %&#x6765;&#x8868;&#x793A;&#x4EFB;&#x610F;0&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4E0B;&#x5212;&#x7EBF;_&#x8868;&#x793A;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x3002;</p>
+<p>&#x4F7F;&#x7528; LIKE &#x5B50;&#x53E5;&#x4ECE;&#x6570;&#x636E;&#x8868;&#x4E2D;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x7684;&#x901A;&#x7528;&#x8BED;&#x6CD5;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">SELECT</span> field1<span class="token punctuation">,</span> field2<span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>fieldN 
+<span class="token keyword">FROM</span> table_name
+<span class="token keyword">WHERE</span> field1 <span class="token operator">LIKE</span> condition1
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> 
+mysql<span class="token operator">&gt;</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> name <span class="token operator">like</span> <span class="token string">&apos;A%&apos;</span><span class="token punctuation">;</span>
+</pre><p>mysql&#x4E2D;&#x5BF9;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x652F;&#x6301;&#x6709;&#x9650;&#xFF0C;&#x53EA;&#x652F;&#x6301;&#x90E8;&#x5206;&#x6B63;&#x5219;&#x5143;&#x5B57;&#x7B26;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">SELECT</span> field1<span class="token punctuation">,</span> field2<span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>fieldN 
+<span class="token keyword">FROM</span> table_name
+<span class="token keyword">WHERE</span> field1 <span class="token operator">REGEXP</span> condition1
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> 
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> name <span class="token operator">regexp</span> <span class="token string">&apos;^B.+&apos;</span><span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="as-%E7%94%A8%E6%B3%95">as &#x7528;&#x6CD5;</h4>
+
+<blockquote>
+<p>&#x5728;sql&#x8BED;&#x53E5;&#x4E2D;as&#x7528;&#x4E8E;&#x7ED9;&#x5B57;&#x6BB5;&#x6216;&#x8005;&#x8868;&#x91CD;&#x547D;&#x540D;</p>
+</blockquote>
+<blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span> name <span class="token keyword">as</span> &#x59D3;&#x540D;<span class="token punctuation">,</span>age <span class="token keyword">as</span> &#x5E74;&#x9F84; <span class="token keyword">from</span> class_1<span class="token punctuation">;</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">as</span> c <span class="token keyword">where</span> c<span class="token punctuation">.</span>age <span class="token operator">&gt;</span> <span class="token number">17</span><span class="token punctuation">;</span>
+</pre></blockquote>
+<h4 class="mume-header" id="%E6%8E%92%E5%BA%8F">&#x6392;&#x5E8F;</h4>
+
+<p>ORDER BY &#x5B50;&#x53E5;&#x6765;&#x8BBE;&#x5B9A;&#x4F60;&#x60F3;&#x6309;&#x54EA;&#x4E2A;&#x5B57;&#x6BB5;&#x54EA;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF0C;&#x518D;&#x8FD4;&#x56DE;&#x641C;&#x7D22;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&#x4F7F;&#x7528; ORDER BY &#x5B50;&#x53E5;&#x5C06;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x6392;&#x5E8F;&#x540E;&#x518D;&#x8FD4;&#x56DE;&#x6570;&#x636E;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">SELECT</span> field1<span class="token punctuation">,</span> field2<span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>fieldN <span class="token keyword">from</span> table_name1 <span class="token keyword">where</span> field1
+<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> field1 <span class="token punctuation">[</span><span class="token keyword">ASC</span> <span class="token punctuation">[</span><span class="token keyword">DESC</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+</pre><p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;ASC&#x8868;&#x793A;&#x5347;&#x5E8F;&#xFF0C;DESC&#x8868;&#x793A;&#x964D;&#x5E8F;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> sex<span class="token operator">=</span><span class="token string">&apos;m&apos;</span> <span class="token keyword">order</span> <span class="token keyword">by</span> age<span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="%E5%88%86%E9%A1%B5%E9%99%90%E5%88%B6">&#x5206;&#x9875;(&#x9650;&#x5236;)</h4>
+
+<p>LIMIT &#x5B50;&#x53E5;&#x7528;&#x4E8E;&#x9650;&#x5236;&#x7531; SELECT &#x8BED;&#x53E5;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x6570;&#x91CF; &#x6216;&#x8005; UPDATE,DELETE&#x8BED;&#x53E5;&#x7684;&#x64CD;&#x4F5C;&#x6570;&#x91CF;</p>
+<p>&#x5E26;&#x6709; LIMIT &#x5B50;&#x53E5;&#x7684; SELECT &#x8BED;&#x53E5;&#x7684;&#x57FA;&#x672C;&#x8BED;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">SELECT</span> column1<span class="token punctuation">,</span> column2<span class="token punctuation">,</span> columnN 
+<span class="token keyword">FROM</span> table_name
+<span class="token keyword">WHERE</span> field
+<span class="token keyword">LIMIT</span> <span class="token punctuation">[</span>num<span class="token punctuation">]</span>
+</pre><h4 class="mume-header" id="%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2">&#x8054;&#x5408;&#x67E5;&#x8BE2;</h4>
+
+<p>UNION &#x64CD;&#x4F5C;&#x7B26;&#x7528;&#x4E8E;&#x8FDE;&#x63A5;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;&#x7684; SELECT &#x8BED;&#x53E5;&#x7684;&#x7ED3;&#x679C;&#x7EC4;&#x5408;&#x5230;&#x4E00;&#x4E2A;&#x7ED3;&#x679C;&#x96C6;&#x5408;&#x4E2D;&#x3002;&#x591A;&#x4E2A; SELECT &#x8BED;&#x53E5;&#x4F1A;&#x5220;&#x9664;&#x91CD;&#x590D;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>UNION &#x64CD;&#x4F5C;&#x7B26;&#x8BED;&#x6CD5;&#x683C;&#x5F0F;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">SELECT</span> expression1<span class="token punctuation">,</span> expression2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> expression_n
+<span class="token keyword">FROM</span> <span class="token keyword">tables</span>
+<span class="token punctuation">[</span><span class="token keyword">WHERE</span> conditions<span class="token punctuation">]</span>
+<span class="token keyword">UNION</span> <span class="token punctuation">[</span><span class="token keyword">ALL</span> <span class="token operator">|</span> <span class="token keyword">DISTINCT</span><span class="token punctuation">]</span>
+<span class="token keyword">SELECT</span> expression1<span class="token punctuation">,</span> expression2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> expression_n
+<span class="token keyword">FROM</span> <span class="token keyword">tables</span>
+<span class="token punctuation">[</span><span class="token keyword">WHERE</span> conditions<span class="token punctuation">]</span><span class="token punctuation">;</span>
+</pre><blockquote>
+<p>expression1, expression2, ... expression_n: &#x8981;&#x68C0;&#x7D22;&#x7684;&#x5217;&#x3002;<br>
+tables: &#x8981;&#x68C0;&#x7D22;&#x7684;&#x6570;&#x636E;&#x8868;&#x3002;<br>
+WHERE conditions: &#x53EF;&#x9009;&#xFF0C; &#x68C0;&#x7D22;&#x6761;&#x4EF6;&#x3002;<br>
+DISTINCT: &#x53EF;&#x9009;&#xFF0C;&#x5220;&#x9664;&#x7ED3;&#x679C;&#x96C6;&#x4E2D;&#x91CD;&#x590D;&#x7684;&#x6570;&#x636E;&#x3002;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B; UNION &#x64CD;&#x4F5C;&#x7B26;&#x5DF2;&#x7ECF;&#x5220;&#x9664;&#x4E86;&#x91CD;&#x590D;&#x6570;&#x636E;&#xFF0C;&#x6240;&#x4EE5; DISTINCT &#x4FEE;&#x9970;&#x7B26;&#x5BF9;&#x7ED3;&#x679C;&#x6CA1;&#x5565;&#x5F71;&#x54CD;&#x3002;<br>
+ALL: &#x53EF;&#x9009;&#xFF0C;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x7ED3;&#x679C;&#x96C6;&#xFF0C;&#x5305;&#x542B;&#x91CD;&#x590D;&#x6570;&#x636E;&#x3002;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> sex<span class="token operator">=</span><span class="token string">&apos;m&apos;</span> <span class="token keyword">UNION</span> <span class="token keyword">ALL</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> age <span class="token operator">&gt;</span> <span class="token number">9</span><span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="%E5%AD%90%E6%9F%A5%E8%AF%A2">&#x5B50;&#x67E5;&#x8BE2;</h4>
+
+<blockquote>
+<p>&#x5B9A;&#x4E49; &#xFF1A; &#x5F53;&#x4E00;&#x4E2A;select&#x8BED;&#x53E5;&#x4E2D;&#x5305;&#x542B;&#x53E6;&#x4E00;&#x4E2A;select &#x67E5;&#x8BE2;&#x8BED;&#x53E5;&#xFF0C;&#x5219;&#x79F0;&#x4E4B;&#x4E3A;&#x6709;&#x5B50;&#x67E5;&#x8BE2;&#x7684;&#x8BED;&#x53E5;<br>
+&#x5B50;&#x67E5;&#x8BE2;&#x51FA;&#x73B0;&#x7684;&#x4F4D;&#x7F6E;&#xFF1A;</p>
+<ol>
+<li>from &#x4E4B;&#x540E; &#xFF0C;&#x6B64;&#x65F6;&#x5B50;&#x67E5;&#x8BE2;&#x7684;&#x5185;&#x5BB9;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8868;&#x5185;&#x5BB9;&#xFF0C;&#x518D;&#x8FDB;&#x884C;&#x5916;&#x5C42;select&#x67E5;&#x8BE2;</li>
+</ol>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span> name <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> sex<span class="token operator">=</span><span class="token string">&apos;m&apos;</span><span class="token punctuation">)</span> <span class="token keyword">as</span> s <span class="token keyword">where</span> s<span class="token punctuation">.</span>score <span class="token operator">&gt;</span> <span class="token number">90</span><span class="token punctuation">;</span>
+</pre><ul>
+<li>&#x9700;&#x8981;&#x5C06;&#x5B50;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x96C6;&#x91CD;&#x547D;&#x540D;&#x4E00;&#x4E0B;&#xFF0C;&#x65B9;&#x4FBF;where&#x5B50;&#x53E5;&#x4E2D;&#x7684;&#x5F15;&#x7528;&#x64CD;&#x4F5C;</li>
+</ul>
+<blockquote>
+<ol start="2">
+<li>where&#x5B57;&#x53E5;&#x4E2D;&#xFF0C;&#x6B64;&#x65F6;select&#x67E5;&#x8BE2;&#x5230;&#x7684;&#x5185;&#x5BB9;&#x4F5C;&#x4E3A;&#x5916;&#x5C42;&#x67E5;&#x8BE2;&#x7684;&#x6761;&#x4EF6;&#x503C;</li>
+</ol>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"> <span class="token keyword">select</span> <span class="token operator">*</span>  <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> age <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">select</span> age <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> name<span class="token operator">=</span><span class="token string">&apos;Tom&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><ul>
+<li>&#x5B50;&#x53E5;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x660E;&#x786E;&#x503C;&#xFF0C;&#x5373;&#x9700;&#x8981;&#x65F6;&#x67D0;&#x4E2A;&#x8BB0;&#x5F55;&#x7684;&#x67D0;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x4E0D;&#x80FD;&#x662F;&#x591A;&#x884C;&#x6216;&#x8005;&#x591A;&#x5217;</li>
+</ul>
+<h2 class="mume-header" id="%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C">&#x805A;&#x5408;&#x64CD;&#x4F5C;</h2>
+
+<p>&#x805A;&#x5408;&#x64CD;&#x4F5C;&#x6307;&#x7684;&#x662F;&#x5728;&#x6570;&#x636E;&#x67E5;&#x627E;&#x57FA;&#x7840;&#x4E0A;&#x5BF9;&#x6570;&#x636E;&#x7684;&#x8FDB;&#x4E00;&#x6B65;&#x6574;&#x7406;&#x7B5B;&#x9009;&#x884C;&#x4E3A;&#xFF0C;&#x5728;&#x8BA4;&#x8BC6;&#x805A;&#x5408;&#x4E4B;&#x524D;&#x5148;&#x770B;&#x4E00;&#x4E2A;&#x66F4;&#x5B8C;&#x6574;&#x7684;sql&#x8BED;&#x53E5;</p>
+<ul>
+<li>select&#x8BED;&#x53E5;&#x6267;&#x884C;&#x987A;&#x5E8F;</li>
+</ul>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span>     <span class="token keyword">SELECT</span> 
+<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span>     <span class="token punctuation">[</span><span class="token keyword">DISTINCT</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span>select_list<span class="token operator">&gt;</span>
+<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>     <span class="token keyword">FROM</span> <span class="token operator">&lt;</span>left_table<span class="token operator">&gt;</span>
+<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>     <span class="token operator">&lt;</span>join_type<span class="token operator">&gt;</span> <span class="token keyword">JOIN</span> <span class="token operator">&lt;</span>right_table<span class="token operator">&gt;</span>
+<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>     <span class="token keyword">ON</span> <span class="token operator">&lt;</span>join_condition<span class="token operator">&gt;</span>
+<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>     <span class="token keyword">WHERE</span> <span class="token operator">&lt;</span>where_condition<span class="token operator">&gt;</span>
+<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>     <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token operator">&lt;</span>group_by_list<span class="token operator">&gt;</span>
+<span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span>     <span class="token keyword">HAVING</span> <span class="token operator">&lt;</span>having_condition<span class="token operator">&gt;</span>
+<span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span>     <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token operator">&lt;</span>order_by_condition<span class="token operator">&gt;</span>
+<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>    <span class="token keyword">LIMIT</span> <span class="token operator">&lt;</span>limit_number<span class="token operator">&gt;</span>
+</pre><h3 class="mume-header" id="%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0">&#x805A;&#x5408;&#x51FD;&#x6570;</h3>
+
+<table>
+<thead>
+<tr>
+<th>&#x65B9;&#x6CD5;</th>
+<th>&#x529F;&#x80FD;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>avg(&#x5B57;&#x6BB5;&#x540D;)</td>
+<td>&#x8BE5;&#x5B57;&#x6BB5;&#x7684;&#x5E73;&#x5747;&#x503C;</td>
+</tr>
+<tr>
+<td>max(&#x5B57;&#x6BB5;&#x540D;)</td>
+<td>&#x8BE5;&#x5B57;&#x6BB5;&#x7684;&#x6700;&#x5927;&#x503C;</td>
+</tr>
+<tr>
+<td>min(&#x5B57;&#x6BB5;&#x540D;)</td>
+<td>&#x8BE5;&#x5B57;&#x6BB5;&#x7684;&#x6700;&#x5C0F;&#x503C;</td>
+</tr>
+<tr>
+<td>sum(&#x5B57;&#x6BB5;&#x540D;)</td>
+<td>&#x8BE5;&#x5B57;&#x6BB5;&#x6240;&#x6709;&#x8BB0;&#x5F55;&#x7684;&#x548C;</td>
+</tr>
+<tr>
+<td>count(&#x5B57;&#x6BB5;&#x540D;)</td>
+<td>&#x7EDF;&#x8BA1;&#x8BE5;&#x5B57;&#x6BB5;&#x8BB0;&#x5F55;&#x7684;&#x4E2A;&#x6570;</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>eg1 : &#x627E;&#x51FA;&#x8868;&#x4E2D;&#x7684;&#x6700;&#x5927;&#x653B;&#x51FB;&#x529B;&#x7684;&#x503C;&#xFF1F;</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>select max(attack) from sanguo;
+</code></pre><p>eg2 : &#x8868;&#x4E2D;&#x5171;&#x6709;&#x591A;&#x5C11;&#x4E2A;&#x82F1;&#x96C4;&#xFF1F;</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>select count(name) as number from sanguo;
+</code></pre><p>eg3 : &#x8700;&#x56FD;&#x82F1;&#x96C4;&#x4E2D;&#x653B;&#x51FB;&#x503C;&#x5927;&#x4E8E;200&#x7684;&#x82F1;&#x96C4;&#x7684;&#x6570;&#x91CF;</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>select count(*) from sanguo where attack &gt; 200; 
+</code></pre><blockquote>
+<p>&#x6CE8;&#x610F;&#xFF1A; &#x6B64;&#x65F6;select &#x540E;&#x53EA;&#x80FD;&#x5199;&#x805A;&#x5408;&#x51FD;&#x6570;&#xFF0C;&#x65E0;&#x6CD5;&#x67E5;&#x627E;&#x5176;&#x4ED6;&#x5B57;&#x6BB5;&#x3002;</p>
+</blockquote>
+<h3 class="mume-header" id="%E8%81%9A%E5%90%88%E5%88%86%E7%BB%84">&#x805A;&#x5408;&#x5206;&#x7EC4;</h3>
+
+<ul>
+<li><strong>group by</strong></li>
+</ul>
+<p>&#x7ED9;&#x67E5;&#x8BE2;&#x7684;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x5206;&#x7EC4;<br>
+e.g.  : &#x8BA1;&#x7B97;&#x6BCF;&#x4E2A;&#x56FD;&#x5BB6;&#x7684;&#x5E73;&#x5747;&#x653B;&#x51FB;&#x529B;</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>select country,avg(attack) from sanguo 
+group by country;
+</code></pre><p>e.g. :  &#x5BF9;&#x591A;&#x4E2A;&#x5B57;&#x6BB5;&#x521B;&#x5EFA;&#x7D22;&#x5F15;&#xFF0C;&#x6B64;&#x65F6;&#x591A;&#x4E2A;&#x5B57;&#x6BB5;&#x90FD;&#x76F8;&#x540C;&#x65F6;&#x4E3A;&#x4E00;&#x7EC4;</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>select age,sex,count(*) from class1 group by age,sex;
+</code></pre><p>e.g. : &#x6240;&#x6709;&#x56FD;&#x5BB6;&#x7684;&#x7537;&#x82F1;&#x96C4;&#x4E2D; &#x82F1;&#x96C4;&#x6570;&#x91CF;&#x6700;&#x591A;&#x7684;&#x524D;2&#x540D;&#x7684; &#x56FD;&#x5BB6;&#x540D;&#x79F0;&#x53CA;&#x82F1;&#x96C4;&#x6570;&#x91CF;</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>select country,count(id) as number from sanguo 
+where gender=&apos;M&apos; group by country
+order by number DESC
+limit 2;
+</code></pre><blockquote>
+<p>&#x4F7F;&#x7528;&#x5206;&#x7EC4;&#x65F6;select &#x540E;&#x7684;&#x5B57;&#x6BB5;&#x4E3A;group by&#x5206;&#x7EC4;&#x7684;&#x5B57;&#x6BB5;&#x548C;&#x805A;&#x5408;&#x51FD;&#x6570;&#xFF0C;&#x4E0D;&#x80FD;&#x5305;&#x542B;&#x5176;&#x4ED6;&#x5185;&#x5BB9;&#x3002;group by&#x4E5F;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x4F9D;&#x7167;&#x591A;&#x4E2A;&#x5B57;&#x6BB5;&#x5206;&#x7EC4;&#xFF0C;&#x5982;group by A&#xFF0C;B &#x6B64;&#x65F6;&#x5FC5;&#x987B;A,B&#x4E24;&#x4E2A;&#x5B57;&#x6BB5;&#x503C;&#x5747;&#x76F8;&#x540C;&#x624D;&#x7B97;&#x4E00;&#x7EC4;&#x3002;</p>
+</blockquote>
+<h3 class="mume-header" id="%E8%81%9A%E5%90%88%E7%AD%9B%E9%80%89">&#x805A;&#x5408;&#x7B5B;&#x9009;</h3>
+
+<ul>
+<li><strong>having&#x8BED;&#x53E5;</strong></li>
+</ul>
+<p>&#x5BF9;&#x5206;&#x7EC4;&#x805A;&#x5408;&#x540E;&#x7684;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x8FDB;&#x4E00;&#x6B65;&#x7B5B;&#x9009;</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>eg1 : &#x627E;&#x51FA;&#x5E73;&#x5747;&#x653B;&#x51FB;&#x529B;&#x5927;&#x4E8E;105&#x7684;&#x56FD;&#x5BB6;&#x7684;&#x524D;2&#x540D;,&#x663E;&#x793A;&#x56FD;&#x5BB6;&#x540D;&#x79F0;&#x548C;&#x5E73;&#x5747;&#x653B;&#x51FB;&#x529B;
+select country,avg(attack) from sanguo 
+group by country
+having avg(attack)&gt;105
+order by avg(attack) DESC
+limit 2;
+</code></pre><p>&#x6CE8;&#x610F;</p>
+<blockquote>
+<ul>
+<li>having&#x8BED;&#x53E5;&#x901A;&#x5E38;&#x4E0E;group by&#x8054;&#x5408;&#x4F7F;&#x7528;&#x3002;</li>
+<li>having&#x8BED;&#x53E5;&#x5B58;&#x5728;&#x5F25;&#x8865;&#x4E86;where&#x5173;&#x952E;&#x5B57;&#x4E0D;&#x80FD;&#x4E0E;&#x805A;&#x5408;&#x51FD;&#x6570;&#x8054;&#x5408;&#x4F7F;&#x7528;&#x7684;&#x4E0D;&#x8DB3;,where&#x53EA;&#x80FD;&#x64CD;&#x4F5C;&#x8868;&#x4E2D;&#x5B9E;&#x9645;&#x5B58;&#x5728;&#x7684;&#x5B57;&#x6BB5;,having&#x64CD;&#x4F5C;&#x7684;&#x662F;&#x805A;&#x5408;&#x51FD;&#x6570;&#x751F;&#x6210;&#x7684;&#x663E;&#x793A;&#x5217;</li>
+</ul>
+</blockquote>
+<h3 class="mume-header" id="%E5%8E%BB%E9%87%8D%E8%AF%AD%E5%8F%A5">&#x53BB;&#x91CD;&#x8BED;&#x53E5;</h3>
+
+<ul>
+<li><strong>distinct&#x8BED;&#x53E5;</strong></li>
+</ul>
+<p>&#x4E0D;&#x663E;&#x793A;&#x5B57;&#x6BB5;&#x91CD;&#x590D;&#x503C;</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>eg1 : &#x8868;&#x4E2D;&#x90FD;&#x6709;&#x54EA;&#x4E9B;&#x56FD;&#x5BB6;
+  select distinct name,country from sanguo;
+eg2 : &#x8BA1;&#x7B97;&#x4E00;&#x5171;&#x6709;&#x591A;&#x5C11;&#x4E2A;&#x56FD;&#x5BB6;
+  select count(distinct country) from sanguo;
+</code></pre><p>&#x6CE8;&#x610F;</p>
+<blockquote>
+<ul>
+<li>distinct&#x548C;from&#x4E4B;&#x95F4;&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x90FD;&#x76F8;&#x540C;&#x624D;&#x4F1A;&#x53BB;&#x91CD;</li>
+</ul>
+</blockquote>
+<h3 class="mume-header" id="%E8%81%9A%E5%90%88%E8%BF%90%E7%AE%97">&#x805A;&#x5408;&#x8FD0;&#x7B97;</h3>
+
+<ul>
+<li><strong>&#x67E5;&#x8BE2;&#x8868;&#x8BB0;&#x5F55;&#x65F6;&#x505A;&#x6570;&#x5B66;&#x8FD0;&#x7B97;</strong></li>
+</ul>
+<p>&#x8FD0;&#x7B97;&#x7B26; &#xFF1A; +  -  *  /  %</p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>eg1: &#x67E5;&#x8BE2;&#x65F6;&#x663E;&#x793A;&#x653B;&#x51FB;&#x529B;&#x7FFB;&#x500D;
+  select name,attack*2 from sanguo;
+eg2: &#x66F4;&#x65B0;&#x8700;&#x56FD;&#x6240;&#x6709;&#x82F1;&#x96C4;&#x653B;&#x51FB;&#x529B; * 2
+  update sanguo set attack=attack*2 where country=&apos;&#x8700;&#x56FD;&apos;;
+</code></pre><h2 class="mume-header" id="%E7%B4%A2%E5%BC%95%E6%93%8D%E4%BD%9C">&#x7D22;&#x5F15;&#x64CD;&#x4F5C;</h2>
+
+<h3 class="mume-header" id="%E7%B4%A2%E5%BC%95%E6%A6%82%E8%BF%B0">&#x7D22;&#x5F15;&#x6982;&#x8FF0;</h3>
+
+<ul>
+<li><strong>&#x5B9A;&#x4E49;</strong></li>
+</ul>
+<p>&#x7D22;&#x5F15;&#x662F;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x4E00;&#x5217;&#x6216;&#x591A;&#x5217;&#x7684;&#x503C;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#x7684;&#x4E00;&#x79CD;&#x7ED3;&#x6784;&#xFF0C;&#x4F7F;&#x7528;&#x7D22;&#x5F15;&#x53EF;&#x5FEB;&#x901F;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x7279;&#x5B9A;&#x4FE1;&#x606F;&#x3002;</p>
+<ul>
+<li><strong>&#x4F18;&#x70B9;</strong></li>
+</ul>
+<blockquote>
+<p>&#x52A0;&#x5FEB;&#x6570;&#x636E;&#x68C0;&#x7D22;&#x901F;&#x5EA6;,&#x63D0;&#x9AD8;&#x67E5;&#x627E;&#x6548;&#x7387;</p>
+</blockquote>
+<ul>
+<li><strong>&#x7F3A;&#x70B9;</strong></li>
+</ul>
+<blockquote>
+<p>&#x5360;&#x7528;&#x6570;&#x636E;&#x5E93;&#x7269;&#x7406;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;<br>
+&#x5F53;&#x5BF9;&#x8868;&#x4E2D;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x65F6;,&#x7D22;&#x5F15;&#x9700;&#x8981;&#x52A8;&#x6001;&#x7EF4;&#x62A4;,&#x964D;&#x4F4E;&#x6570;&#x636E;&#x5199;&#x5165;&#x6548;&#x7387;</p>
+</blockquote>
+<h3 class="mume-header" id="%E7%B4%A2%E5%BC%95%E5%88%86%E7%B1%BB">&#x7D22;&#x5F15;&#x5206;&#x7C7B;</h3>
+
+<ul>
+<li>&#x666E;&#x901A;(MUL)</li>
+</ul>
+<blockquote>
+<p>&#x666E;&#x901A;&#x7D22;&#x5F15; &#xFF1A;&#x5B57;&#x6BB5;&#x503C;&#x65E0;&#x7EA6;&#x675F;,KEY&#x6807;&#x5FD7;&#x4E3A; MUL</p>
+</blockquote>
+<ul>
+<li>&#x552F;&#x4E00;&#x7D22;&#x5F15;(UNI)</li>
+</ul>
+<blockquote>
+<p>&#x552F;&#x4E00;&#x7D22;&#x5F15;(unique) &#xFF1A;&#x5B57;&#x6BB5;&#x503C;&#x4E0D;&#x5141;&#x8BB8;&#x91CD;&#x590D;,&#x4F46;&#x53EF;&#x4E3A; NULL,KEY&#x6807;&#x5FD7;&#x4E3A; UNI</p>
+</blockquote>
+<ul>
+<li>&#x4E3B;&#x952E;&#x7D22;&#x5F15;&#xFF08;PRI&#xFF09;</li>
+</ul>
+<blockquote>
+<p>&#x4E00;&#x4E2A;&#x8868;&#x4E2D;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x4E3B;&#x952E;&#x5B57;&#x6BB5;, &#x4E3B;&#x952E;&#x5B57;&#x6BB5;&#x4E0D;&#x5141;&#x8BB8;&#x91CD;&#x590D;,&#x4E14;&#x4E0D;&#x80FD;&#x4E3A;NULL&#xFF0C;KEY&#x6807;&#x5FD7;&#x4E3A;PRI&#x3002;&#x901A;&#x5E38;&#x8BBE;&#x7F6E;&#x8BB0;&#x5F55;&#x7F16;&#x53F7;&#x5B57;&#x6BB5;id,&#x80FD;&#x552F;&#x4E00;&#x9501;&#x5B9A;&#x4E00;&#x6761;&#x8BB0;&#x5F55;</p>
+</blockquote>
+<h3 class="mume-header" id="%E7%B4%A2%E5%BC%95%E5%88%9B%E5%BB%BA">&#x7D22;&#x5F15;&#x521B;&#x5EFA;</h3>
+
+<p>&#x4E3B;&#x952E;&#x7D22;&#x5F15;&#x7684;&#x521B;&#x5EFA;&#x65B9;&#x6CD5;&#x5DF2;&#x7ECF;&#x5728;&#x6570;&#x636E;&#x8868;&#x4E2D;&#x4ECB;&#x7ECD;&#x8FC7;&#x4E86;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x666E;&#x901A;&#x7D22;&#x5F15;&#x548C;&#x552F;&#x4E00;&#x7D22;&#x5F15;&#x7684;&#x521B;&#x5EFA;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li>&#x521B;&#x5EFA;&#x8868;&#x65F6;&#x76F4;&#x63A5;&#x521B;&#x5EFA;&#x7D22;&#x5F15;</li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>create table &#x8868;&#x540D;(
+&#x5B57;&#x6BB5;&#x540D; &#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;
+&#x5B57;&#x6BB5;&#x540D; &#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;
+index(&#x5B57;&#x6BB5;&#x540D;),
+index(&#x5B57;&#x6BB5;&#x540D;),
+unique(&#x5B57;&#x6BB5;&#x540D;)
+);
+</code></pre><ul>
+<li>&#x5728;&#x5DF2;&#x6709;&#x8868;&#x4E2D;&#x521B;&#x5EFA;&#x7D22;&#x5F15;&#xFF1A;</li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>create [unique] index &#x7D22;&#x5F15;&#x540D; on &#x8868;&#x540D;(&#x5B57;&#x6BB5;&#x540D;);
+</code></pre><ul>
+<li><strong>&#x67E5;&#x770B;&#x7D22;&#x5F15;</strong></li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1&#x3001;desc &#x8868;&#x540D;;  --&gt; KEY&#x6807;&#x5FD7;&#x4E3A;&#xFF1A;MUL &#x3001;UNI&#x3002;
+2&#x3001;show index from &#x8868;&#x540D;;
+</code></pre><blockquote>
+<ul>
+<li>&#x6269;&#x5C55;&#xFF1A; &#x501F;&#x52A9;&#x6027;&#x80FD;&#x67E5;&#x770B;&#x9009;&#x9879;&#x53BB;&#x67E5;&#x770B;&#x7D22;&#x5F15;&#x6027;&#x80FD;</li>
+</ul>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">show</span> variables <span class="token operator">like</span> <span class="token string">&apos;profiling&apos;</span>&#xFF1B;
+
+<span class="token keyword">set</span>  profiling <span class="token operator">=</span> <span class="token number">1</span>&#xFF1B; &#x6253;&#x5F00;&#x529F;&#x80FD; &#xFF08;&#x9879;&#x76EE;&#x4E0A;&#x7EBF;&#x4E00;&#x822C;&#x4E0D;&#x6253;&#x5F00;&#xFF09;
+
+<span class="token keyword">show</span> profiles  &#x67E5;&#x770B;&#x8BED;&#x53E5;&#x6267;&#x884C;&#x4FE1;&#x606F;
+</pre><ul>
+<li><strong>&#x5220;&#x9664;&#x7D22;&#x5F15;</strong></li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>drop index &#x7D22;&#x5F15;&#x540D; on &#x8868;&#x540D;;
+</code></pre><ul>
+<li><strong>&#x5DF2;&#x6709;&#x8868;&#x6DFB;&#x52A0;&#x4E3B;&#x952E;&#x7D22;&#x5F15;&#x6216;&#x81EA;&#x589E;&#x957F;&#x5C5E;&#x6027;</strong></li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>alter table &#x8868;&#x540D; add primary key(id);
+alter table &#x8868;&#x540D; modify id int auto_increment;
+</code></pre><ul>
+<li><strong>&#x521B;&#x5EFA;&#x590D;&#x5408;&#x4E3B;&#x952E;</strong></li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>primary key&#xFF08;uid,pid&#xFF09;
+&#x6B64;&#x65F6;&#x4E24;&#x4E2A;&#x5B57;&#x6BB5;&#x53EA;&#x8981;&#x4E0D;&#x90FD;&#x76F8;&#x540C;&#x5373;&#x53EF;&#x3002;
+</code></pre><ul>
+<li><strong>&#x5220;&#x9664;&#x4E3B;&#x952E;&#x7D22;&#x5F15;&#x6216;&#x81EA;&#x589E;&#x957F;&#x5C5E;&#x6027;</strong></li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>alter table &#x8868;&#x540D; modify id int;  &#x8981;&#x5148;&#x5220;&#x9664;&#x81EA;&#x589E;&#x957F;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x53EA;&#x4F5C;&#x7528;&#x4E8E;&#x4E3B;&#x952E;&#x5B57;&#x6BB5;
+alter table &#x8868;&#x540D; drop primary key;
+</code></pre><h2 class="mume-header" id="%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E5%92%8C%E8%A1%A8%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB">&#x5916;&#x952E;&#x7EA6;&#x675F;&#x548C;&#x8868;&#x5173;&#x8054;&#x5173;&#x7CFB;</h2>
+
+<h3 class="mume-header" id="%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F">&#x5916;&#x952E;&#x7EA6;&#x675F;</h3>
+
+<ul>
+<li>
+<p>&#x7EA6;&#x675F; : &#x7EA6;&#x675F;&#x662F;&#x4E00;&#x79CD;&#x9650;&#x5236;&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x5BF9;&#x8868;&#x7684;&#x884C;&#x6216;&#x5217;&#x7684;&#x6570;&#x636E;&#x505A;&#x51FA;&#x9650;&#x5236;&#xFF0C;&#x6765;&#x786E;&#x4FDD;&#x8868;&#x7684;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x3001;&#x552F;&#x4E00;&#x6027;</p>
+</li>
+<li>
+<p>foreign key &#x529F;&#x80FD; : &#x5EFA;&#x7ACB;&#x8868;&#x4E0E;&#x8868;&#x4E4B;&#x95F4;&#x7684;&#x67D0;&#x79CD;&#x7EA6;&#x675F;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x7531;&#x4E8E;&#x8FD9;&#x79CD;&#x5173;&#x7CFB;&#x7684;&#x5B58;&#x5728;&#xFF0C;&#x80FD;&#x591F;&#x8BA9;&#x8868;&#x4E0E;&#x8868;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x66F4;&#x52A0;&#x7684;&#x5B8C;&#x6574;&#xFF0C;&#x5173;&#x8FDE;&#x6027;&#x66F4;&#x5F3A;&#xFF0C;&#x4E3A;&#x4E86;&#x5177;&#x4F53;&#x8BF4;&#x660E;&#x521B;&#x5EFA;&#x5982;&#x4E0B;&#x90E8;&#x95E8;&#x8868;&#x548C;&#x4EBA;&#x5458;&#x8868;&#x3002;</p>
+</li>
+</ul>
+<blockquote>
+<p>&#x521B;&#x5EFA;&#x90E8;&#x95E8;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> dept <span class="token punctuation">(</span>id <span class="token keyword">int</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">auto_increment</span><span class="token punctuation">,</span>dname <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><blockquote>
+<p>&#x521B;&#x5EFA;&#x4EBA;&#x5458;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>person<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+  <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token keyword">int</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>age<span class="token punctuation">`</span> <span class="token keyword">tinyint</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>sex<span class="token punctuation">`</span> <span class="token keyword">enum</span><span class="token punctuation">(</span><span class="token string">&apos;m&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;w&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;o&apos;</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token string">&apos;o&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>salary<span class="token punctuation">`</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token number">250.00</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>hire_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>dept_id<span class="token punctuation">`</span> <span class="token keyword">int</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+</pre><blockquote>
+<p>&#x4E0A;&#x9762;&#x4E24;&#x4E2A;&#x8868;&#x4E2D;&#x6BCF;&#x4E2A;&#x4EBA;&#x5458;&#x90FD;&#x5E94;&#x8BE5;&#x6709;&#x6307;&#x5B9A;&#x7684;&#x90E8;&#x95E8;&#xFF0C;&#x4F46;&#x662F;&#x5B9E;&#x9645;&#x4E0A;&#x5728;&#x6CA1;&#x6709;&#x7EA6;&#x675F;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4EBA;&#x5458;&#x662F;&#x53EF;&#x4EE5;&#x6CA1;&#x6709;&#x90E8;&#x95E8;&#x7684;&#x6216;&#x8005;&#x4E5F;&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x90E8;&#x95E8;&#xFF0C;&#x8FD9;&#x663E;&#x7136;&#x662F;&#x4E0D;&#x5408;&#x7406;&#x7684;&#x3002;&#x5F53;&#x7136;&#x5E76;&#x4E0D;&#x662F;&#x4EFB;&#x4F55;&#x60C5;&#x51B5;&#x90FD;&#x9700;&#x8981;&#x5EFA;&#x7ACB;&#x5916;&#x952E;&#x5173;&#x7CFB;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x8FD9;&#x79CD;&#x7EA6;&#x675F;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x5EFA;&#x7ACB;&#xFF0C;&#x4F46;&#x662F;&#x5F53;&#x8868;&#x4E0E;&#x8868;&#x4E4B;&#x95F4;&#x5B58;&#x5728;&#x8FD9;&#x79CD;&#x7EA6;&#x675F;&#x65F6;&#x6700;&#x597D;&#x5EFA;&#x7ACB;&#x3002;</p>
+</blockquote>
+<ul>
+<li>&#x4E3B;&#x8868;&#x548C;&#x4ECE;&#x8868;&#xFF1A;&#x82E5;&#x540C;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#xFF0C;B&#x8868;&#x7684;&#x5916;&#x952E;&#x4E0E;A&#x8868;&#x7684;&#x4E3B;&#x952E;&#x76F8;&#x5BF9;&#x5E94;&#xFF0C;&#x5219;A&#x8868;&#x4E3A;&#x4E3B;&#x8868;&#xFF0C;B&#x8868;&#x4E3A;&#x4ECE;&#x8868;&#x3002;</li>
+</ul>
+<ul>
+<li>
+<p>foreign key &#x5916;&#x952E;&#x7684;&#x5B9A;&#x4E49;&#x8BED;&#x6CD5;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token punctuation">[</span><span class="token keyword">CONSTRAINT</span> symbol<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span> <span class="token punctuation">(</span>index_col_name<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+
+<span class="token keyword">REFERENCES</span> tbl_name <span class="token punctuation">(</span>index_col_name<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">[</span><span class="token keyword">ON</span> <span class="token keyword">DELETE</span> {<span class="token keyword">RESTRICT</span> <span class="token operator">|</span> <span class="token keyword">CASCADE</span> <span class="token operator">|</span> <span class="token keyword">SET</span> <span class="token boolean">NULL</span> <span class="token operator">|</span> <span class="token keyword">NO</span> <span class="token keyword">ACTION</span>}<span class="token punctuation">]</span>
+
+<span class="token punctuation">[</span><span class="token keyword">ON</span> <span class="token keyword">UPDATE</span> {<span class="token keyword">RESTRICT</span> <span class="token operator">|</span> <span class="token keyword">CASCADE</span> <span class="token operator">|</span> <span class="token keyword">SET</span> <span class="token boolean">NULL</span> <span class="token operator">|</span> <span class="token keyword">NO</span> <span class="token keyword">ACTION</span>}<span class="token punctuation">]</span>
+</pre><p>&#x8BE5;&#x8BED;&#x6CD5;&#x53EF;&#x4EE5;&#x5728; CREATE TABLE &#x548C; ALTER TABLE &#x65F6;&#x4F7F;&#x7528;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;CONSTRAINT symbol&#xFF0C;mysql&#x4F1A;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x540D;&#x5B57;,&#x53EF;&#x4EE5;&#x901A;&#x8FC7;show  create table [tb]&#x547D;&#x4EE4;&#x67E5;&#x770B;</p>
+</li>
+</ul>
+<blockquote>
+<p>&#x5EFA;&#x7ACB;&#x8868;&#x65F6;&#x76F4;&#x63A5;&#x5EFA;&#x7ACB;&#x5916;&#x952E;&#x5173;&#x8054;&#xFF0C;&#x6CE8;&#x610F;&#x672C;&#x8868;&#x7684;&#x5916;&#x952E;&#x5217;&#x7C7B;&#x578B;&#x4E0E;&#x6307;&#x5B9A;&#x7684;&#x4E3B;&#x8868;&#x5217;&#x76F8;&#x540C;&#xFF0C;&#x4E14;&#x4E3B;&#x8868;&#x6307;&#x5B9A;&#x5217;&#x9700;&#x4E3A;&#x4E3B;&#x952E;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>person<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+  <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token keyword">int</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>age<span class="token punctuation">`</span> <span class="token keyword">tinyint</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>sex<span class="token punctuation">`</span> <span class="token keyword">enum</span><span class="token punctuation">(</span><span class="token string">&apos;m&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;w&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;o&apos;</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token string">&apos;o&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>salary<span class="token punctuation">`</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token number">250.00</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>hire_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>dept_id<span class="token punctuation">`</span> <span class="token keyword">int</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+   <span class="token keyword">constraint</span> dept_fk <span class="token keyword">foreign</span> <span class="token keyword">key</span><span class="token punctuation">(</span>dept_id<span class="token punctuation">)</span> <span class="token keyword">references</span> dept<span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><blockquote>
+<p>&#x5EFA;&#x7ACB;&#x8868;&#x540E;&#x589E;&#x52A0;&#x5916;&#x952E;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"> <span class="token keyword">alter</span> <span class="token keyword">table</span> person <span class="token keyword">add</span> <span class="token keyword">constraint</span> dept_fk <span class="token keyword">foreign</span> <span class="token keyword">key</span><span class="token punctuation">(</span>dept_id<span class="token punctuation">)</span> <span class="token keyword">references</span> dept<span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><blockquote>
+<p>&#x901A;&#x8FC7;&#x5916;&#x952E;&#x540D;&#x79F0;&#x89E3;&#x9664;&#x5916;&#x952E;&#x7EA6;&#x675F;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">alter</span> <span class="token keyword">table</span> person <span class="token keyword">drop</span> <span class="token keyword">foreign</span> <span class="token keyword">key</span> dept_fk<span class="token punctuation">;</span>
+
+&#x5220;&#x9664;&#x5916;&#x952E;&#x540E;&#x53D1;&#x73B0;<span class="token keyword">desc</span>&#x67E5;&#x770B;&#x7D22;&#x5F15;&#x6807;&#x5FD7;&#x8FD8;&#x5728;&#xFF0C;&#x5176;&#x5B9E;&#x5916;&#x952E;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x7D22;&#x5F15;&#xFF0C;&#x9700;&#x8981;&#x5C06;&#x5916;&#x952E;&#x540D;&#x79F0;&#x7684;&#x7D22;&#x5F15;&#x5220;&#x9664;&#x4E4B;&#x540E;&#x624D;&#x53EF;&#x4EE5;&#x3002;
+</pre><ul>
+<li>restrict(&#x9ED8;&#x8BA4;)  :  on delete restrict  on update restrict
+<ul>
+<li>&#x5F53;&#x4E3B;&#x8868;&#x5220;&#x9664;&#x8BB0;&#x5F55;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4ECE;&#x8868;&#x4E2D;&#x6709;&#x76F8;&#x5173;&#x8054;&#x8BB0;&#x5F55;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x4E3B;&#x8868;&#x5220;&#x9664;</li>
+<li>&#x5F53;&#x4E3B;&#x8868;&#x66F4;&#x6539;&#x4E3B;&#x952E;&#x5B57;&#x6BB5;&#x503C;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4ECE;&#x8868;&#x6709;&#x76F8;&#x5173;&#x8BB0;&#x5F55;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x66F4;&#x6539;</li>
+</ul>
+</li>
+<li>cascade &#xFF1A;&#x6570;&#x636E;&#x7EA7;&#x8054;&#x66F4;&#x65B0;  on delete cascade   on update cascade
+<ul>
+<li>&#x5F53;&#x4E3B;&#x8868;&#x5220;&#x9664;&#x8BB0;&#x5F55;&#x6216;&#x66F4;&#x6539;&#x88AB;&#x53C2;&#x7167;&#x5B57;&#x6BB5;&#x7684;&#x503C;&#x65F6;,&#x4ECE;&#x8868;&#x4F1A;&#x7EA7;&#x8054;&#x66F4;&#x65B0;</li>
+</ul>
+</li>
+<li>set null  :   on delete set null    on update set null
+<ul>
+<li>&#x5F53;&#x4E3B;&#x8868;&#x5220;&#x9664;&#x8BB0;&#x5F55;&#x65F6;&#xFF0C;&#x4ECE;&#x8868;&#x5916;&#x952E;&#x5B57;&#x6BB5;&#x503C;&#x53D8;&#x4E3A;null</li>
+<li>&#x5F53;&#x4E3B;&#x8868;&#x66F4;&#x6539;&#x4E3B;&#x952E;&#x5B57;&#x6BB5;&#x503C;&#x65F6;&#xFF0C;&#x4ECE;&#x8868;&#x5916;&#x952E;&#x5B57;&#x6BB5;&#x503C;&#x53D8;&#x4E3A;null</li>
+</ul>
+</li>
+<li>no action
+<ul>
+<li>&#x540C; restrict&#xFF0C;&#x90FD;&#x662F;&#x7ACB;&#x5373;&#x68C0;&#x67E5;&#x5916;&#x952E;&#x9650;&#x5236;</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="%E8%A1%A8%E5%85%B3%E8%81%94%E8%AE%BE%E8%AE%A1">&#x8868;&#x5173;&#x8054;&#x8BBE;&#x8BA1;</h3>
+
+<p>&#x5F53;&#x6211;&#x4EEC;&#x5E94;&#x5BF9;&#x590D;&#x6742;&#x7684;&#x6570;&#x636E;&#x5173;&#x7CFB;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6570;&#x636E;&#x8868;&#x7684;&#x8BBE;&#x8BA1;&#x5C31;&#x663E;&#x5F97;&#x5C24;&#x4E3A;&#x91CD;&#x8981;&#xFF0C;&#x8BA4;&#x8BC6;&#x6570;&#x636E;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x662F;&#x66F4;&#x52A0;&#x5408;&#x7406;&#x521B;&#x5EFA;&#x6570;&#x636E;&#x8868;&#x5173;&#x8054;&#x6027;&#x7684;&#x524D;&#x63D0;&#x3002;&#x5E38;&#x89C1;&#x7684;&#x6570;&#x636E;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>&#x4E00;&#x5BF9;&#x4E00;&#x5173;&#x7CFB;</li>
+</ul>
+<blockquote>
+<p>&#x4E00;&#x5F20;&#x8868;&#x7684;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x4E00;&#x5B9A;&#x53EA;&#x80FD;&#x4E0E;&#x53E6;&#x5916;&#x4E00;&#x5F20;&#x8868;&#x7684;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x8FDB;&#x884C;&#x5BF9;&#x5E94;&#xFF0C;&#x53CD;&#x4E4B;&#x4EA6;&#x7136;&#x3002;</p>
+<p>&#x4E3E;&#x4F8B; :  &#x5B66;&#x751F;&#x4FE1;&#x606F;&#x548C;&#x5B66;&#x7C4D;&#x6863;&#x6848;&#xFF0C;&#x4E00;&#x4E2A;&#x5B66;&#x751F;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x6863;&#x6848;&#xFF0C;&#x4E00;&#x4E2A;&#x6863;&#x6848;&#x4E5F;&#x53EA;&#x5C5E;&#x4E8E;&#x4E00;&#x4E2A;&#x5B66;&#x751F;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> student<span class="token punctuation">(</span>id <span class="token keyword">int</span> <span class="token keyword">primary</span> <span class="token keyword">key</span> <span class="token keyword">auto_increment</span><span class="token punctuation">,</span>name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">create</span> <span class="token keyword">table</span> record<span class="token punctuation">(</span>id <span class="token keyword">int</span> <span class="token keyword">primary</span> <span class="token keyword">key</span> <span class="token keyword">auto_increment</span><span class="token punctuation">,</span>
+<span class="token keyword">comment</span> <span class="token keyword">text</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+st_id <span class="token keyword">int</span> <span class="token keyword">unique</span><span class="token punctuation">,</span>
+<span class="token keyword">foreign</span> <span class="token keyword">key</span><span class="token punctuation">(</span>st_id<span class="token punctuation">)</span> <span class="token keyword">references</span> student<span class="token punctuation">(</span>id<span class="token punctuation">)</span> 
+<span class="token keyword">on</span> <span class="token keyword">delete</span> <span class="token keyword">cascade</span> 
+<span class="token keyword">on</span> <span class="token keyword">update</span> <span class="token keyword">cascade</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><ul>
+<li>&#x4E00;&#x5BF9;&#x591A;&#x5173;&#x7CFB;</li>
+</ul>
+<blockquote>
+<p>&#x4E00;&#x5F20;&#x8868;&#x4E2D;&#x6709;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x53EF;&#x4EE5;&#x5BF9;&#x5E94;&#x53E6;&#x5916;&#x4E00;&#x5F20;&#x8868;&#x4E2D;&#x7684;&#x591A;&#x6761;&#x8BB0;&#x5F55;&#xFF1B;&#x4F46;&#x662F;&#x53CD;&#x8FC7;&#x6765;&#xFF0C;&#x53E6;&#x5916;&#x4E00;&#x5F20;&#x8868;&#x7684;&#x4E00;&#x6761;&#x8BB0;&#x5F55;<br>
+&#x53EA;&#x80FD;&#x5BF9;&#x5E94;&#x7B2C;&#x4E00;&#x5F20;&#x8868;&#x7684;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#xFF0C;&#x8FD9;&#x79CD;&#x5173;&#x7CFB;&#x5C31;&#x662F;&#x4E00;&#x5BF9;&#x591A;&#x6216;&#x591A;&#x5BF9;&#x4E00;</p>
+<p>&#x4E3E;&#x4F8B;&#xFF1A; &#x4E00;&#x4E2A;&#x4EBA;&#x53EF;&#x4EE5;&#x62E5;&#x6709;&#x591A;&#x8F86;&#x6C7D;&#x8F66;&#xFF0C;&#x6BCF;&#x8F86;&#x8F66;&#x767B;&#x8BB0;&#x7684;&#x8F66;&#x4E3B;&#x53EA;&#x6709;&#x4E00;&#x4EBA;&#x3002;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> person<span class="token punctuation">(</span>
+  id <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+  name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  sex <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  age <span class="token keyword">int</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">create</span> <span class="token keyword">table</span> car<span class="token punctuation">(</span>
+  id <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+  name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  price <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  pid <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token keyword">constraint</span> car_fk <span class="token keyword">foreign</span> <span class="token keyword">key</span><span class="token punctuation">(</span>pid<span class="token punctuation">)</span> <span class="token keyword">references</span> person<span class="token punctuation">(</span>id<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><ul>
+<li>&#x591A;&#x5BF9;&#x591A;&#x5173;&#x7CFB;</li>
+</ul>
+<blockquote>
+<p>&#x4E00;&#x5BF9;&#x8868;&#x4E2D;&#xFF08;A&#xFF09;&#x7684;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x80FD;&#x591F;&#x5BF9;&#x5E94;&#x53E6;&#x5916;&#x4E00;&#x5F20;&#x8868;&#xFF08;B&#xFF09;&#x4E2D;&#x7684;&#x591A;&#x6761;&#x8BB0;&#x5F55;&#xFF1B;&#x540C;&#x65F6;B&#x8868;&#x4E2D;&#x7684;&#x4E00;&#x6761;&#x8BB0;&#x5F55;<br>
+&#x4E5F;&#x80FD;&#x5BF9;&#x5E94;A&#x8868;&#x4E2D;&#x7684;&#x591A;&#x6761;&#x8BB0;&#x5F55;</p>
+<p>&#x4E3E;&#x4F8B;&#xFF1A;&#x4E00;&#x4E2A;&#x8FD0;&#x52A8;&#x5458;&#x53EF;&#x4EE5;&#x62A5;&#x591A;&#x4E2A;&#x9879;&#x76EE;&#xFF0C;&#x6BCF;&#x4E2A;&#x9879;&#x76EE;&#x4E5F;&#x4F1A;&#x6709;&#x591A;&#x4E2A;&#x8FD0;&#x52A8;&#x5458;&#x53C2;&#x52A0;,&#x8FD9;&#x65F6;&#x4E3A;&#x4E86;&#x8868;&#x8FBE;&#x591A;&#x5BF9;&#x591A;&#x5173;&#x7CFB;&#x9700;&#x8981;&#x5355;&#x72EC;&#x521B;&#x5EFA;&#x5173;&#x7CFB;&#x8868;&#x3002;</p>
+</blockquote>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>CREATE TABLE `athlete` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL,
+  `age` tinyint NOT NULL,
+  `country` varchar(30) NOT NULL,
+  `description` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `item` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `rname` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `athlete_item` (
+  `aid` int NOT NULL,
+  `tid` int NOT NULL,
+  PRIMARY KEY (`aid`,`tid`),
+  CONSTRAINT `athlete_fk` FOREIGN KEY (`aid`) REFERENCES `athlete` (`id`),
+  CONSTRAINT `item_fk` FOREIGN KEY (`tid`) REFERENCES `item` (`id`)
+);
+</code></pre><h4 class="mume-header" id="e-r%E6%A8%A1%E5%9E%8B">E-R&#x6A21;&#x578B;</h4>
+
+<p><strong>&#x5B9A;&#x4E49;</strong></p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>E-R&#x6A21;&#x578B;(Entry-Relationship)&#x5373; &#x5B9E;&#x4F53;-&#x5173;&#x7CFB; &#x6570;&#x636E;&#x6A21;&#x578B;,&#x7528;&#x4E8E;&#x6570;&#x636E;&#x5E93;&#x8BBE;&#x8BA1;
+&#x7528;&#x7B80;&#x5355;&#x7684;&#x56FE;(E-R&#x56FE;)&#x53CD;&#x6620;&#x4E86;&#x73B0;&#x5B9E;&#x4E16;&#x754C;&#x4E2D;&#x5B58;&#x5728;&#x7684;&#x4E8B;&#x7269;&#x6216;&#x6570;&#x636E;&#x4EE5;&#x53CA;&#x4ED6;&#x4EEC;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;
+</code></pre><p><strong>&#x5B9E;&#x4F53;&#x3001;&#x5C5E;&#x6027;&#x3001;&#x5173;&#x7CFB;</strong></p>
+<ul>
+<li>&#x5B9E;&#x4F53;</li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1&#x3001;&#x63CF;&#x8FF0;&#x5BA2;&#x89C2;&#x4E8B;&#x7269;&#x7684;&#x6982;&#x5FF5;
+2&#x3001;&#x8868;&#x793A;&#x65B9;&#x6CD5; &#xFF1A;&#x77E9;&#x5F62;&#x6846;
+3&#x3001;&#x793A;&#x4F8B; &#xFF1A;&#x4E00;&#x4E2A;&#x4EBA;&#x3001;&#x4E00;&#x672C;&#x4E66;&#x3001;&#x4E00;&#x676F;&#x5496;&#x5561;&#x3001;&#x4E00;&#x4E2A;&#x5B66;&#x751F;
+</code></pre><ul>
+<li>&#x5C5E;&#x6027;</li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1&#x3001;&#x5B9E;&#x4F53;&#x5177;&#x6709;&#x7684;&#x67D0;&#x79CD;&#x7279;&#x6027;
+2&#x3001;&#x8868;&#x793A;&#x65B9;&#x6CD5; &#xFF1A;&#x692D;&#x5706;&#x5F62;
+3&#x3001;&#x793A;&#x4F8B;
+   &#x5B66;&#x751F;&#x5C5E;&#x6027; &#xFF1A;&#x5B66;&#x53F7;&#x3001;&#x59D3;&#x540D;&#x3001;&#x5E74;&#x9F84;&#x3001;&#x6027;&#x522B;&#x3001;&#x4E13;&#x4E1A; ... 
+   &#x611F;&#x53D7;&#x5C5E;&#x6027; &#xFF1A;&#x60B2;&#x4F24;&#x3001;&#x559C;&#x60A6;&#x3001;&#x523A;&#x6FC0;&#x3001;&#x6124;&#x6012; ...
+</code></pre><ul>
+<li>&#x5173;&#x7CFB;</li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1&#x3001;&#x5B9E;&#x4F53;&#x4E4B;&#x95F4;&#x7684;&#x8054;&#x7CFB;
+2&#x3001;&#x4E00;&#x5BF9;&#x4E00;&#x5173;&#x8054;(1:1)
+3&#x3001;&#x4E00;&#x5BF9;&#x591A;&#x5173;&#x8054;(1:n)
+4&#x3001;&#x591A;&#x5BF9;&#x591A;&#x5173;&#x8054;(m:n) 
+</code></pre><p><strong>ER&#x56FE;&#x7684;&#x7ED8;&#x5236;</strong></p>
+<p>&#x77E9;&#x5F62;&#x6846;&#x4EE3;&#x8868;&#x5B9E;&#x4F53;,&#x83F1;&#x5F62;&#x6846;&#x4EE3;&#x8868;&#x5173;&#x7CFB;,&#x692D;&#x5706;&#x5F62;&#x4EE3;&#x8868;&#x5C5E;&#x6027;</p>
+<p><img src="./img/er.PNG" alt></p>
+<h3 class="mume-header" id="%E8%A1%A8%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2">&#x8868;&#x5173;&#x8054;&#x67E5;&#x8BE2;</h3>
+
+<p>&#x5982;&#x679C;&#x591A;&#x4E2A;&#x8868;&#x5B58;&#x5728;&#x4E00;&#x5B9A;&#x5173;&#x8054;&#x5173;&#x7CFB;&#xFF0C;&#x53EF;&#x4EE5;&#x591A;&#x8868;&#x5728;&#x4E00;&#x8D77;&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#x64CD;&#x4F5C;&#xFF0C;&#x5176;&#x5B9E;&#x8868;&#x7684;&#x5173;&#x8054;&#x67E5;&#x8BE2;&#x4E0E;&#x5916;&#x952E;&#x7EA6;&#x675F;&#x4E4B;&#x95F4;&#x5E76;&#x6CA1;&#x6709;&#x5FC5;&#x7136;&#x8054;&#x7CFB;&#xFF0C;&#x4F46;&#x662F;&#x57FA;&#x4E8E;&#x5916;&#x952E;&#x7EA6;&#x675F;&#x8BBE;&#x8BA1;&#x7684;&#x5177;&#x6709;&#x5173;&#x8054;&#x6027;&#x7684;&#x8868;&#x5F80;&#x5F80;&#x4F1A;&#x66F4;&#x591A;&#x4F7F;&#x7528;&#x5173;&#x8054;&#x67E5;&#x8BE2;&#x67E5;&#x627E;&#x6570;&#x636E;&#x3002;</p>
+<h4 class="mume-header" id="%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2">&#x591A;&#x8868;&#x67E5;&#x8BE2;</h4>
+
+<p>&#x591A;&#x4E2A;&#x8868;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x8054;&#x5408;&#x67E5;&#x8BE2;&#xFF0C;&#x8BED;&#x6CD5;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span>  &#x5B57;&#x6BB5;<span class="token number">1</span><span class="token punctuation">,</span>&#x5B57;&#x6BB5;<span class="token number">2.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">from</span> &#x8868;<span class="token number">1</span><span class="token punctuation">,</span>&#x8868;<span class="token number">2.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">[</span><span class="token keyword">where</span> &#x6761;&#x4EF6;<span class="token punctuation">]</span>
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> dept<span class="token punctuation">,</span>person <span class="token keyword">where</span> dept<span class="token punctuation">.</span>id <span class="token operator">=</span> person<span class="token punctuation">.</span>dept_id<span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="%E5%86%85%E8%BF%9E%E6%8E%A5">&#x5185;&#x8FDE;&#x63A5;</h4>
+
+<p>&#x5185;&#x8FDE;&#x63A5;&#x67E5;&#x8BE2;&#x53EA;&#x4F1A;&#x67E5;&#x627E;&#x5230;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x5176;&#x5B9E;&#x7ED3;&#x679C;&#x548C;&#x8868;&#x5173;&#x8054;&#x67E5;&#x8BE2;&#x662F;&#x4E00;&#x6837;&#x7684;,&#x5B98;&#x65B9;&#x66F4;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x5185;&#x8FDE;&#x63A5;&#x67E5;&#x8BE2;&#x3002;</p>
+<p><img src="./img/inner.PNG" alt></p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">SELECT</span> &#x5B57;&#x6BB5;&#x5217;&#x8868;
+    <span class="token keyword">FROM</span> &#x8868;<span class="token number">1</span>  <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span>  &#x8868;<span class="token number">2</span>
+<span class="token keyword">ON</span> &#x8868;<span class="token number">1.</span>&#x5B57;&#x6BB5; <span class="token operator">=</span> &#x8868;<span class="token number">2.</span>&#x5B57;&#x6BB5;<span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> person <span class="token keyword">inner</span> <span class="token keyword">join</span>  dept  <span class="token keyword">on</span>  person<span class="token punctuation">.</span>dept_id <span class="token operator">=</span>dept<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+</pre><ul>
+<li>&#x7B1B;&#x5361;&#x5C14;&#x79EF;</li>
+</ul>
+<p>&#x7B1B;&#x5361;&#x5C14;&#x79EF;&#x5C31;&#x662F;&#x5C06;A&#x8868;&#x7684;&#x6BCF;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x4E0E;B&#x8868;&#x7684;&#x6BCF;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x5F3A;&#x884C;&#x62FC;&#x5728;&#x4E00;&#x8D77;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x5982;&#x679C;A&#x8868;&#x6709;n&#x6761;&#x8BB0;&#x5F55;&#xFF0C;B&#x8868;&#x6709;m&#x6761;&#x8BB0;&#x5F55;&#xFF0C;&#x7B1B;&#x5361;&#x5C14;&#x79EF;&#x4EA7;&#x751F;&#x7684;&#x7ED3;&#x679C;&#x5C31;&#x4F1A;&#x4EA7;&#x751F;n*m&#x6761;&#x8BB0;&#x5F55;&#x3002;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> person <span class="token keyword">inner</span> <span class="token keyword">join</span>  dept<span class="token punctuation">;</span>
+</pre><h4 class="mume-header" id="%E5%A4%96%E9%93%BE%E6%8E%A5">&#x5916;&#x94FE;&#x63A5;</h4>
+
+<ul>
+<li>&#x5DE6;&#x8FDE;&#x63A5;  : &#x5DE6;&#x8868;&#x4E3A;&#x4E3B;&#x8868;&#xFF0C;&#x663E;&#x793A;&#x53F3;&#x8868;&#x4E2D;&#x4E0E;&#x5DE6;&#x8868;&#x5339;&#x914D;&#x7684;&#x9879;</li>
+</ul>
+<p><img src="./img/left.PNG" alt></p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">SELECT</span> &#x5B57;&#x6BB5;&#x5217;&#x8868;
+    <span class="token keyword">FROM</span> &#x8868;<span class="token number">1</span>  <span class="token keyword">LEFT</span> <span class="token keyword">JOIN</span>  &#x8868;<span class="token number">2</span>
+<span class="token keyword">ON</span> &#x8868;<span class="token number">1.</span>&#x5B57;&#x6BB5; <span class="token operator">=</span> &#x8868;<span class="token number">2.</span>&#x5B57;&#x6BB5;<span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> person <span class="token keyword">left</span> <span class="token keyword">join</span>  dept  <span class="token keyword">on</span>  person<span class="token punctuation">.</span>dept_id <span class="token operator">=</span>dept<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+</pre><ul>
+<li>&#x53F3;&#x8FDE;&#x63A5; &#xFF1A;&#x53F3;&#x8868;&#x4E3A;&#x4E3B;&#x8868;&#xFF0C;&#x663E;&#x793A;&#x5DE6;&#x8868;&#x4E2D;&#x4E0E;&#x5DE6;&#x8868;&#x5339;&#x914D;&#x7684;&#x9879;</li>
+</ul>
+<p><img src="./img/right.PNG" alt></p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">SELECT</span> &#x5B57;&#x6BB5;&#x5217;&#x8868;
+    <span class="token keyword">FROM</span> &#x8868;<span class="token number">1</span>  <span class="token keyword">RIGHT</span> <span class="token keyword">JOIN</span>  &#x8868;<span class="token number">2</span>
+<span class="token keyword">ON</span> &#x8868;<span class="token number">1.</span>&#x5B57;&#x6BB5; <span class="token operator">=</span> &#x8868;<span class="token number">2.</span>&#x5B57;&#x6BB5;<span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> person <span class="token keyword">right</span> <span class="token keyword">join</span>  dept  <span class="token keyword">on</span>  person<span class="token punctuation">.</span>dept_id <span class="token operator">=</span>dept<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+</pre><ul>
+<li>&#x6CE8;&#x610F;&#xFF1A;&#x6211;&#x4EEC;&#x5C3D;&#x91CF;&#x4F7F;&#x7528;&#x6570;&#x636E;&#x91CF;&#x5927;&#x7684;&#x8868;&#x4F5C;&#x4E3A;&#x57FA;&#x51C6;&#x8868;&#xFF0C;&#x5373;&#x5DE6;&#x8FDE;&#x63A5;&#x505A;&#x5DE6;&#x8868;&#xFF0C;&#x53F3;&#x8FDE;&#x63A5;&#x505A;&#x53F3;&#x8868;</li>
+</ul>
+<h2 class="mume-header" id="%E8%A7%86%E5%9B%BE">&#x89C6;&#x56FE;</h2>
+
+<h3 class="mume-header" id="%E8%A7%86%E5%9B%BE%E6%A6%82%E5%BF%B5">&#x89C6;&#x56FE;&#x6982;&#x5FF5;</h3>
+
+<blockquote>
+<p>&#x89C6;&#x56FE;&#x662F;&#x5B58;&#x50A8;&#x7684;&#x67E5;&#x8BE2;&#x8BED;&#x53E5;,&#x5F53;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;,&#x4EA7;&#x751F;&#x7ED3;&#x679C;&#x96C6;,&#x89C6;&#x56FE;&#x5145;&#x5F53;&#x7684;&#x662F;&#x865A;&#x62DF;&#x8868;&#x7684;&#x89D2;&#x8272;&#x3002;&#x5176;&#x5B9E;&#x89C6;&#x56FE;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x4E00;&#x4E2A;&#x8868;&#x6216;&#x591A;&#x4E2A;&#x8868;&#x4E2D;&#x5BFC;&#x51FA;&#x6765;&#x7684;&#x8868;&#xFF0C;&#x4F5C;&#x7528;&#x548C;&#x771F;&#x5B9E;&#x8868;&#x4E00;&#x6837;&#xFF0C;&#x5305;&#x542B;&#x4E00;&#x7CFB;&#x5217;&#x5E26;&#x6709;&#x884C;&#x548C;&#x5217;&#x7684;&#x6570;&#x636E; &#x89C6;&#x56FE;&#x4E2D;&#xFF0C;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;SELECT&#x8BED;&#x53E5;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;INSERT&#xFF0C;UPDATE&#xFF0C;DELETE&#x4FEE;&#x6539;&#x8BB0;&#x5F55;&#xFF0C;&#x89C6;&#x56FE;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6237;&#x64CD;&#x4F5C;&#x65B9;&#x4FBF;&#xFF0C;&#x5E76;&#x4FDD;&#x969C;&#x6570;&#x636E;&#x5E93;&#x7CFB;&#x7EDF;&#x5B89;&#x5168;&#xFF0C;&#x5982;&#x679C;&#x539F;&#x8868;&#x6539;&#x540D;&#x6216;&#x8005;&#x5220;&#x9664;&#x5219;&#x89C6;&#x56FE;&#x4E5F;&#x5931;&#x6548;&#x3002;</p>
+</blockquote>
+<h3 class="mume-header" id="%E8%A7%86%E5%9B%BE%E6%93%8D%E4%BD%9C">&#x89C6;&#x56FE;&#x64CD;&#x4F5C;</h3>
+
+<ul>
+<li>&#x521B;&#x5EFA;&#x89C6;&#x56FE;</li>
+</ul>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">&#x8BED;&#x6CD5;&#x7ED3;&#x6784;&#xFF1A;
+
+<span class="token keyword">CREATE</span> <span class="token punctuation">[</span><span class="token operator">OR</span> <span class="token keyword">REPLACE</span><span class="token punctuation">]</span> <span class="token keyword">VIEW</span> <span class="token punctuation">[</span>view_name<span class="token punctuation">]</span> <span class="token keyword">AS</span> <span class="token punctuation">[</span>SELECT_STATEMENT<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+&#x91CA;&#x4E49;&#xFF1A;
+
+<span class="token keyword">CREATE</span> <span class="token keyword">VIEW</span>&#xFF1A; &#x521B;&#x5EFA;&#x89C6;&#x56FE;
+<span class="token operator">OR</span> <span class="token keyword">REPLACE</span> : &#x53EF;&#x9009;&#xFF0C;&#x5982;&#x679C;&#x6DFB;&#x52A0;&#x539F;&#x6765;&#x6709;&#x540C;&#x540D;&#x89C6;&#x56FE;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4F1A;&#x8986;&#x76D6;&#x6389;&#x539F;&#x6709;&#x89C6;&#x56FE;
+view_name &#xFF1A; &#x89C6;&#x56FE;&#x540D;&#x79F0;
+SELECT_STATEMENT &#xFF1A;<span class="token keyword">SELECT</span>&#x8BED;&#x53E5;
+
+e<span class="token punctuation">.</span>g<span class="token punctuation">.</span>
+<span class="token keyword">create</span> <span class="token keyword">view</span>  c1 <span class="token keyword">as</span> <span class="token keyword">select</span> name<span class="token punctuation">,</span>age <span class="token keyword">from</span> class_1<span class="token punctuation">;</span>
+</pre><ul>
+<li>
+<p>&#x89C6;&#x56FE;&#x8868;&#x7684;&#x589E;&#x5220;&#x6539;&#x67E5;&#x64CD;&#x4F5C;</p>
+<p>&#x89C6;&#x56FE;&#x7684;&#x589E;&#x5220;&#x6539;&#x67E5;&#x64CD;&#x4F5C;&#x4E0E;&#x4E00;&#x822C;&#x8868;&#x7684;&#x64CD;&#x4F5C;&#x76F8;&#x540C;&#xFF0C;&#x4F7F;&#x7528;insert update delete select&#x5373;&#x53EF;&#xFF0C;&#x4F46;&#x662F;&#x539F;&#x6570;&#x636E;&#x8868;&#x7684;&#x7EA6;&#x675F;&#x6761;&#x4EF6;&#x4ECD;&#x7136;&#x5BF9;&#x89C6;&#x56FE;&#x4EA7;&#x751F;&#x4F5C;&#x7528;&#x3002;</p>
+</li>
+<li>
+<p>&#x67E5;&#x770B;&#x6240;&#x6709;&#x89C6;&#x56FE;</p>
+<pre data-role="codeBlock" data-info class="language-"><code>show full tables in stu where table_type like &apos;VIEW&apos;;
+</code></pre></li>
+<li>
+<p>&#x5220;&#x9664;&#x89C6;&#x56FE;</p>
+<p>drop view [IF EXISTS] &#x89C6;&#x56FE;&#x540D;&#xFF1B;</p>
+<p>IF EXISTS &#x8868;&#x793A;&#x5982;&#x679C;&#x5B58;&#x5728;&#xFF0C;&#x8FD9;&#x6837;&#x5373;&#x4F7F;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x89C6;&#x56FE;&#x4E5F;&#x4E0D;&#x4F1A;&#x62A5;&#x9519;&#x3002;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">drop</span> <span class="token keyword">view</span> c1<span class="token punctuation">;</span>
+</pre></li>
+<li>
+<p>&#x4FEE;&#x6539;&#x89C6;&#x56FE;</p>
+<p>&#x53C2;&#x8003;&#x521B;&#x5EFA;&#x89C6;&#x56FE;&#xFF0C;&#x5C06;create&#x5173;&#x952E;&#x5B57;&#x6539;&#x4E3A;alter</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">alter</span> <span class="token keyword">view</span>  c1 <span class="token keyword">as</span> <span class="token keyword">select</span> name<span class="token punctuation">,</span>age<span class="token punctuation">,</span>score <span class="token keyword">from</span> class_1<span class="token punctuation">;</span>
+</pre></li>
+</ul>
+<h3 class="mume-header" id="%E8%A7%86%E5%9B%BE%E4%BD%9C%E7%94%A8">&#x89C6;&#x56FE;&#x4F5C;&#x7528;</h3>
+
+<ul>
+<li>&#x4F5C;&#x7528;
+<ol>
+<li>&#x662F;&#x5BF9;&#x6570;&#x636E;&#x7684;&#x4E00;&#x79CD;&#x91CD;&#x6784;&#xFF0C;&#x4E0D;&#x5F71;&#x54CD;&#x539F;&#x6570;&#x636E;&#x8868;&#x7684;&#x4F7F;&#x7528;&#x3002;</li>
+<li>&#x7B80;&#x5316;&#x9AD8;&#x9891;&#x590D;&#x6742;&#x64CD;&#x4F5C;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5C31;&#x50CF;&#x4E00;&#x79CD;&#x5BF9;&#x590D;&#x6742;&#x64CD;&#x4F5C;&#x7684;&#x5C01;&#x88C5;&#x3002;</li>
+<li>&#x63D0;&#x9AD8;&#x5B89;&#x5168;&#x6027;&#xFF0C;&#x53EF;&#x4EE5;&#x7ED9;&#x4E0D;&#x540C;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x4E0D;&#x540C;&#x7684;&#x89C6;&#x56FE;</li>
+<li>&#x8BA9;&#x6570;&#x636E;&#x66F4;&#x52A0;&#x6E05;&#x6670;</li>
+</ol>
+</li>
+<li>&#x7F3A;&#x70B9;
+<ol>
+<li>&#x89C6;&#x56FE;&#x7684;&#x6027;&#x80FD;&#x76F8;&#x5BF9;&#x8F83;&#x5DEE;&#xFF0C;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x89C6;&#x56FE;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x53EF;&#x80FD;&#x4F1A;&#x5F88;&#x6162;</li>
+<li>&#x8868;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x5904;&#x7406;&#x9EBB;&#x70E6;&#xFF0C;&#x6839;&#x636E;&#x6570;&#x636E;&#x5E93;&#x7684;&#x57FA;&#x7840;&#x8868;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x89C6;&#x56FE;&#x3002;&#x6BCF;&#x5F53;&#x66F4;&#x6539;&#x89C6;&#x56FE;&#x6216;&#x8005;&#x539F;&#x8868;&#x65F6;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x4E5F;&#x4F1A;&#x4FEE;&#x6539;&#x3002;</li>
+</ol>
+</li>
+</ul>
+<h2 class="mume-header" id="%E5%87%BD%E6%95%B0%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B">&#x51FD;&#x6570;&#x548C;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;</h2>
+
+<p>&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x548C;&#x51FD;&#x6570;&#x662F;&#x4E8B;&#x5148;&#x7ECF;&#x8FC7;&#x7F16;&#x8BD1;&#x5E76;&#x5B58;&#x50A8;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x4E00;&#x6BB5;sql&#x8BED;&#x53E5;&#x96C6;&#x5408;&#xFF0C;&#x8C03;&#x7528;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x548C;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x5DE5;&#x4F5C;&#xFF0C;&#x63D0;&#x9AD8;&#x6570;&#x636E;&#x5904;&#x7406;&#x7684;&#x6548;&#x7387;&#x3002;</p>
+<h3 class="mume-header" id="%E5%87%BD%E6%95%B0%E5%88%9B%E5%BB%BA">&#x51FD;&#x6570;&#x521B;&#x5EFA;</h3>
+
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">delimiter</span> &#x81EA;&#x5B9A;&#x4E49;&#x7B26;&#x53F7;&#x3000;&#x3000;<span class="token comment">-- &#x5982;&#x679C;&#x51FD;&#x6570;&#x4F53;&#x53EA;&#x6709;&#x4E00;&#x6761;&#x8BED;&#x53E5;, begin&#x548C;end&#x53EF;&#x4EE5;&#x7701;&#x7565;, &#x540C;&#x65F6;delimiter&#x4E5F;&#x53EF;&#x4EE5;&#x7701;&#x7565;</span>
+
+&#x3000;&#x3000;<span class="token keyword">create</span> <span class="token keyword">function</span> &#x51FD;&#x6570;&#x540D;<span class="token punctuation">(</span>&#x5F62;&#x53C2;&#x5217;&#x8868;<span class="token punctuation">)</span> <span class="token keyword">returns</span> &#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x3000;&#x3000;<span class="token comment">-- &#x6CE8;&#x610F;&#x662F;retruns</span>
+
+&#x3000;&#x3000;<span class="token keyword">begin</span>
+
+&#x3000;&#x3000;&#x3000;&#x3000;&#x51FD;&#x6570;&#x4F53;&#x3000;&#x3000;&#x3000;&#x3000;<span class="token comment">-- &#x51FD;&#x6570;&#x8BED;&#x53E5;&#x96C6;,set @a &#x5B9A;&#x4E49;&#x53D8;&#x91CF;</span>
+
+&#x3000;&#x3000;&#x3000;&#x3000;<span class="token keyword">return</span> val
+
+&#x3000;&#x3000;<span class="token keyword">end</span>  &#x81EA;&#x5B9A;&#x4E49;&#x7B26;&#x53F7;
+
+<span class="token keyword">delimiter</span> <span class="token punctuation">;</span>
+
+&#x91CA;&#x4E49;&#xFF1A;
+<span class="token keyword">delimiter</span> &#x81EA;&#x5B9A;&#x4E49;&#x7B26;&#x53F7; &#x662F;&#x4E3A;&#x4E86;&#x5728;&#x51FD;&#x6570;&#x5185;&#x4E9B;&#x8BED;&#x53E5;&#x65B9;&#x4FBF;&#xFF0C;&#x5236;&#x5B9A;&#x9664;&#x4E86;<span class="token punctuation">;</span>&#x4E4B;&#x5916;&#x7684;&#x7B26;&#x53F7;&#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x4E66;&#x5199;&#x7ED3;&#x675F;&#x6807;&#x5FD7;<span class="token punctuation">,</span>&#x4E00;&#x822C;&#x7528;$$&#x6216;&#x8005;<span class="token comment">//</span>
+&#x5F62;&#x53C2;&#x5217;&#x8868; &#xFF1A; &#x5F62;&#x53C2;&#x540D; &#x7C7B;&#x578B;   &#x7C7B;&#x578B;&#x4E3A;mysql&#x652F;&#x6301;&#x7C7B;&#x578B;
+&#x8FD4;&#x56DE;&#x7C7B;&#x578B;:  &#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;<span class="token punctuation">,</span>mysql&#x652F;&#x6301;&#x7C7B;&#x578B;&#x5373;&#x53EF;
+&#x51FD;&#x6570;&#x4F53;&#xFF1A; &#x82E5;&#x5E72;<span class="token keyword">sql</span>&#x8BED;&#x53E5;&#x7EC4;&#x6210;&#xFF0C;&#x5982;&#x679C;&#x53EA;&#x6709;&#x4E00;&#x6761;&#x8BED;&#x53E5;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x5199;<span class="token keyword">delimiter</span>&#x548C;<span class="token keyword">begin</span><span class="token punctuation">,</span><span class="token keyword">end</span>
+<span class="token keyword">return</span>: &#x8FD4;&#x56DE;&#x6307;&#x5B9A;&#x7C7B;&#x578B;&#x8FD4;&#x56DE;&#x503C;
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> &#x65E0;&#x53C2;&#x6570;&#x7684;&#x51FD;&#x6570;&#x8C03;&#x7528;
+<span class="token keyword">delimiter</span> $$
+<span class="token keyword">create</span> <span class="token keyword">function</span> st<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">returns</span> <span class="token keyword">int</span> 
+<span class="token keyword">begin</span> 
+<span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">select</span> score <span class="token keyword">from</span> class_1 <span class="token keyword">order</span> <span class="token keyword">by</span> score <span class="token keyword">desc</span> <span class="token keyword">limit</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token keyword">end</span> $$
+<span class="token keyword">delimiter</span> <span class="token punctuation">;</span>
+
+<span class="token keyword">select</span> st<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> &#x542B;&#x6709;&#x53C2;&#x6570;&#x7684;&#x51FD;&#x6570;&#x8C03;&#x7528;
+<span class="token keyword">delimiter</span> $$
+<span class="token keyword">create</span> <span class="token keyword">function</span> queryNameById<span class="token punctuation">(</span>uid <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span> 
+<span class="token keyword">returns</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+<span class="token keyword">begin</span>
+<span class="token keyword">return</span>  <span class="token punctuation">(</span><span class="token keyword">select</span> name <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> id<span class="token operator">=</span>uid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span> $$
+<span class="token keyword">delimiter</span> <span class="token punctuation">;</span>
+
+<span class="token keyword">select</span> queryNameById<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%88%9B%E5%BB%BA">&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x521B;&#x5EFA;</h3>
+
+<p>&#x521B;&#x5EFA;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x8BED;&#x6CD5;&#x4E0E;&#x521B;&#x5EFA;&#x51FD;&#x6570;&#x57FA;&#x672C;&#x76F8;&#x540C;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x3002;</p>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">delimiter</span> &#x81EA;&#x5B9A;&#x4E49;&#x7B26;&#x53F7;&#x3000;
+
+&#x3000;&#x3000;<span class="token keyword">create</span> <span class="token keyword">procedure</span> &#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x540D;<span class="token punctuation">(</span>&#x5F62;&#x53C2;&#x5217;&#x8868;<span class="token punctuation">)</span>
+
+&#x3000;&#x3000;<span class="token keyword">begin</span>
+
+&#x3000;&#x3000;&#x3000;&#x3000;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x3000;&#x3000;&#x3000;&#x3000;<span class="token comment">-- &#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x8BED;&#x53E5;&#x96C6;,set @a &#x5B9A;&#x4E49;&#x53D8;&#x91CF;</span>
+
+&#x3000;&#x3000;<span class="token keyword">end</span>  &#x81EA;&#x5B9A;&#x4E49;&#x7B26;&#x53F7;
+
+<span class="token keyword">delimiter</span> <span class="token punctuation">;</span>
+
+&#x91CA;&#x4E49;&#xFF1A;
+<span class="token keyword">delimiter</span> &#x81EA;&#x5B9A;&#x4E49;&#x7B26;&#x53F7; &#x662F;&#x4E3A;&#x4E86;&#x5728;&#x51FD;&#x6570;&#x5185;&#x4E9B;&#x8BED;&#x53E5;&#x65B9;&#x4FBF;&#xFF0C;&#x5236;&#x5B9A;&#x9664;&#x4E86;<span class="token punctuation">;</span>&#x4E4B;&#x5916;&#x7684;&#x7B26;&#x53F7;&#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x4E66;&#x5199;&#x7ED3;&#x675F;&#x6807;&#x5FD7;
+&#x5F62;&#x53C2;&#x5217;&#x8868; &#xFF1A;<span class="token punctuation">[</span> <span class="token operator">IN</span> <span class="token operator">|</span> <span class="token keyword">OUT</span> <span class="token operator">|</span> <span class="token keyword">INOUT</span> <span class="token punctuation">]</span> &#x5F62;&#x53C2;&#x540D; &#x7C7B;&#x578B;
+          <span class="token operator">in</span> &#x8F93;&#x5165;&#xFF0C;<span class="token keyword">out</span>  &#x8F93;&#x51FA;&#xFF0C;<span class="token keyword">inout</span> &#x53EF;&#x4EE5;&#x8F93;&#x5165;&#x4E5F;&#x53EF;&#x4EE5;&#x8F93;&#x51FA;
+&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#xFF1A; &#x82E5;&#x5E72;<span class="token keyword">sql</span>&#x8BED;&#x53E5;&#x7EC4;&#x6210;&#xFF0C;&#x5982;&#x679C;&#x53EA;&#x6709;&#x4E00;&#x6761;&#x8BED;&#x53E5;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x5199;<span class="token keyword">delimiter</span>&#x548C;<span class="token keyword">begin</span><span class="token punctuation">,</span><span class="token keyword">end</span>
+
+</pre><pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> &#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x521B;&#x5EFA;&#x548C;&#x8C03;&#x7528;
+<span class="token keyword">delimiter</span> $$
+<span class="token keyword">create</span> <span class="token keyword">procedure</span> st<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+<span class="token keyword">begin</span> 
+    <span class="token keyword">select</span> name<span class="token punctuation">,</span>age <span class="token keyword">from</span> class_1<span class="token punctuation">;</span> 
+    <span class="token keyword">select</span> name<span class="token punctuation">,</span>score <span class="token keyword">from</span> class_1 <span class="token keyword">order</span> <span class="token keyword">by</span> score <span class="token keyword">desc</span><span class="token punctuation">;</span> 
+<span class="token keyword">end</span> $$
+<span class="token keyword">delimiter</span> <span class="token punctuation">;</span>
+
+<span class="token keyword">call</span> st<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><ul>
+<li>&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x533A;&#x522B;
+<ul>
+<li>IN &#x7C7B;&#x578B;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x53D8;&#x91CF;&#x4E5F;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x5E38;&#x91CF;&#xFF0C;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#x5728;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x5185;&#x90E8;&#x4F7F;&#x7528;&#x5373;&#x53EF;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x5185;&#x90E8;&#x7684;&#x4FEE;&#x6539;&#x65E0;&#x6CD5;&#x4F20;&#x9012;&#x5230;&#x5916;&#x90E8;&#x3002;</li>
+<li>OUT &#x7C7B;&#x578B;&#x53C2;&#x6570;&#x53EA;&#x80FD;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x63A5;&#x6536;&#x7684;&#x53D8;&#x91CF;&#x4E0D;&#x80FD;&#x591F;&#x5728;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x5185;&#x90E8;&#x4F7F;&#x7528;&#xFF08;&#x5185;&#x90E8;&#x4E3A;NULL&#xFF09;&#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x4EE5;&#x5728;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x5185;&#x5BF9;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;&#x56E0;&#x4E3A;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;&#x662F;&#x5168;&#x5C40;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5916;&#x90E8;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x8FD9;&#x4E2A;&#x4FEE;&#x6539;&#x540E;&#x7684;&#x503C;&#x3002;</li>
+<li>INOUT&#x7C7B;&#x578B;&#x53C2;&#x6570;&#x540C;&#x6837;&#x53EA;&#x80FD;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x53EF;&#x4EE5;&#x5728;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x5185;&#x90E8;&#x4F7F;&#x7528;&#x3002;&#x5728;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x5185;&#x90E8;&#x7684;&#x4FEE;&#x6539;&#x4E5F;&#x4F1A;&#x4F20;&#x9012;&#x5230;&#x5916;&#x90E8;&#x3002;</li>
+<li>&#x8BBE;&#x7F6E;&#x53D8;&#x91CF;&#x65B9;&#x6CD5;&#xFF1A;   set  @[&#x53D8;&#x91CF;&#x540D;] = &#x503C;&#xFF1B; &#x8868;&#x793A;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x53D8;&#x91CF;&#xFF0C;&#x4F7F;&#x7528;&#x65F6;&#x7528;@[&#x53D8;&#x91CF;&#x540D;]&#x3002; &#x5728;&#x51FD;&#x6570;&#x5185;&#x90E8;&#x8BBE;&#x7F6E;declare [&#x53D8;&#x91CF;&#x540D;] [&#x53D8;&#x91CF;&#x7C7B;&#x578B;]&#x4E3A;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#xFF0C;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;set&#x8D4B;&#x503C;&#x6216;&#x8005;&#x7740;&#x4F7F;&#x7528;into&#x5173;&#x952E;&#x5B57;,&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8981;&#x5B9A;&#x4E49;&#x5728;&#x8BED;&#x53E5;&#x5757;&#x5F00;&#x59CB;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="sql" class="language-sql">e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> : &#x5206;&#x522B;&#x5C06;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x6539;&#x4E3A;<span class="token operator">IN</span> <span class="token keyword">OUT</span> <span class="token keyword">INOUT</span> &#x770B;&#x4E00;&#x4E0B;&#x7ED3;&#x679C;&#x533A;&#x522B;
+<span class="token keyword">delimiter</span> $$
+<span class="token keyword">create</span> <span class="token keyword">procedure</span> p_out <span class="token punctuation">(</span> <span class="token keyword">OUT</span> num <span class="token keyword">int</span> <span class="token punctuation">)</span>
+<span class="token keyword">begin</span>
+    <span class="token keyword">select</span> num<span class="token punctuation">;</span>
+    <span class="token keyword">set</span> num<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+    <span class="token keyword">select</span> num<span class="token punctuation">;</span>
+<span class="token keyword">end</span> $$
+
+<span class="token keyword">delimiter</span> <span class="token punctuation">;</span>
+
+<span class="token keyword">set</span> <span class="token variable">@num</span><span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword">call</span> p_out<span class="token punctuation">(</span><span class="token variable">@num</span><span class="token punctuation">)</span>
+</pre><h3 class="mume-header" id="%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%AD%98%E5%82%A8%E5%87%BD%E6%95%B0%E6%93%8D%E4%BD%9C">&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x548C;&#x5B58;&#x50A8;&#x51FD;&#x6570;&#x64CD;&#x4F5C;</h3>
+
+<ol>
+<li>&#x8C03;&#x7528;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;</li>
+</ol>
+<p>&#x8BED;&#x6CD5;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info class="language-"><code>call &#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x540D;&#x5B57;&#xFF08;[&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x7684;&#x53C2;&#x6570;[,&#x2026;&#x2026;]])
+</code></pre><ol start="2">
+<li>&#x8C03;&#x7528;&#x5B58;&#x50A8;&#x51FD;&#x6570;</li>
+</ol>
+<p>&#x8BED;&#x6CD5;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info class="language-"><code>select &#x5B58;&#x50A8;&#x51FD;&#x6570;&#x540D;&#x5B57;&#xFF08;[&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x7684;&#x53C2;&#x6570;[,&#x2026;&#x2026;]])
+</code></pre><ol start="3">
+<li>&#x4F7F;&#x7528;show status&#x8BED;&#x53E5;&#x67E5;&#x770B;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x548C;&#x51FD;&#x6570;&#x7684;&#x4FE1;&#x606F;</li>
+</ol>
+<p>&#x8BED;&#x6CD5;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info class="language-"><code>show {procedure|function} status [like&#x2019;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x6216;&#x5B58;&#x50A8;&#x51FD;&#x6570;&#x7684;&#x540D;&#x79F0;&#x2019;]
+</code></pre><p>&#x663E;&#x793A;&#x5185;&#x5BB9;&#xFF1A;&#x6570;&#x636E;&#x5E93;&#x3001;&#x540D;&#x5B57;&#x3001;&#x7C7B;&#x578B;&#x3001;&#x521B;&#x5EFA;&#x8005;&#x3001;&#x521B;&#x5EFA;&#x548C;&#x4FEE;&#x6539;&#x65E5;&#x671F;</p>
+<ol start="4">
+<li>&#x4F7F;&#x7528;show create&#x8BED;&#x53E5;&#x67E5;&#x770B;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x548C;&#x51FD;&#x6570;&#x7684;&#x5B9A;&#x4E49;</li>
+</ol>
+<p>&#x8BED;&#x6CD5;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info class="language-"><code>show create  {procedure|function}  &#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x6216;&#x5B58;&#x50A8;&#x51FD;&#x6570;&#x7684;&#x540D;&#x79F0;
+</code></pre><ol start="5">
+<li>
+<p>&#x67E5;&#x770B;&#x6240;&#x6709;&#x51FD;&#x6570;&#x6216;&#x8005;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;</p>
+<pre data-role="codeBlock" data-info class="language-"><code>select name from mysql.proc where db=&apos;stu&apos; and type=&apos;[procedure/function]&apos;;
+</code></pre></li>
+<li>
+<p>&#x5220;&#x9664;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x6216;&#x5B58;&#x50A8;&#x51FD;&#x6570;</p>
+</li>
+</ol>
+<p>&#x8BED;&#x6CD5;&#xFF1A;</p>
+<pre data-role="codeBlock" data-info class="language-"><code>DROP {PROCEDURE | FUNCTION} [IF EXISTS] sp_name
+</code></pre><h3 class="mume-header" id="%E5%87%BD%E6%95%B0%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%8C%BA%E5%88%AB">&#x51FD;&#x6570;&#x548C;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x533A;&#x522B;</h3>
+
+<ol>
+<li>&#x51FD;&#x6570;&#x6709;&#x4E14;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x800C;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x4E0D;&#x80FD;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x3002;</li>
+<li>&#x51FD;&#x6570;&#x53EA;&#x80FD;&#x6709;&#x8F93;&#x5165;&#x53C2;&#x6570;&#xFF0C;&#x800C;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x53EF;&#x4EE5;&#x6709;in,out,inout&#x591A;&#x4E2A;&#x7C7B;&#x578B;&#x53C2;&#x6570;&#x3002;</li>
+<li>&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x8BED;&#x53E5;&#x529F;&#x80FD;&#x66F4;&#x4E30;&#x5BCC;&#xFF0C;&#x5B9E;&#x73B0;&#x66F4;&#x590D;&#x6742;&#x7684;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#xFF0C;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x4E00;&#x4E2A;&#x6309;&#x7167;&#x9884;&#x5B9A;&#x6B65;&#x9AA4;&#x8C03;&#x7528;&#x7684;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#xFF0C;&#x800C;&#x51FD;&#x6570;&#x4E2D;&#x4E0D;&#x80FD;&#x5C55;&#x793A;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x96C6;&#x8BED;&#x53E5;&#xFF0C;&#x53EA;&#x662F;&#x5B8C;&#x6210;&#x67E5;&#x8BE2;&#x7684;&#x5DE5;&#x4F5C;&#x540E;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x7ED3;&#x679C;&#xFF0C;&#x529F;&#x80FD;&#x9488;&#x5BF9;&#x6027;&#x6BD4;&#x8F83;&#x5F3A;&#x3002;</li>
+<li>&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x4E00;&#x822C;&#x662F;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x90E8;&#x5206;&#x6765;&#x6267;&#x884C;(call&#x8C03;&#x7528;)&#x3002;&#x800C;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x67E5;&#x8BE2;&#x8BED;&#x53E5;&#x7684;&#x4E00;&#x4E2A;&#x90E8;&#x5206;&#x6765;&#x8C03;&#x7528;&#x3002;</li>
+</ol>
+<h2 class="mume-header" id="%E4%BA%8B%E5%8A%A1%E6%8E%A7%E5%88%B6">&#x4E8B;&#x52A1;&#x63A7;&#x5236;</h2>
+
+<h3 class="mume-header" id="%E4%BA%8B%E5%8A%A1%E6%A6%82%E8%BF%B0">&#x4E8B;&#x52A1;&#x6982;&#x8FF0;</h3>
+
+<p>MySQL &#x4E8B;&#x52A1;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x64CD;&#x4F5C;&#x91CF;&#x5927;&#xFF0C;&#x590D;&#x6742;&#x5EA6;&#x9AD8;&#x7684;&#x6570;&#x636E;&#x3002;&#x6BD4;&#x5982;&#x8BF4;&#xFF0C;&#x5728;&#x4EBA;&#x5458;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x4F60;&#x5220;&#x9664;&#x4E00;&#x4E2A;&#x4EBA;&#x5458;&#xFF0C;&#x65E2;&#x9700;&#x8981;&#x5220;&#x9664;&#x4EBA;&#x5458;&#x7684;&#x57FA;&#x672C;&#x8D44;&#x6599;&#xFF0C;&#x4E5F;&#x8981;&#x5220;&#x9664;&#x548C;&#x8BE5;&#x4EBA;&#x5458;&#x76F8;&#x5173;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5982;&#x4FE1;&#x7BB1;&#xFF0C;&#x6587;&#x7AE0;&#x7B49;&#x7B49;&#xFF0C;&#x5982;&#x679C;&#x64CD;&#x4F5C;&#x5C31;&#x5FC5;&#x987B;&#x540C;&#x65F6;&#x64CD;&#x4F5C;&#x6210;&#x529F;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E00;&#x4E2A;&#x4E0D;&#x6210;&#x529F;&#x5219;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x4E0D;&#x52A8;&#x3002;&#x8FD9;&#x65F6;&#x5019;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#x8BED;&#x53E5;&#x5C31;&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x3002;&#x4E8B;&#x52A1;&#x4E3B;&#x8981;&#x5904;&#x7406;&#x6570;&#x636E;&#x7684;&#x589E;&#x5220;&#x6539;&#x64CD;&#x4F5C;&#x3002;</p>
+<ul>
+<li>&#x5B9A;&#x4E49;</li>
+</ul>
+<blockquote>
+<p>&#x4E00;&#x4EF6;&#x4E8B;&#x4ECE;&#x5F00;&#x59CB;&#x53D1;&#x751F;&#x5230;&#x7ED3;&#x675F;&#x7684;&#x8FC7;&#x7A0B;</p>
+</blockquote>
+<ul>
+<li>&#x4F5C;&#x7528;</li>
+</ul>
+<blockquote>
+<p>&#x786E;&#x4FDD;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x3001;&#x5B8C;&#x6574;&#x6027;&#x3001;&#x51C6;&#x786E;&#x6027;&#x3001;&#x6709;&#x6548;&#x6027;</p>
+</blockquote>
+<h3 class="mume-header" id="%E4%BA%8B%E5%8A%A1%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7">&#x4E8B;&#x52A1;&#x56DB;&#x5927;&#x7279;&#x6027;</h3>
+
+<ol>
+<li>&#x539F;&#x5B50;&#x6027;&#xFF08;atomicity&#xFF09;</li>
+</ol>
+<blockquote>
+<p>&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x5FC5;&#x987B;&#x89C6;&#x4E3A;&#x4E00;&#x4E2A;&#x4E0D;&#x53EF;&#x5206;&#x5272;&#x7684;&#x6700;&#x5C0F;&#x5DE5;&#x4F5C;&#x5355;&#x5143;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x6765;&#x8BF4;&#xFF0C;&#x4E0D;&#x53EF;&#x80FD;&#x53EA;&#x6267;&#x884C;&#x5176;&#x4E2D;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x64CD;&#x4F5C;,&#x6574;&#x4E2A;&#x4E8B;&#x52A1;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#x8981;&#x4E48;&#x5168;&#x90E8;&#x63D0;&#x4EA4;&#x6210;&#x529F;&#xFF0C;&#x8981;&#x4E48;&#x5168;&#x90E8;&#x5931;&#x8D25;&#x56DE;&#x6EDA;</p>
+</blockquote>
+<ol start="2">
+<li>&#x4E00;&#x81F4;&#x6027;&#xFF08;consistency&#xFF09;</li>
+</ol>
+<blockquote>
+<p>&#x4E8B;&#x52A1;&#x5B8C;&#x6210;&#x65F6;&#xFF0C;&#x6570;&#x636E;&#x5FC5;&#x987B;&#x5904;&#x4E8E;&#x4E00;&#x81F4;&#x72B6;&#x6001;&#xFF0C;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x7EA6;&#x675F;&#x6CA1;&#x6709;&#x88AB;&#x7834;&#x574F;&#x3002;</p>
+</blockquote>
+<ol start="3">
+<li>&#x9694;&#x79BB;&#x6027;&#xFF08;isolation&#xFF09;</li>
+</ol>
+<blockquote>
+<p>&#x6570;&#x636E;&#x5E93;&#x5141;&#x8BB8;&#x591A;&#x4E2A;&#x5E76;&#x53D1;&#x4E8B;&#x52A1;&#x540C;&#x65F6;&#x5BF9;&#x5176;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x8BFB;&#x5199;&#x548C;&#x4FEE;&#x6539;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x800C;&#x591A;&#x4E2A;&#x4E8B;&#x52A1;&#x76F8;&#x4E92;&#x72EC;&#x7ACB;&#x3002;&#x9694;&#x79BB;&#x6027;&#x53EF;&#x4EE5;&#x9632;&#x6B62;&#x591A;&#x4E2A;&#x4E8B;&#x52A1;&#x5E76;&#x53D1;&#x6267;&#x884C;&#x65F6;&#x7531;&#x4E8E;&#x4EA4;&#x53C9;&#x6267;&#x884C;&#x800C;&#x5BFC;&#x81F4;&#x6570;&#x636E;&#x7684;&#x4E0D;&#x4E00;&#x81F4;&#x3002;</p>
+</blockquote>
+<ol start="4">
+<li>&#x6301;&#x4E45;&#x6027;&#xFF08;durability&#xFF09;</li>
+</ol>
+<blockquote>
+<p>&#x4E00;&#x65E6;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#xFF0C;&#x5219;&#x5176;&#x6240;&#x505A;&#x7684;&#x4FEE;&#x6539;&#x5C31;&#x4F1A;&#x6C38;&#x4E45;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x3002;&#x6B64;&#x65F6;&#x5373;&#x4F7F;&#x7CFB;&#x7EDF;&#x5D29;&#x6E83;&#xFF0C;&#x4FEE;&#x6539;&#x7684;&#x6570;&#x636E;&#x4E5F;&#x4E0D;&#x4F1A;&#x4E22;&#x5931;&#x3002;</p>
+</blockquote>
+<h3 class="mume-header" id="%E4%BA%8B%E5%8A%A1%E6%93%8D%E4%BD%9C">&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;</h3>
+
+<ol>
+<li>&#x5F00;&#x542F;&#x4E8B;&#x52A1;</li>
+</ol>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>   mysql&gt;begin; # &#x65B9;&#x6CD5;1
+   mysql&gt;start transaction; # &#x65B9;&#x6CD5;2
+</code></pre><ol start="2">
+<li>&#x5F00;&#x59CB;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x4E2D;&#x7684;&#x82E5;&#x5E72;&#x6761;SQL&#x547D;&#x4EE4;&#xFF08;&#x589E;&#x5220;&#x6539;&#xFF09;</li>
+<li>&#x7EC8;&#x6B62;&#x4E8B;&#x52A1;&#xFF0C;&#x82E5;begin&#x4E4B;&#x540E;&#x4F7F;&#x7528;commit&#x63D0;&#x4EA4;&#x4E8B;&#x52A1;&#xFF0C;&#x4F7F;&#x7528;rollback&#x8FDB;&#x884C;&#x4E8B;&#x52A1;&#x56DE;&#x6EDA;&#x3002;</li>
+</ol>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>   mysql&gt;commit; # &#x4E8B;&#x52A1;&#x4E2D;SQL&#x547D;&#x4EE4;&#x90FD;&#x6267;&#x884C;&#x6210;&#x529F;,&#x63D0;&#x4EA4;&#x5230;&#x6570;&#x636E;&#x5E93;,&#x7ED3;&#x675F;!
+   mysql&gt;rollback; # &#x6709;SQL&#x547D;&#x4EE4;&#x6267;&#x884C;&#x5931;&#x8D25;,&#x56DE;&#x6EDA;&#x5230;&#x521D;&#x59CB;&#x72B6;&#x6001;,&#x7ED3;&#x675F;!
+</code></pre><h3 class="mume-header" id="%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB">&#x4E8B;&#x52A1;&#x9694;&#x79BB;&#x7EA7;&#x522B;</h3>
+
+<p>&#x4E8B;&#x52A1;&#x56DB;&#x5927;&#x7279;&#x6027;&#x4E2D;&#x7684;&#x9694;&#x79BB;&#x6027;&#x662F;&#x5728;&#x4F7F;&#x7528;&#x4E8B;&#x52A1;&#x65F6;&#x6700;&#x4E3A;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x56E0;&#x4E3A;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x4E0D;&#x540C;&#x5E26;&#x6765;&#x7684;&#x64CD;&#x4F5C;&#x73B0;&#x8C61;&#x4E5F;&#x6709;&#x533A;&#x522B;</p>
+<ul>
+<li>
+<p>&#x9694;&#x79BB;&#x7EA7;&#x522B;</p>
+<ul>
+<li>
+<p>&#x8BFB;&#x672A;&#x63D0;&#x4EA4;&#xFF1A;read uncommitted</p>
+<blockquote>
+<p>&#x4E8B;&#x7269;A&#x548C;&#x4E8B;&#x7269;B&#xFF0C;&#x4E8B;&#x7269;A&#x672A;&#x63D0;&#x4EA4;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4E8B;&#x7269;B&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;&#x5230;<br>
+&#x8FD9;&#x91CC;&#x8BFB;&#x53D6;&#x5230;&#x7684;&#x6570;&#x636E;&#x53EB;&#x505A;&#x201C;&#x810F;&#x6570;&#x636E;&#x201D;<br>
+&#x8FD9;&#x79CD;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x6700;&#x4F4E;&#xFF0C;&#x8FD9;&#x79CD;&#x7EA7;&#x522B;&#x4E00;&#x822C;&#x662F;&#x5728;&#x7406;&#x8BBA;&#x4E0A;&#x5B58;&#x5728;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x4E00;&#x822C;&#x90FD;&#x9AD8;&#x4E8E;&#x8BE5;&#x7EA7;&#x522B;</p>
+</blockquote>
+</li>
+<li>
+<p>&#x8BFB;&#x5DF2;&#x63D0;&#x4EA4;&#xFF1A;read committed</p>
+<blockquote>
+<p>&#x4E8B;&#x7269;A&#x548C;&#x4E8B;&#x7269;B&#xFF0C;&#x4E8B;&#x7269;A&#x63D0;&#x4EA4;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4E8B;&#x7269;B&#x624D;&#x80FD;&#x8BFB;&#x53D6;&#x5230;<br>
+&#x8FD9;&#x79CD;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x9AD8;&#x4E8E;&#x8BFB;&#x672A;&#x63D0;&#x4EA4;<br>
+&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x5BF9;&#x65B9;&#x4E8B;&#x7269;&#x63D0;&#x4EA4;&#x4E4B;&#x540E;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6211;&#x5F53;&#x524D;&#x4E8B;&#x7269;&#x624D;&#x80FD;&#x8BFB;&#x53D6;&#x5230;<br>
+&#x8FD9;&#x79CD;&#x7EA7;&#x522B;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x201C;&#x810F;&#x6570;&#x636E;&#x201D;<br>
+&#x8FD9;&#x79CD;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x4F1A;&#x5BFC;&#x81F4;&#x201C;&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x53D6;&#x201D;</p>
+</blockquote>
+</li>
+<li>
+<p>&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#xFF1A;repeatable read</p>
+<blockquote>
+<p>&#x4E8B;&#x52A1;A&#x548C;&#x4E8B;&#x52A1;B&#xFF0C;&#x4E8B;&#x52A1;A&#x63D0;&#x4EA4;&#x4E4B;&#x540E;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4E8B;&#x52A1;B&#x8BFB;&#x53D6;&#x4E0D;&#x5230;<br>
+&#x4E8B;&#x52A1;B&#x662F;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x53D6;&#x6570;&#x636E;<br>
+&#x8FD9;&#x79CD;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x9AD8;&#x4E8E;&#x8BFB;&#x5DF2;&#x63D0;&#x4EA4;<br>
+MySQL&#x9ED8;&#x8BA4;&#x7EA7;&#x522B;<br>
+&#x867D;&#x7136;&#x53EF;&#x4EE5;&#x8FBE;&#x5230;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x53D6;&#xFF0C;&#x4F46;&#x662F;&#x4F1A;&#x5BFC;&#x81F4;&#x201C;&#x5E7B;&#x50CF;&#x8BFB;&#x201D;</p>
+</blockquote>
+</li>
+<li>
+<p>&#x4E32;&#x884C;&#x5316;&#xFF1A;serializable</p>
+<blockquote>
+<p>&#x4E8B;&#x52A1;A&#x548C;&#x4E8B;&#x52A1;B&#xFF0C;&#x4E8B;&#x52A1;A&#x5728;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E93;&#x65F6;&#xFF0C;&#x4E8B;&#x52A1;B&#x53EA;&#x80FD;&#x6392;&#x961F;&#x7B49;&#x5F85;<br>
+&#x8FD9;&#x79CD;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x5F88;&#x5C11;&#x4F7F;&#x7528;&#xFF0C;&#x541E;&#x5410;&#x91CF;&#x592A;&#x4F4E;&#xFF0C;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x5DEE;<br>
+&#x8FD9;&#x79CD;&#x7EA7;&#x522B;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x201C;&#x5E7B;&#x50CF;&#x8BFB;&#x201D;&#xFF0C;&#x6BCF;&#x4E00;&#x6B21;&#x8BFB;&#x53D6;&#x7684;&#x90FD;&#x662F;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x771F;&#x5B9E;&#x5B58;&#x5728;&#x6570;&#x636E;&#xFF0C;&#x4E8B;&#x52A1;A&#x4E0E;&#x4E8B;&#x52A1;B&#x4E32;&#x884C;&#xFF0C;&#x800C;&#x4E0D;&#x5E76;&#x53D1;</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./img/%E9%9A%94%E7%A6%BB.png" alt></p>
+<h2 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96">&#x6570;&#x636E;&#x5E93;&#x4F18;&#x5316;</h2>
+
+<h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E8%8C%83%E5%BC%8F">&#x6570;&#x636E;&#x5E93;&#x8BBE;&#x8BA1;&#x8303;&#x5F0F;</h3>
+
+<p>&#x8BBE;&#x8BA1;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x65F6;&#xFF0C;&#x9075;&#x4ECE;&#x4E0D;&#x540C;&#x7684;&#x89C4;&#x8303;&#x8981;&#x6C42;&#xFF0C;&#x8BBE;&#x8BA1;&#x51FA;&#x5408;&#x7406;&#x7684;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x8FD9;&#x4E9B;&#x4E0D;&#x540C;&#x7684;&#x89C4;&#x8303;&#x8981;&#x6C42;&#x88AB;&#x79F0;&#x4E3A;&#x4E0D;&#x540C;&#x7684;&#x8303;&#x5F0F;&#x3002;</p>
+<blockquote>
+<p>&#x76EE;&#x524D;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x6709;&#x516D;&#x79CD;&#x8303;&#x5F0F;&#xFF1A;&#x7B2C;&#x4E00;&#x8303;&#x5F0F;&#xFF08;1NF&#xFF09;&#x3001;&#x7B2C;&#x4E8C;&#x8303;&#x5F0F;&#xFF08;2NF&#xFF09;&#x3001;&#x7B2C;&#x4E09;&#x8303;&#x5F0F;&#xFF08;3NF&#xFF09;&#x3001;&#x5DF4;&#x65AF;-&#x79D1;&#x5FB7;&#x8303;&#x5F0F;&#xFF08;BCNF&#xFF09;&#x3001;&#x7B2C;&#x56DB;&#x8303;&#x5F0F;(4NF&#xFF09;&#x548C;&#x7B2C;&#x4E94;&#x8303;&#x5F0F;&#xFF08;5NF&#xFF0C;&#x53C8;&#x79F0;&#x5B8C;&#x7F8E;&#x8303;&#x5F0F;&#xFF09;&#x3002;</p>
+</blockquote>
+<p>&#x5404;&#x79CD;&#x8303;&#x5F0F;&#x5448;&#x9012;&#x6B21;&#x89C4;&#x8303;&#xFF0C;&#x8D8A;&#x9AD8;&#x7684;&#x8303;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x5197;&#x4F59;&#x8D8A;&#x5C0F;&#x3002;&#x4F46;&#x662F;&#x8303;&#x5F0F;&#x8D8A;&#x9AD8;&#x4E5F;&#x610F;&#x5473;&#x7740;&#x8868;&#x7684;&#x5212;&#x5206;&#x66F4;&#x7EC6;&#xFF0C;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x9700;&#x8981;&#x7684;&#x8868;&#x4E5F;&#x5C31;&#x8D8A;&#x591A;&#xFF0C;&#x6B64;&#x65F6;&#x591A;&#x4E2A;&#x8868;&#x8054;&#x63A5;&#x5728;&#x4E00;&#x8D77;&#x7684;&#x82B1;&#x8D39;&#x662F;&#x5DE8;&#x5927;&#x7684;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x5F53;&#x9700;&#x8981;&#x8FDE;&#x63A5;&#x7684;&#x4E24;&#x5F20;&#x6216;&#x8005;&#x591A;&#x5F20;&#x8868;&#x6570;&#x636E;&#x975E;&#x5E38;&#x5E9E;&#x5927;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8868;&#x8FDE;&#x63A5;&#x64CD;&#x4F5C;&#x51E0;&#x4E4E;&#x662F;&#x4E00;&#x4E2A;&#x5669;&#x68A6;&#xFF0C;&#x8FD9;&#x4E25;&#x91CD;&#x5730;&#x964D;&#x4F4E;&#x4E86;&#x7CFB;&#x7EDF;&#x8FD0;&#x884C;&#x6027;&#x80FD;&#x3002;&#x6240;&#x4EE5;&#x901A;&#x5E38;&#x6570;&#x636E;&#x5E93;&#x8BBE;&#x8BA1;&#x9075;&#x5FAA;&#x7B2C;&#x4E00;&#x7B2C;&#x4E8C;&#x7B2C;&#x4E09;&#x8303;&#x5F0F;&#xFF0C;&#x4EE5;&#x907F;&#x514D;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x5F02;&#x5E38;,&#x53C8;&#x4E0D;&#x81F3;&#x4E8E;&#x8868;&#x5173;&#x7CFB;&#x8FC7;&#x4E8E;&#x590D;&#x6742;&#x3002;</p>
+<p>&#x8303;&#x5F0F;&#x7B80;&#x4ECB;&#xFF1A;</p>
+<ul>
+<li>
+<p>&#x7B2C;&#x4E00;&#x8303;&#x5F0F;&#xFF1A; &#x6570;&#x636E;&#x5E93;&#x8868;&#x7684;&#x6BCF;&#x4E00;&#x5217;&#x90FD;&#x662F;&#x4E0D;&#x53EF;&#x5206;&#x5272;&#x7684;&#x539F;&#x5B50;&#x6570;&#x636E;&#x9879;&#xFF0C;&#x800C;&#x4E0D;&#x80FD;&#x662F;&#x96C6;&#x5408;&#xFF0C;&#x6570;&#x7EC4;&#xFF0C;&#x8BB0;&#x5F55;&#x7B49;&#x7EC4;&#x5408;&#x7684;&#x6570;&#x636E;&#x9879;&#x3002;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#x8981;&#x6C42;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x8868;&#x793A;&#x4E8C;&#x7EF4;&#x8868;&#xFF0C;&#x6BCF;&#x4E2A;&#x6570;&#x636E;&#x5143;&#x7D20;&#x4E0D;&#x53EF;&#x518D;&#x5206;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A; &#x5728;&#x56FD;&#x5185;&#x7684;&#x8BDD;&#x901A;&#x5E38;&#x7406;&#x89E3;&#x90FD;&#x662F;&#x59D3;&#x540D;&#x662F;&#x4E00;&#x4E2A;&#x4E0D;&#x53EF;&#x518D;&#x62C6;&#x5206;&#x7684;&#x5355;&#x4F4D;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5C31;&#x7B26;&#x5408;&#x7B2C;&#x4E00;&#x8303;&#x5F0F;&#xFF1B;&#x4F46;&#x662F;&#x5728;&#x56FD;&#x5916;&#x7684;&#x8BDD;&#x8FD8;&#x8981;&#x5206;&#x4E3A;FIRST NAME&#x548C;LAST NAME&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x59D3;&#x540D;&#x8FD9;&#x4E2A;&#x5B57;&#x6BB5;&#x5C31;&#x662F;&#x8FD8;&#x53EF;&#x4EE5;&#x62C6;&#x5206;&#x4E3A;&#x66F4;&#x5C0F;&#x7684;&#x5355;&#x4F4D;&#x7684;&#x5B57;&#x6BB5;&#xFF0C;&#x5C31;&#x4E0D;&#x7B26;&#x5408;&#x7B2C;&#x4E00;&#x8303;&#x5F0F;&#x4E86;&#x3002;</p>
+</li>
+<li>
+<p>&#x7B2C;&#x4E8C;&#x8303;&#x5F0F;&#xFF1A; &#x7B2C;&#x4E8C;&#x8303;&#x5F0F;&#xFF08;2NF&#xFF09;&#x8981;&#x6C42;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x5B9E;&#x4F8B;&#x6216;&#x8BB0;&#x5F55;&#x5FC5;&#x987B;&#x53EF;&#x4EE5;&#x88AB;&#x552F;&#x4E00;&#x5730;&#x533A;&#x5206;&#xFF0C;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x4F9D;&#x8D56;&#x4E8E;&#x4E3B;&#x5C5E;&#x6027;&#x3002;&#x5373;&#x9009;&#x53D6;&#x4E00;&#x4E2A;&#x80FD;&#x533A;&#x5206;&#x6BCF;&#x4E2A;&#x5B9E;&#x4F53;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x5C5E;&#x6027;&#x7EC4;&#xFF0C;&#x4F5C;&#x4E3A;&#x5B9E;&#x4F53;&#x7684;&#x552F;&#x4E00;&#x6807;&#x8BC6;&#xFF0C;&#x6BCF;&#x4E2A;&#x5C5E;&#x6027;&#x90FD;&#x80FD;&#x88AB;&#x4E3B;&#x5C5E;&#x6027;&#x7B5B;&#x9009;&#x3002;&#x5176;&#x5B9E;&#x7B80;&#x5355;&#x7406;&#x89E3;&#x8981;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x533A;&#x5206;&#x5404;&#x4E2A;&#x8BB0;&#x5F55;&#x7684;&#x4E3B;&#x952E;&#x5C31;&#x597D;&#x4E86;&#x3002;</p>
+</li>
+<li>
+<p>&#x7B2C;&#x4E09;&#x8303;&#x5F0F;&#xFF1A; &#x5728;&#x7B2C;&#x4E8C;&#x8303;&#x5F0F;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x5C5E;&#x6027;&#x4E0D;&#x4F20;&#x9012;&#x4F9D;&#x8D56;&#xFF0C;&#x5373;&#x67D0;&#x4E2A;&#x5C5E;&#x6027;&#x4F9D;&#x8D56;&#x5176;&#x5B83;&#x975E;&#x4E3B;&#x5C5E;&#x6027;&#x3002;&#x8981;&#x6C42;&#x4E00;&#x4E2A;&#x5173;&#x7CFB;&#x4E2D;&#x4E0D;&#x5305;&#x542B;&#x5DF2;&#x5728;&#x5176;&#x5B83;&#x5173;&#x7CFB;&#x4E2D;&#x5305;&#x542B;&#x7684;&#x975E;&#x4E3B;&#x5173;&#x952E;&#x5B57;&#x4FE1;&#x606F;&#x3002;&#x5176;&#x5B9E;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x5408;&#x7406;&#x4F7F;&#x7528;&#x5916;&#x952E;&#xFF0C;&#x4F7F;&#x4E0D;&#x540C;&#x7684;&#x8868;&#x4E2D;&#x4E0D;&#x8981;&#x6709;&#x91CD;&#x590D;&#x7684;&#x5B57;&#x6BB5;&#x5C31;&#x597D;&#x4E86;&#x3002;</p>
+</li>
+</ul>
+<h3 class="mume-header" id="mysql%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E">MySQL&#x5B58;&#x50A8;&#x5F15;&#x64CE;</h3>
+
+<p><strong>&#x5B9A;&#x4E49;</strong></p>
+<pre data-role="codeBlock" data-info class="language-"><code>mysql&#x6570;&#x636E;&#x5E93;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;&#x4E2D;&#x7528;&#x6765;&#x5904;&#x7406;&#x8868;&#x7684;&#x5904;&#x7406;&#x5668;
+</code></pre><p><strong>&#x57FA;&#x672C;&#x64CD;&#x4F5C;</strong></p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1&#x3001;&#x67E5;&#x770B;&#x6240;&#x6709;&#x5B58;&#x50A8;&#x5F15;&#x64CE;
+   mysql&gt; show engines;
+2&#x3001;&#x67E5;&#x770B;&#x5DF2;&#x6709;&#x8868;&#x7684;&#x5B58;&#x50A8;&#x5F15;&#x64CE;
+   mysql&gt; show create table &#x8868;&#x540D;;
+3&#x3001;&#x521B;&#x5EFA;&#x8868;&#x6307;&#x5B9A;
+   create table &#x8868;&#x540D;(...)engine=MyISAM,charset=utf8,auto_increment=10000;
+4&#x3001;&#x5DF2;&#x6709;&#x8868;&#x6307;&#x5B9A;
+   alter table &#x8868;&#x540D; engine=InnoDB;
+</code></pre><p><strong>&#x5E38;&#x7528;&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x7279;&#x70B9;</strong></p>
+<ul>
+<li>InnoDB</li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1&#x3001;&#x652F;&#x6301;&#x884C;&#x7EA7;&#x9501;,&#x4EC5;&#x5BF9;&#x6307;&#x5B9A;&#x7684;&#x8BB0;&#x5F55;&#x8FDB;&#x884C;&#x52A0;&#x9501;&#xFF0C;&#x8FD9;&#x6837;&#x5176;&#x5B83;&#x8FDB;&#x7A0B;&#x8FD8;&#x662F;&#x53EF;&#x4EE5;&#x5BF9;&#x540C;&#x4E00;&#x4E2A;&#x8868;&#x4E2D;&#x7684;&#x5176;&#x5B83;&#x8BB0;&#x5F55;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x3002;
+2&#x3001;&#x652F;&#x6301;&#x5916;&#x952E;&#x3001;&#x4E8B;&#x52A1;&#x3001;&#x4E8B;&#x52A1;&#x56DE;&#x6EDA;
+3&#x3001;&#x8868;&#x5B57;&#x6BB5;&#x548C;&#x7D22;&#x5F15;&#x540C;&#x5B58;&#x50A8;&#x5728;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;
+   1&#x3001;&#x8868;&#x540D;.frm &#xFF1A;&#x8868;&#x7ED3;&#x6784;
+   2&#x3001;&#x8868;&#x540D;.ibd : &#x8868;&#x8BB0;&#x5F55;&#x53CA;&#x7D22;&#x5F15;&#x6587;&#x4EF6;
+</code></pre><ul>
+<li>MyISAM</li>
+</ul>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1&#x3001;&#x652F;&#x6301;&#x8868;&#x7EA7;&#x9501;,&#x5728;&#x9501;&#x5B9A;&#x671F;&#x95F4;&#xFF0C;&#x5176;&#x5B83;&#x8FDB;&#x7A0B;&#x65E0;&#x6CD5;&#x5BF9;&#x8BE5;&#x8868;&#x8FDB;&#x884C;&#x5199;&#x64CD;&#x4F5C;&#x3002;&#x5982;&#x679C;&#x4F60;&#x662F;&#x5199;&#x9501;&#xFF0C;&#x5219;&#x5176;&#x5B83;&#x8FDB;&#x7A0B;&#x5219;&#x8BFB;&#x4E5F;&#x4E0D;&#x5141;&#x8BB8;
+2&#x3001;&#x8868;&#x5B57;&#x6BB5;&#x548C;&#x7D22;&#x5F15;&#x5206;&#x5F00;&#x5B58;&#x50A8;
+   1&#x3001;&#x8868;&#x540D;.frm &#xFF1A;&#x8868;&#x7ED3;&#x6784;
+   2&#x3001;&#x8868;&#x540D;.MYI : &#x7D22;&#x5F15;&#x6587;&#x4EF6;(my index)
+   3&#x3001;&#x8868;&#x540D;.MYD : &#x8868;&#x8BB0;&#x5F55;(my data)
+</code></pre><p><strong>&#x5982;&#x4F55;&#x9009;&#x62E9;&#x5B58;&#x50A8;&#x5F15;&#x64CE;</strong></p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1&#x3001;&#x6267;&#x884C;&#x67E5;&#x64CD;&#x4F5C;&#x591A;&#x7684;&#x8868;&#x7528; MyISAM(&#x4F7F;&#x7528;InnoDB&#x6D6A;&#x8D39;&#x8D44;&#x6E90;)
+2&#x3001;&#x6267;&#x884C;&#x5199;&#x64CD;&#x4F5C;&#x591A;&#x7684;&#x8868;&#x7528; InnoDB
+
+CREATE TABLE tb_stu(
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`name` varchar(30) DEFAULT NULL,
+`sex` varchar(2) DEFAULT NULL,
+PRIMARY KEY (`id`)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+</code></pre><h3 class="mume-header" id="%E5%AD%97%E6%AE%B5%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%80%89%E6%8B%A9">&#x5B57;&#x6BB5;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x9009;&#x62E9;</h3>
+
+<ul>
+<li>&#x4F18;&#x5148;&#x7A0B;&#x5EA6;   &#x6570;&#x5B57; &gt;  &#x65F6;&#x95F4;&#x65E5;&#x671F; &gt; &#x5B57;&#x7B26;&#x4E32;</li>
+<li>&#x540C;&#x4E00;&#x7EA7;&#x522B;   &#x5360;&#x7528;&#x7A7A;&#x95F4;&#x5C0F;&#x7684; &gt; &#x5360;&#x7528;&#x7A7A;&#x95F4;&#x591A;&#x7684;</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>&#x5B57;&#x7B26;&#x4E32;&#x5728;&#x67E5;&#x8BE2;&#x6BD4;&#x8F83;&#x6392;&#x5E8F;&#x65F6;&#x6570;&#x636E;&#x5904;&#x7406;&#x6162;
+&#x5360;&#x7528;&#x7A7A;&#x95F4;&#x5C11;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x5360;&#x78C1;&#x76D8;&#x9875;&#x5C11;&#xFF0C;IO&#x5904;&#x7406;&#x5C31;&#x66F4;&#x5FEB;
+</code></pre><ul>
+<li>&#x5C11;&#x4E8E;50&#x5B57;&#x8282; char &gt; varchar</li>
+<li>&#x5BF9;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x7CBE;&#x786E;&#x4E0D;&#x8981;&#x6C42; float &gt; decimal</li>
+<li>&#x5982;&#x679C;&#x5F88;&#x5C11;&#x88AB;&#x67E5;&#x8BE2;&#x53EF;&#x4EE5;&#x7528; TIMESTAMP&#xFF08;&#x65F6;&#x95F4;&#x6233;&#x5B9E;&#x9645;&#x662F;&#x6574;&#x5F62;&#x5B58;&#x50A8;&#xFF09;</li>
+</ul>
+<h3 class="mume-header" id="%E9%94%AE%E7%9A%84%E8%AE%BE%E7%BD%AE">&#x952E;&#x7684;&#x8BBE;&#x7F6E;</h3>
+
+<ul>
+<li>Innodb&#x5982;&#x679C;&#x4E0D;&#x8BBE;&#x7F6E;&#x4E3B;&#x952E;&#x4E5F;&#x4F1A;&#x81EA;&#x5DF1;&#x8BBE;&#x7F6E;&#x9690;&#x542B;&#x7684;&#x4E3B;&#x952E;&#xFF0C;&#x6240;&#x4EE5;&#x6700;&#x597D;&#x81EA;&#x5DF1;&#x8BBE;&#x7F6E;</li>
+<li>&#x5C3D;&#x91CF;&#x8BBE;&#x7F6E;&#x5360;&#x7528;&#x7A7A;&#x95F4;&#x5C0F;&#x7684;&#x5B57;&#x6BB5;&#x4E3A;&#x4E3B;&#x952E;</li>
+<li>&#x5916;&#x952E;&#x7684;&#x8BBE;&#x7F6E;&#x7528;&#x4E8E;&#x4FDD;&#x6301;&#x6570;&#x636E;&#x5B8C;&#x6574;&#x6027;&#xFF0C;&#x4F46;&#x662F;&#x4F1A;&#x964D;&#x4F4E;&#x6570;&#x636E;&#x5BFC;&#x5165;&#x548C;&#x64CD;&#x4F5C;&#x6548;&#x7387;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x9AD8;&#x5E76;&#x53D1;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x800C;&#x4E14;&#x4F1A;&#x589E;&#x52A0;&#x7EF4;&#x62A4;&#x6210;&#x672C;</li>
+<li>&#x867D;&#x7136;&#x9AD8;&#x5E76;&#x53D1;&#x4E0B;&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x5916;&#x952E;&#x7EA6;&#x675F;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x8868;&#x5173;&#x8054;&#x65F6;&#x5EFA;&#x8BAE;&#x5728;&#x5173;&#x8054;&#x952E;&#x4E0A;&#x5EFA;&#x7ACB;&#x7D22;&#x5F15;&#xFF0C;&#x4EE5;&#x63D0;&#x9AD8;&#x67E5;&#x627E;&#x901F;&#x5EA6;</li>
+</ul>
+<h3 class="mume-header" id="explain%E8%AF%AD%E5%8F%A5">explain&#x8BED;&#x53E5;</h3>
+
+<p>&#x4F7F;&#x7528; EXPLAIN &#x5173;&#x952E;&#x5B57;&#x53EF;&#x4EE5;&#x6A21;&#x62DF;&#x4F18;&#x5316;&#x5668;&#x6267;&#x884C;SQL&#x67E5;&#x8BE2;&#x8BED;&#x53E5;&#xFF0C;&#x4ECE;&#x800C;&#x77E5;&#x9053;MySQL&#x662F;&#x5982;&#x4F55;&#x5904;&#x7406;&#x4F60;&#x7684;SQL&#x8BED;&#x53E5;&#x7684;&#x3002;&#x8FD9;&#x53EF;&#x4EE5;&#x5E2E;&#x4F60;&#x5206;&#x6790;&#x4F60;&#x7684;&#x67E5;&#x8BE2;&#x8BED;&#x53E5;&#x6216;&#x662F;&#x8868;&#x7ED3;&#x6784;&#x7684;&#x6027;&#x80FD;&#x74F6;&#x9888;&#x3002;&#x901A;&#x8FC7;explain&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x5F97;&#x5230;:</p>
+<ul>
+<li>&#x8868;&#x7684;&#x8BFB;&#x53D6;&#x987A;&#x5E8F;</li>
+<li>&#x6570;&#x636E;&#x8BFB;&#x53D6;&#x64CD;&#x4F5C;&#x7684;&#x64CD;&#x4F5C;&#x7C7B;&#x578B;</li>
+<li>&#x54EA;&#x4E9B;&#x7D22;&#x5F15;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</li>
+<li>&#x54EA;&#x4E9B;&#x7D22;&#x5F15;&#x88AB;&#x5B9E;&#x9645;&#x4F7F;&#x7528;</li>
+<li>&#x8868;&#x4E4B;&#x95F4;&#x7684;&#x5F15;&#x7528;</li>
+<li>&#x6BCF;&#x5F20;&#x8868;&#x6709;&#x591A;&#x5C11;&#x884C;&#x88AB;&#x4F18;&#x5316;&#x5668;&#x67E5;&#x8BE2;</li>
+</ul>
+<pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token keyword">explain</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> class_1 <span class="token keyword">where</span> id <span class="token operator">&lt;</span><span class="token number">5</span><span class="token punctuation">;</span>
+</pre><p>EXPLAIN&#x4E3B;&#x8981;&#x5B57;&#x6BB5;&#x89E3;&#x6790;&#xFF1A;</p>
+<ul>
+<li>
+<p>table&#xFF1A;&#x663E;&#x793A;&#x8FD9;&#x4E00;&#x884C;&#x7684;&#x6570;&#x636E;&#x662F;&#x5173;&#x4E8E;&#x54EA;&#x5F20;&#x8868;&#x7684;</p>
+</li>
+<li>
+<p>type&#xFF1A;&#x8FD9;&#x662F;&#x6700;&#x91CD;&#x8981;&#x7684;&#x5B57;&#x6BB5;&#x4E4B;&#x4E00;&#xFF0C;&#x663E;&#x793A;&#x67E5;&#x8BE2;&#x4F7F;&#x7528;&#x4E86;&#x4F55;&#x79CD;&#x7C7B;&#x578B;&#x3002;&#x4ECE;&#x6700;&#x597D;&#x5230;&#x6700;&#x5DEE;&#x7684;&#x8FDE;&#x63A5;&#x7C7B;&#x578B;&#x4E3A;system&#x3001;const&#x3001;eq_reg&#x3001;ref&#x3001;range&#x3001;index&#x548C;ALL&#xFF0C;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x5F97;&#x4FDD;&#x8BC1;&#x67E5;&#x8BE2;&#x81F3;&#x5C11;&#x8FBE;&#x5230;range&#x7EA7;&#x522B;&#xFF0C;&#x6700;&#x597D;&#x80FD;&#x8FBE;&#x5230;ref&#x3002;</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>type&#x4E2D;&#x5305;&#x542B;&#x7684;&#x503C;&#xFF1A;
+- system&#x3001;const&#xFF1A; &#x53EF;&#x4EE5;&#x5C06;&#x67E5;&#x8BE2;&#x7684;&#x53D8;&#x91CF;&#x8F6C;&#x4E3A;&#x5E38;&#x91CF;. &#x5982;id=1; id&#x4E3A; &#x4E3B;&#x952E;&#x6216;&#x552F;&#x4E00;&#x952E;.
+- eq_ref&#xFF1A; &#x8BBF;&#x95EE;&#x7D22;&#x5F15;,&#x8FD4;&#x56DE;&#x67D0;&#x5355;&#x4E00;&#x884C;&#x7684;&#x6570;&#x636E;.(&#x901A;&#x5E38;&#x5728;&#x8054;&#x63A5;&#x65F6;&#x51FA;&#x73B0;&#xFF0C;&#x67E5;&#x8BE2;&#x4F7F;&#x7528;&#x7684;&#x7D22;&#x5F15;&#x4E3A;&#x4E3B;&#x952E;&#x6216;&#x552F;&#x4E00;&#x952E;)
+- ref&#xFF1A; &#x8BBF;&#x95EE;&#x7D22;&#x5F15;,&#x8FD4;&#x56DE;&#x67D0;&#x4E2A;&#x503C;&#x7684;&#x6570;&#x636E;.(&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x591A;&#x884C;) &#x901A;&#x5E38;&#x4F7F;&#x7528;=&#x65F6;&#x53D1;&#x751F; 
+- range&#xFF1A; &#x8FD9;&#x4E2A;&#x8FDE;&#x63A5;&#x7C7B;&#x578B;&#x4F7F;&#x7528;&#x7D22;&#x5F15;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x8303;&#x56F4;&#x4E2D;&#x7684;&#x884C;&#xFF0C;&#x6BD4;&#x5982;&#x4F7F;&#x7528;&gt;&#x6216;&lt;&#x67E5;&#x627E;&#x4E1C;&#x897F;&#xFF0C;&#x5E76;&#x4E14;&#x8BE5;&#x5B57;&#x6BB5;&#x4E0A;&#x5EFA;&#x6709;&#x7D22;&#x5F15;&#x65F6;&#x53D1;&#x751F;&#x7684;&#x60C5;&#x51B5;
+- index&#xFF1A; &#x4EE5;&#x7D22;&#x5F15;&#x7684;&#x987A;&#x5E8F;&#x8FDB;&#x884C;&#x5168;&#x8868;&#x626B;&#x63CF;&#xFF0C;&#x4F18;&#x70B9;&#x662F;&#x4E0D;&#x7528;&#x6392;&#x5E8F;,&#x7F3A;&#x70B9;&#x662F;&#x8FD8;&#x8981;&#x5168;&#x8868;&#x626B;&#x63CF; 
+- ALL&#xFF1A; &#x5168;&#x8868;&#x626B;&#x63CF;&#xFF0C;&#x5E94;&#x8BE5;&#x5C3D;&#x91CF;&#x907F;&#x514D;
+</code></pre><ul>
+<li>
+<p>possible_keys&#xFF1A;&#x663E;&#x793A;&#x53EF;&#x80FD;&#x5E94;&#x7528;&#x5728;&#x8FD9;&#x5F20;&#x8868;&#x4E2D;&#x7684;&#x7D22;&#x5F15;&#x3002;&#x5982;&#x679C;&#x4E3A;&#x7A7A;&#xFF0C;&#x8868;&#x793A;&#x6CA1;&#x6709;&#x53EF;&#x80FD;&#x5E94;&#x7528;&#x7684;&#x7D22;&#x5F15;&#x3002;</p>
+</li>
+<li>
+<p>key&#xFF1A;&#x5B9E;&#x9645;&#x4F7F;&#x7528;&#x7684;&#x7D22;&#x5F15;&#x3002;&#x5982;&#x679C;&#x4E3A;NULL&#xFF0C;&#x5219;&#x6CA1;&#x6709;&#x4F7F;&#x7528;&#x7D22;&#x5F15;&#x3002;</p>
+</li>
+<li>
+<p>key_len&#xFF1A;&#x4F7F;&#x7528;&#x7684;&#x7D22;&#x5F15;&#x7684;&#x957F;&#x5EA6;&#x3002;&#x5728;&#x4E0D;&#x635F;&#x5931;&#x7CBE;&#x786E;&#x6027;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x957F;&#x5EA6;&#x8D8A;&#x77ED;&#x8D8A;&#x597D;</p>
+</li>
+<li>
+<p>rows&#xFF1A;MySQL&#x8BA4;&#x4E3A;&#x5FC5;&#x987B;&#x68C0;&#x7D22;&#x7684;&#x7528;&#x6765;&#x8FD4;&#x56DE;&#x8BF7;&#x6C42;&#x6570;&#x636E;&#x7684;&#x884C;&#x6570;</p>
+</li>
+</ul>
+<h3 class="mume-header" id="sql%E4%BC%98%E5%8C%96">SQL&#x4F18;&#x5316;</h3>
+
+<ul>
+<li>&#x5C3D;&#x91CF;&#x9009;&#x62E9;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5360;&#x7A7A;&#x95F4;&#x5C11;&#xFF0C;&#x5728;where &#xFF0C;group by&#xFF0C;order by&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x9891;&#x7387;&#x9AD8;&#x7684;&#x5B57;&#x6BB5;&#x5EFA;&#x7ACB;&#x7D22;&#x5F15;</li>
+<li>&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x4F7F;&#x7528; select * ...;&#x7528;&#x5177;&#x4F53;&#x5B57;&#x6BB5;&#x4EE3;&#x66FF; * ,&#x4E0D;&#x8981;&#x8FD4;&#x56DE;&#x7528;&#x4E0D;&#x5230;&#x7684;&#x4EFB;&#x4F55;&#x5B57;&#x6BB5;</li>
+<li>&#x5C11;&#x4F7F;&#x7528;like %&#x67E5;&#x8BE2;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x5168;&#x8868;&#x626B;&#x63CF;</li>
+<li>&#x5B50;&#x67E5;&#x8BE2;&#x4F18;&#x5316;&#x4E3A;join&#x67E5;&#x8BE2;</li>
+<li>&#x63A7;&#x5236;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x51FD;&#x6570;</li>
+<li>&#x5355;&#x6761;&#x67E5;&#x8BE2;&#x6700;&#x540E;&#x6DFB;&#x52A0; LIMIT 1&#xFF0C;&#x505C;&#x6B62;&#x5168;&#x8868;&#x626B;&#x63CF;</li>
+<li>where&#x5B50;&#x53E5;&#x4E2D;&#x4E0D;&#x4F7F;&#x7528; != ,&#x5426;&#x5219;&#x653E;&#x5F03;&#x7D22;&#x5F15;&#x5168;&#x8868;&#x626B;&#x63CF;</li>
+<li>&#x5C3D;&#x91CF;&#x907F;&#x514D; NULL &#x503C;&#x5224;&#x65AD;,&#x5426;&#x5219;&#x653E;&#x5F03;&#x7D22;&#x5F15;&#x5168;&#x8868;&#x626B;&#x63CF;<br>
+&#x4F18;&#x5316;&#x524D;&#xFF1A;select number from t1 where number is null;<br>
+&#x4F18;&#x5316;&#x540E;&#xFF1A;select number from t1 where number=0;
+<ul>
+<li>&#x5728;number&#x5217;&#x4E0A;&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x503C;0,&#x786E;&#x4FDD;number&#x5217;&#x65E0;NULL&#x503C;</li>
+</ul>
+</li>
+<li>&#x5C3D;&#x91CF;&#x907F;&#x514D; or &#x8FDE;&#x63A5;&#x6761;&#x4EF6;,&#x5426;&#x5219;&#x4F1A;&#x653E;&#x5F03;&#x7D22;&#x5F15;&#x8FDB;&#x884C;&#x5168;&#x8868;&#x626B;&#x63CF;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;union&#x4EE3;&#x66FF;<br>
+&#x4F18;&#x5316;&#x524D;&#xFF1A;select id from t1 where id=10 or id=20;<br>
+&#x4F18;&#x5316;&#x540E;&#xFF1A; select id from t1 where id=10 union all<br>
+select id from t1 where id=20;</li>
+<li>&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x4F7F;&#x7528; in &#x548C; not in,&#x5426;&#x5219;&#x4F1A;&#x5168;&#x8868;&#x626B;&#x63CF;<br>
+&#x4F18;&#x5316;&#x524D;&#xFF1A;select id from t1 where id in(1,2,3,4);<br>
+&#x4F18;&#x5316;&#x540E;&#xFF1A;select id from t1 where id between 1 and 4;</li>
+</ul>
+<h3 class="mume-header" id="%E8%A1%A8%E7%9A%84%E6%8B%86%E5%88%86">&#x8868;&#x7684;&#x62C6;&#x5206;</h3>
+
+<p>&#x5782;&#x76F4;&#x62C6;&#x5206; &#xFF1A; &#x8868;&#x4E2D;&#x5217;&#x592A;&#x591A;&#xFF0C;&#x5206;&#x4E3A;&#x591A;&#x4E2A;&#x8868;&#xFF0C;&#x6BCF;&#x4E2A;&#x8868;&#x662F;&#x5176;&#x4E2D;&#x7684;&#x51E0;&#x4E2A;&#x5217;&#x3002;&#x5C06;&#x5E38;&#x67E5;&#x8BE2;&#x7684;&#x653E;&#x5230;&#x4E00;&#x8D77;&#xFF0C;blob&#x6216;&#x8005;text&#x7C7B;&#x578B;&#x5B57;&#x6BB5;&#x653E;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x8868;</p>
+<p>&#x6C34;&#x5E73;&#x62C6;&#x5206; &#xFF1A; &#x51CF;&#x5C11;&#x6BCF;&#x4E2A;&#x8868;&#x7684;&#x6570;&#x636E;&#x91CF;&#xFF0C;&#x901A;&#x8FC7;hash key&#x8FDB;&#x884C;&#x5212;&#x5206;&#x7136;&#x540E;&#x62C6;&#x6210;&#x591A;&#x4E2A;&#x8868;</p>
+<h2 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%92%8C%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86">&#x6570;&#x636E;&#x5E93;&#x5907;&#x4EFD;&#x548C;&#x7528;&#x6237;&#x7BA1;&#x7406;</h2>
+
+<h3 class="mume-header" id="%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6">&#x8868;&#x7684;&#x590D;&#x5236;</h3>
+
+<p>1&#x3001;&#x8868;&#x80FD;&#x6839;&#x636E;&#x5B9E;&#x9645;&#x9700;&#x6C42;&#x590D;&#x5236;&#x6570;&#x636E;<br>
+2&#x3001;&#x590D;&#x5236;&#x8868;&#x65F6;&#x4E0D;&#x4F1A;&#x628A;KEY&#x5C5E;&#x6027;&#x590D;&#x5236;&#x8FC7;&#x6765;</p>
+<p><strong>&#x8BED;&#x6CD5;</strong></p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>create table &#x8868;&#x540D; select &#x67E5;&#x8BE2;&#x547D;&#x4EE4;;
+</code></pre><h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD">&#x6570;&#x636E;&#x5907;&#x4EFD;</h3>
+
+<ol>
+<li>&#x5907;&#x4EFD;&#x547D;&#x4EE4;&#x683C;&#x5F0F;</li>
+</ol>
+<blockquote>
+<p>mysqldump -u&#x7528;&#x6237;&#x540D; -p &#x6E90;&#x5E93;&#x540D; &gt; ~/stu.sql</p>
+</blockquote>
+<ol start="2">
+<li>&#x6062;&#x590D;&#x547D;&#x4EE4;&#x683C;&#x5F0F;</li>
+</ol>
+<blockquote>
+<p>mysql -uroot -p &#x76EE;&#x6807;&#x5E93;&#x540D; &lt; stu.sql</p>
+</blockquote>
+<h3 class="mume-header" id="%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86">&#x7528;&#x6237;&#x6743;&#x9650;&#x7BA1;&#x7406;</h3>
+
+<p><strong>&#x5F00;&#x542F;MySQL&#x8FDC;&#x7A0B;&#x8FDE;&#x63A5;</strong></p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>&#x66F4;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x91CD;&#x542F;&#x670D;&#x52A1;&#xFF01;
+1.sudo  su
+2.cd /etc/mysql/mysql.conf.d
+3.cp mysqld.cnf mysqld.cnf.bak
+4.vi mysqld.cnf #&#x627E;&#x5230;44&#x884C;&#x5DE6;&#x53F3;,&#x52A0; # &#x6CE8;&#x91CA;
+   #bind-address = 127.0.0.1
+   [mysqld]
+   character_set_server = utf8
+5.&#x4FDD;&#x5B58;&#x9000;&#x51FA;
+6.service mysql restart
+7.&#x4FEE;&#x6539;&#x7528;&#x6237;&#x8868;host&#x503C; 
+  use mysql;
+  update user set host=&apos;%&apos; where user=&apos;root&apos;;
+8.&#x5237;&#x65B0;&#x6743;&#x9650;
+  flush privileges;
+</code></pre><p><strong>&#x6DFB;&#x52A0;&#x6388;&#x6743;&#x7528;&#x6237;</strong></p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1. &#x7528;root&#x7528;&#x6237;&#x767B;&#x5F55;mysql
+   mysql -uroot -p123456
+2. &#x6DFB;&#x52A0;&#x7528;&#x6237; % &#x8868;&#x793A;&#x81EA;&#x52A8;&#x9009;&#x62E9;&#x53EF;&#x7528;IP
+   CREATE USER &apos;username&apos;@&apos;host&apos; IDENTIFIED BY &apos;password&apos;;
+3. &#x6388;&#x6743;
+   grant &#x6743;&#x9650;&#x5217;&#x8868; on &#x5E93;.&#x8868; to &quot;&#x7528;&#x6237;&#x540D;&quot;@&quot;%&quot; identified by &quot;&#x5BC6;&#x7801;&quot; with grant option;
+   revoke insert,update,select on &#x5E93;.&#x8868; from &apos;user&apos;@&apos;%&apos;;
+4. &#x5237;&#x65B0;&#x6743;&#x9650;
+   flush privileges;
+5. &#x5220;&#x9664;&#x7528;&#x6237;
+   delete from mysql.user where user=&apos;username&apos;;
+   drop user &quot;&#x7528;&#x6237;&#x540D;&quot;@&quot;%&quot;
+</code></pre><p><strong>&#x6743;&#x9650;&#x5217;&#x8868;</strong></p>
+<pre data-role="codeBlock" data-info class="language-"><code>all privileges &#x3001;select &#x3001;insert &#xFF0C;update&#xFF0C;delete&#xFF0C;alter&#x7B49;&#x3002;
+&#x5E93;.&#x8868; &#xFF1A; *.* &#x4EE3;&#x8868;&#x6240;&#x6709;&#x5E93;&#x7684;&#x6240;&#x6709;&#x8868;
+</code></pre><p><strong>&#x793A;&#x4F8B;</strong></p>
+<pre data-role="codeBlock" data-info="mysql" class="language-mysql"><code>1. &#x521B;&#x5EFA;&#x7528;&#x6237;
+  mysql&gt;create user  &apos;work&apos;@&apos;%&apos;  identified by &apos;123&apos;;
+2. &#x6DFB;&#x52A0;&#x6388;&#x6743;&#x7528;&#x6237;work,&#x5BC6;&#x7801;123,&#x5BF9;&#x6240;&#x6709;&#x5E93;&#x7684;&#x6240;&#x6709;&#x8868;&#x6709;&#x6240;&#x6709;&#x6743;&#x9650;
+  mysql&gt;grant all privileges on *.* to &apos;work&apos;@&apos;%&apos; identified by &apos;123&apos; with grant option;
+  mysql&gt;flush privileges;
+3. &#x6DFB;&#x52A0;&#x7528;&#x6237;duty&#xFF0C;&#x5BC6;&#x7801;123,&#x5BF9;db2&#x5E93;&#x4E2D;&#x6240;&#x6709;&#x8868;&#x6709;&#x6240;&#x6709;&#x6743;&#x9650;
+  mysql&gt;grant all privileges on books.* to &apos;duty&apos;@&apos;%&apos; identified by &apos;123&apos; with grant option;
+  mysql&gt;flush privileges;
+</code></pre><h2 class="mume-header" id="pymysql%E6%A8%A1%E5%9D%97">pymysql&#x6A21;&#x5757;</h2>
+
+<h3 class="mume-header" id="pymysql%E5%AE%89%E8%A3%85">pymysql&#x5B89;&#x88C5;</h3>
+
+<blockquote>
+<p>sudo pip3 install pymysql</p>
+</blockquote>
+<h3 class="mume-header" id="pymysql%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B">pymysql&#x4F7F;&#x7528;&#x6D41;&#x7A0B;</h3>
+
+<ol>
+<li>&#x5EFA;&#x7ACB;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;(db = pymysql.connect(...))</li>
+<li>&#x521B;&#x5EFA;&#x6E38;&#x6807;&#x5BF9;&#x8C61;(cur = db.cursor())</li>
+<li>&#x6E38;&#x6807;&#x65B9;&#x6CD5;: cur.execute(&quot;insert ....&quot;)</li>
+<li>&#x63D0;&#x4EA4;&#x5230;&#x6570;&#x636E;&#x5E93;&#x6216;&#x8005;&#x83B7;&#x53D6;&#x6570;&#x636E; : db.commit()/db.fetchall()</li>
+<li>&#x5173;&#x95ED;&#x6E38;&#x6807;&#x5BF9;&#x8C61; &#xFF1A;cur.close()</li>
+<li>&#x65AD;&#x5F00;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5; &#xFF1A;db.close()</li>
+</ol>
+<h3 class="mume-header" id="%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0">&#x5E38;&#x7528;&#x51FD;&#x6570;</h3>
+
+<p><em><strong>&#x53C2;&#x8003;&#x4EE3;&#x7801; day16/mysql.py</strong></em><br>
+<em><strong>&#x53C2;&#x8003;&#x4EE3;&#x7801; day16/read_db.py</strong></em><br>
+<em><strong>&#x53C2;&#x8003;&#x4EE3;&#x7801; day16/write_db.py</strong></em></p>
+<blockquote>
+<p>db = pymysql.connect(&#x53C2;&#x6570;&#x5217;&#x8868;)</p>
+<blockquote>
+<p>host &#xFF1A;&#x4E3B;&#x673A;&#x5730;&#x5740;,&#x672C;&#x5730; localhost<br>
+port &#xFF1A;&#x7AEF;&#x53E3;&#x53F7;,&#x9ED8;&#x8BA4;3306<br>
+user &#xFF1A;&#x7528;&#x6237;&#x540D;<br>
+password &#xFF1A;&#x5BC6;&#x7801;<br>
+database &#xFF1A;&#x5E93;<br>
+charset &#xFF1A;&#x7F16;&#x7801;&#x65B9;&#x5F0F;,&#x63A8;&#x8350;&#x4F7F;&#x7528; utf8</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x5BF9;&#x8C61;(db)&#x7684;&#x65B9;&#x6CD5;</p>
+<blockquote>
+<p>cur = db.cursor() &#x8FD4;&#x56DE;&#x6E38;&#x6807;&#x5BF9;&#x8C61;,&#x7528;&#x4E8E;&#x6267;&#x884C;&#x5177;&#x4F53;SQL&#x547D;&#x4EE4;<br>
+db.commit() &#x63D0;&#x4EA4;&#x5230;&#x6570;&#x636E;&#x5E93;&#x6267;&#x884C;<br>
+db.rollback() &#x56DE;&#x6EDA;&#xFF0C;&#x7528;&#x4E8E;&#x5F53;commit()&#x51FA;&#x9519;&#x662F;&#x56DE;&#x590D;&#x5230;&#x539F;&#x6765;&#x7684;&#x6570;&#x636E;&#x5F62;&#x6001;<br>
+db.close() &#x5173;&#x95ED;&#x8FDE;&#x63A5;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>&#x6E38;&#x6807;&#x5BF9;&#x8C61;(cur)&#x7684;&#x65B9;&#x6CD5;</p>
+<blockquote>
+<p>cur.execute(sql&#x547D;&#x4EE4;,[&#x5217;&#x8868;]) &#x6267;&#x884C;SQL&#x547D;&#x4EE4;<br>
+cur.executemany(sql&#x547D;&#x4EE4;,[data]) &#x6839;&#x636E;&#x6570;&#x636E;&#x5217;&#x8868;&#x9879;&#x591A;&#x6B21;&#x6267;&#x884C;SQL&#x547D;&#x4EE4;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x5199;&#x64CD;&#x4F5C;&#x3002;<br>
+cur.fetchone() &#x83B7;&#x53D6;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x96C6;&#x7684;&#x7B2C;&#x4E00;&#x6761;&#x6570;&#x636E;&#xFF0C;&#x67E5;&#x627E;&#x5230;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5143;&#x7EC4;&#x5426;&#x5219;&#x8FD4;&#x56DE;None<br>
+cur.fetchmany(n) &#x83B7;&#x53D6;&#x524D;n&#x6761;&#x67E5;&#x627E;&#x5230;&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x4E3A;&#x5143;&#x7EC4;&#x5D4C;&#x5957;&#x5143;&#x7EC4;&#xFF0C; ((&#x8BB0;&#x5F55;1),(&#x8BB0;&#x5F55;2))&#x3002;<br>
+cur.fetchall() &#x83B7;&#x53D6;&#x6240;&#x6709;&#x67E5;&#x627E;&#x5230;&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x5F62;&#x5F0F;&#x540C;&#x4E0A;&#x3002;<br>
+cur.close() &#x5173;&#x95ED;&#x6E38;&#x6807;&#x5BF9;&#x8C61;</p>
+</blockquote>
+</blockquote>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,48 @@
+前情回顾
+
+1. 查询操作
+   select [col] from [tb] where...
+
+   where子句 ： 运算符
+   * 算数   +  -  ×  /  %
+   * 比较  >   <  >=  <=  !=   in  between   is
+   * 逻辑   not  and  or   xor
+
+2. 修改操作和删除操作
+   update [tb]  set col=val,.. where ...
+   delete from  [tb] where....
+
+3. alter  修改表结构
+
+   alter table [tb] [add/drop/modify/change/rename]
+
+4. 时间数据类型
+   date
+   datetime
+   time
+   year
+   timestamp
+
+   now()  curtime()  curdate()
+
+5. 高级查询方法
+
+   模糊查询： like   %  _
+   正则：  regexp
+   起名字 :  as
+   排序： order by  [desc]
+   限制： limit
+   联合查询： union [all]
+   子查询 ：　from后面    where子句中
+
+6. 聚合操作
+
+   select 语句
+
+   聚合函数：  avg()  max()  min()  sum()  count()
+   聚合分组：  group by　
+
+
+作业： 1. 熟练今天的语句
+      2. 朋友圈没有写完的要完成
+      3. 将笔记中E-R模型的 学生 课程 教师表实现

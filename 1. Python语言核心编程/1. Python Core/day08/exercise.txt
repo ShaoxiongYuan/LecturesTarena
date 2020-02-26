@@ -1,0 +1,26 @@
+作业
+1. 三合一
+2. 当天练习独立完成
+3. 调用一下函数：
+def func01(*args,**kwargs):
+    print(args)
+    print(kwargs)
+
+def func02(a,b = 0,*args,c = 0,d =0,**kwargs)
+    print(a)
+    print(b)
+    print(args)
+    print(c)
+    print(d)
+    print(kwargs)
+
+4. 自学：str相关函数、list相关函数...
+    教程:www.runoob.com
+    官方文档:docs.python.org/zh-cn
+    str01 = " 校 训：自 强不息,厚 德载 物 "
+        -- 查找空格数量
+        -- 删除前后空格
+        -- 删除所有空格
+        -- 查找"不息"的位置
+
+5. 重构shopping.py

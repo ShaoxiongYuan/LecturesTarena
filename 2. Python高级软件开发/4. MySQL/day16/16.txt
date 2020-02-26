@@ -1,0 +1,56 @@
+前情回顾
+
+1. 聚合 having   去重   聚合运算
+
+2. 索引
+   优点 ： 提高查询的效率
+   缺点 ： 占空间，需要在写操作时维护
+
+   适用 ： 数据量大，查询操作多
+
+   索引分类 ： 普通  唯一  主键
+
+   create table [tb] (col type,...., index(col));
+   create index [indexname] on tb(col);
+
+   show index from [tb]
+   desc [tb]
+
+   drop index [indexname] on [tb];
+
+3.  外键约束
+
+    constraint [外键名称] foreign key [外键字段] reference [主表关联字段] [级联动作]
+
+    删除外键 ： alter  table  [tb]  drop foreign key [外键名]
+
+    级联动作 ： restrict
+              cascade
+              set null
+
+4. 表的关联设计
+
+   一对一
+
+   一对多
+
+   多对多
+
+   E-R模型
+
+作业： book表 拆分为--》  图书   作者    出版社 三个表  字段自己设计
+      设计三个表之间的关联关系 ,  建立这三个表及表关系。
+
+      今天的语句熟悉
+
+
+
+
+
+
+
+
+
+
+
+

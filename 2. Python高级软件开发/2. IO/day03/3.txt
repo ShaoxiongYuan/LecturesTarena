@@ -1,0 +1,56 @@
+前情回顾：
+
+1. shell基础命令
+
+   chmod  cat ...
+
+   管道： |
+   输出重定向： >    >>
+
+2. 分组shell命令
+
+   压缩解压：  zip   unzip
+             tar
+
+             tar  -czf file.tar.gz  filelist
+             tar  -cjf file.tar.bz2  filelist
+             tar  -xvf
+
+   软件安装：  dpkg -i
+             dpkg -P
+             apt-get update
+             apt-get install
+             apt-get remove --purge
+
+   用户管理： adduser   (vi --> /etc/sudoers)
+            deluser   (delgroup,  sudo vipw)
+
+   ssh远程： username@ip
+
+            ssh  username@ip   远程登录
+            scp        远程拷贝
+            ssh-keygen  秘钥链接
+
+3. IO
+
+   文件 ： 文本文件  二进制文件
+
+   字节串：  str --> 字节串   encode()
+            字节串--> str    decode()
+
+            * 所有字符串都能转换为字节串，但并不是所有字节串都能转换为字符串
+
+cookie :
+
+    1G = 1024M
+    1M = 1024K
+    1k = 1024字节
+
+    s.split(" ")
+    功能： 按照某个字符切割字符串
+    参数： 分割字符
+
+
+作业　：　1. 熟练文件的读写方法
+　　　　　2.　练习没有写完的自己完成
+　　　　　3. 完成笔记和示例代码的整理

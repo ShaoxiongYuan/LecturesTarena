@@ -1,0 +1,56 @@
+前情回顾
+
+1.基础概念
+
+  * 什么是数据库
+  * 为什么用数据库
+  * 关系型数据库
+
+    数据库  数据表   记录   数据元素   字段  主键
+
+2. mysql
+
+   * 安装方法
+   * 基本特征
+
+3. 数据库操作
+
+   show databases;
+   create database [db];
+   use [db];
+   select database();
+   show create database [db];
+   drop database [db];
+
+4. 数据表操作
+
+   show tables;
+   desc [tb];
+   create table [tb] (col type ,...);
+   drop table [tb];
+   show create table [tb];
+
+   数据类型 ： 数字   int  float  decimal
+             字符串  char  varchar  blob   text   enum  set
+
+   字段约束 ： primary key    auto_increment
+             unsigned
+             not null
+             default [val]
+
+5. 插入操作
+
+   insert into [tb] [col1,col2]  values (v1,v2),(v1,v2);
+
+
+作业 ： 1.  两天的语句熟练掌握
+       2.  复习下核心变成内容
+
+
+
+
+
+
+
+
+

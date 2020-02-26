@@ -1,0 +1,33 @@
+实验1  将一个程序在任意位置都能直接执行的方法：
+
+1. 程序hello.py  第一行增加  #!/usr/bin/python3
+
+2. 在命令行修改这个程序的执行权限
+   cd month/day02
+   chmod a+x hello.py
+
+3. echo  $PATH 查看所有环境变量目录，选择一个将程序移动进去
+
+   sudo  cp  hello.py  /usr/bin
+
+实验2 将自己的某个目录变为环境变了目录
+
+1.  sudo vi /etc/profile
+
+2. 在/etc/profile文件最后写入一行
+export PATH="$PATH:/home/tarena/month2/day01"
+
+
+实验3  vi 基础使用
+
+1. vi sum.py 进入对文件的编辑
+2. i 进入插入模式进行修改
+3. esc 回到命令模式
+4. 输入 ： 进入底行 ，输入wq回车退出
+
+作业 : 1. vi的使用
+      2. shell命令
+      3. Linux能上网
+      4. markdown 认知
+
+
