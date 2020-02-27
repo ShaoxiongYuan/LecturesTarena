@@ -45,10 +45,26 @@
    隔离级别： 读未提交  读已提交  可重复读  串行化
 
 
+练习１：　建立一个dict 数据库
+        建立一个words数据表  id    word    mean
+
+        create table words (id int primary key auto_increment,word char(30),mean text,index(word));
+
+        将单词本中的单词插入数据库
 
 
 
+文件存储
 
+  1. 存储文件路径
+
+     优点：节省数据库空间
+     缺点: 文件容易丢失
+
+  2. 文件真是存在数据库中
+
+     优点 ： 文件安全
+     缺点 ：文件的提取和存入的速度慢
 
 
 
