@@ -1,0 +1,98 @@
+操作思路
+
+1. 技术分析
+
+   * 确定并发方案和网络模型
+     Process多进程并发
+     tcp
+
+   * 客户端的两级界面怎么搞 （ftp文件服务代码）
+
+2. 建立数据表  （dict数据库中）
+
+    用户信息--》 用户名   密码
+    单词 --》 单词  解释
+    历史记录 --》 用户名  单词  时间
+
+   * 几个数据表，每个数据表的结构
+     words:   id  word  mean
+
+     user :   id  name  passwd
+
+     hist :   id  name  word   time  (查询简单，但浪费一定空间)
+              id  u_id  w_id   time   (单词和用户多对多  必须单词查单的插入历史记录)
+              id  word  time  u_id    (用户与历史记录一对多)
+
+   * 创建数据表
+     user : create table user (id int primary key auto_increment,name varchar(30) not null,passwd char(64) not null);
+     hist : create table hist (id int primary key auto_increment ,name varchar(30),word varchar(30),time datetime default now());
+
+
+3. 结构设计
+
+   分为几个模块  MVC
+
+        服务端:  逻辑处理   数据处理
+
+        客户端： 发送请求接收结果，展示结果
+
+   如何封装 ： 函数或者类
+
+   功能分几个部分
+      登录
+      注册
+      查单词
+      历史记录
+
+
+   * 协议的设计 （请求类型  请求参量）
+      登录   L
+      注册   R
+      查单词  Q
+      历史记录  H
+      退出  E
+
+
+4. 具体功能模块实践
+
+   网络框架结构搭建
+
+   注册
+        客户端 ： 输入用户名密码
+                 发送请求给服务端
+                 等待结果
+
+        服务端 ： 接收请求
+                判断用户是否可以注册
+                N  通知客户端结束
+                Y  数据库插入 通知客户端
+
+
+   登录
+       客户端 ：  输入用户名密码
+                 发送请求给服务端
+                 等待结果
+
+        服务端 ： 接收请求
+                判断用户是否可以登录
+                N  通知客户端结束
+                Y  数据库插入 通知客户端
+
+
+   退出
+
+   查单词
+           客户端： 输入单词 发送请求
+                   等待结果
+
+           服务端:  接收单词
+                   单词查询
+                   发送结果
+
+   历史记录
+
+
+作业 ： 1. 完成 查询历史记录操作
+       2. 复习回顾 http协议  httpserver
+       3. 自己把dict写一遍
+
