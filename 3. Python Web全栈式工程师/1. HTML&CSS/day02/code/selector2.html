@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后代/子代选择器</title>
+    <style>
+        /* 后代选择器 */
+        #parent li{
+            color: red;
+        }
+        #parent h3{
+            background-color: blueviolet
+        }
+        #parent>h3{
+            background-color: coral
+        }
+    </style>
+</head>
+<body>
+    <div id="parent">
+        <h3>晚上吃啥?</h3>
+        <ul>
+            <li>韭菜鸡蛋</li>
+            <li>鸡爪</li>
+            <li>
+                <h3>红烧狮子头</h3>
+            </li>
+            <li>农家一碗香</li>
+        </ul>
+    </div>
+</body>
+</html>

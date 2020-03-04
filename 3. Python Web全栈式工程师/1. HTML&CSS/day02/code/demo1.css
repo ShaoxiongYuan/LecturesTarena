@@ -1,0 +1,13 @@
+body{
+    font-size: 20px;
+    color:blue;
+    text-align: center;
+}
+div{
+    height: 50px;
+    background-color: red
+}
+p{
+    font-size: 30px;
+    color: pink;
+}

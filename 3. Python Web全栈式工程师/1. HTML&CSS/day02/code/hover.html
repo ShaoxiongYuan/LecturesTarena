@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hover</title>
+    <style>
+        #d1{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            /* transition  过渡 让样式的变化在指定时间内完成    */
+            transition: all 1s;
+        }
+        #d1:hover{
+            width: 300px;
+            height: 400px;
+            background-color: orange;
+        }
+        /* 练习 17：35～17：40 */
+        #btn{
+            color: #136ec2;
+            /*文本装饰线  取值为none 去掉超链接默认的下划线*/
+            text-decoration: none; 
+        }
+        #btn:link{  /*访问前*/
+            background-color: aqua
+        }
+        #btn:visited{
+            /*访问后*/
+            background-color: coral
+        }
+        #btn:hover{
+            text-decoration: underline; /*添加下划线*/
+        }
+        #btn:active{
+            /*激活  鼠标按住不放*/
+            color: red;
+        }
+    </style>
+</head>
+<!-- html -->
+<body>
+    <div id="d1"></div>
+    <a id="btn" href="http://www.tmooc.cn">百度</a>
+</body>
+</html>
