@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #parent{
+            position: relative;
+            border: 1px solid red;
+        }
+        #parent .text{
+            font-size: 25px;
+            color: #666;
+        }   /*16:52~17:05*/
+        #parent .item{
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            border-top-color:#000;
+            position: absolute;
+            top:15px;
+            /* position: relative;
+            top:10px; */
+        }
+    </style>
+</head>
+<body>
+    <div id="parent">
+        <span class="text">上海</span>
+        <span class="item"></span>
+    </div>
+</body>
+</html>

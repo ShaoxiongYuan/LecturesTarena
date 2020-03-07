@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #parent{
+            width:400px;
+            height: 400px;
+            background-color: aquamarine;
+            margin: 20px auto;
+            /* border-top:5px solid red;    */
+            padding-top:0.1px;
+            border:5px solid blue;
+            box-sizing: border-box;
+        }
+        #parent div{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            margin: 0 auto;
+            margin-top: 100px;   
+        }
+
+        /* 盒模型计算方式(确定元素在页面实际所占空间) */
+        /* 标准模式中  元素实际所占宽度 = 元素宽度width + 元素左右内边距 + 元素左右边框 + 元素左右外边距*/
+        /* 标准模式中  元素实际所占高度 = 元素高度height + 元素上下内边距 + 元素上下边框 + 元素上下外边距*/
+
+        /*box-sizing: border-box;*/
+        /*将元素盒模型的计算方式简化*/
+        /* 元素实际所占宽度 = 元素宽度width + 元素左右外边距 */
+        /* 元素实际所占高度 = 元素高度height + 元素上下外边距 */
+        /*将宽度width/高度height所表示的区域变成元素内容+内边据+边框，只要内边距或边框大小发生改变，浏览器会自动调整内容的大小*/
+
+    </style>
+</head>
+<body>
+    <div id="parent">
+        <div></div>
+    </div>
+</body>
+</html>
