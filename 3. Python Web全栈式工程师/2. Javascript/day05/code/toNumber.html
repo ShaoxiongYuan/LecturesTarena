@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>强制转换数字类型</title>
+</head>
+<body>
+    <script>
+        // Number
+        // var age = prompt('请输入年龄')
+        // console.log(typeof age);//string 
+        // var num_age = Number(age);
+        // console.log(num_age);
+
+        var str = '1234.com';
+        var str2 = 'shibw123';
+        // var num = parseInt(str);
+        // console.log(num);//1234
+        var num = parseInt(str2);
+        console.log(num);//NaN
+
+
+        var str3 = '123.456';
+        var num2 = parseInt(str3);
+        console.log(num2);//123
+        var num3 = parseFloat(str3);
+        console.log(num3);//123.456
+
+        var str4 = '.1234.56'
+        var num4 = parseFloat(str4);
+        console.log(num4)//0.1234
+    </script>
+</body>
+</html>

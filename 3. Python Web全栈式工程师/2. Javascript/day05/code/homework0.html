@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #cart{
+            border: 1px solid #666;
+            float: left;
+            padding: 5px 25px;
+            background-color: #eee;
+            color:#666;
+            position: relative;
+        }
+        #cart .gt{
+            position: relative;
+            left:20px;
+        }
+        #cart .count{
+            width: 20px;
+            height: 20px;
+            background-color: #e4393c;
+            color: #fff;
+            position: absolute;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 50% 50% 50% 0;
+            top:-8px;
+            right:16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="cart">
+        <span class="text">我的购物车</span>
+        <span class="gt">&gt;</span>
+        <span class="count">1</span>
+    </div>
+</body>
+</html>

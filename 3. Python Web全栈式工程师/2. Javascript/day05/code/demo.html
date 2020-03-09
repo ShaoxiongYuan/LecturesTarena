@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS写法</title>
+    <script>
+        // script标签可以写在页面中的任意的位置
+        //当script标签写在head中时 会先于body中的代码执行
+        // 练习+休息 10：47～11：05
+        alert('使用内嵌标签执行JS代码');
+    </script>
+    <!-- <script src="demo.js">
+        // 引入外部文件JS  加载内嵌JS二者只能选一个使用
+        alert('使用内嵌标签执行JS代码')
+    </script> -->
+
+</head>
+<body>  
+    <!-- 当用户单击按钮时 会触发onclick事件  执行元素中的onclick属性的JS代码 -->
+    <!-- 方式一  通过元素绑定事件的方式添加JS代码 -->
+    <button onclick="alert('Hello World')">元素绑定事件</button>
+    <div onclick="alert('nihao nihao')">div单击事件</div>
+    <!-- 方式二 使用script标签 -->
+    <script>
+        alert('在body中的alert');
+    </script>
+    <!-- 方式三  引入外部js文件的内容 -->
+    <script src="demo.js">
+        // alert('外部js文件的代码')
+    </script>
+</body>
+</html>
