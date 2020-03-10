@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>匿名函数</title>
+</head>
+<body>
+    <button id="btn" >
+        我是谁？
+    </button>
+    <script>
+        // (function (){
+        //     alert('my name is leifeng');
+        // })()//()表示调用匿名函数  自调
+
+        // var sayName = function (){
+        //     alert('my name is leifeng');
+        // }
+        // console.log(sayName);
+        // sayName();
+    </script>
+    <script>
+        console.log(btn);//变量名提前  值留在原地
+        console.log(sayName);//函数名提前 会携带函数体
+        var sayName = 'nihao';//如果函数名和变量名重复 对变量赋值可能会污染函数的值，导致函数无法正常使用
+        // 16:50~17:05
+        //通过ID找到页面中的按钮
+        var btn = document.getElementById('btn');
+        // console.log(btn);//DOM对象
+        // console.log(btn.id)
+        //为按钮添加单击事件  当按钮被单击时 显示xxx
+        // btn.onclick = function(){
+        //     alert('my name is leifeng');
+        // }
+        btn.onclick = sayName;
+        //声明提前
+        function sayName(){
+            alert('my name is leifeng');
+        }
+        // sayName()
+    </script>
+</body>
+</html>

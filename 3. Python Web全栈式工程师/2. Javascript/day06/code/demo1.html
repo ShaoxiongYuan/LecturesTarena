@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自增自减运算</title>
+</head>
+<body>
+    <script>
+        // var i = 0;
+        // // i += 1;
+        // // i++;
+        // ++i;
+        // console.log(i);//1
+
+        // var j = 1;
+        // // j -= 1;
+        // // j--;
+        // --j;
+        // console.log(j);//0
+
+        var i = 1;
+        var num = i++ + ++i + i++;
+        //         1  +
+        //              2+1 +
+        //                    3
+        //                           i=4
+        console.log(num);//7
+        console.log(i);//4
+    </script>
+</body>
+</html>

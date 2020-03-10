@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body> 
+    <script>
+        var a = 10;//全局
+        function fun(){
+            alert('nihao');
+        }
+
+        function fun2() {
+            // var a = 1;//局部
+            a = 1;//全局
+            var b = a;//局部
+            console.log(b);
+            return b;
+        }
+        // fun2();//1
+        // console.log(a);//1
+        // console.log(b);//报错
+        console.log(fun());//如果函数没有返回值 默认是undefined
+        console.log(fun2());//有返回值的函数
+    </script>
+    <script>
+        //因为上一个script标签中声明了全局变量和全局函数 所以在这里能直接使用
+        //声明提前只在当前的script标签中提前 不会影响其他script标签
+        // console.log(a);
+        // fun();
+    </script>
+</body>
+</html>
