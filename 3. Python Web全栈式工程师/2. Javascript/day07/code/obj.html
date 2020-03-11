@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS中的对象</title>
+</head>
+<body>
+    <script>
+        //JS对象
+        var obj = {name:'maria',age:18};
+        console.log(obj);
+        // //获取对象的属性
+        // console.log(obj.name);
+        // console.log(obj.age);
+        // console.log(obj['name']);
+        // console.log(obj['age']);
+
+        //JSON 专门用于前后端交互的
+        var json_obj = {'name':'Maria','age':18};
+        console.log(json_obj);
+
+        for(var i in obj){
+            console.log(i);//i中保存的是对象的属性名
+            console.log(obj[i]);//通过属性名索引的方式获取属性值
+        }
+    </script>
+</body>
+</html>

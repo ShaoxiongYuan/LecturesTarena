@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 等值比较  相等 == !=  全等  === !==   (null)
+        // null == undefined    null !== undefined
+
+        //后缀i++  i--   前缀++i --i
+        //i+=1 i-=1
+        //i=1
+        //i++ + ++i + i++
+
+        //&&(and)  ||(or)  !(not)
+        //age>0&&age<=18
+
+        //条件?表达式1:表达式2
+
+        // if(){
+        // }else if(){
+        // }else{
+        // }
+
+        // switch(val){
+        //     case "xxx":
+        //         // 当val==="xxx"时 执行代码
+        //         break
+        //     case '1':
+        //     case '2':
+        //         //多个case使用同一个值
+        //         break;
+        //     default:
+        //         //接收所有case匹配都失败的结果
+        //         break;
+        // }
+
+        // var i = 0;
+        // while (i<10){
+        //     console.log(i);
+        //     i++;
+        // }
+
+        // var i = 0;
+        // do{
+        //     console.log(i);
+        //     i++;
+        // }while (i<10)
+
+        // for(var i = 0;i<10;i++){
+        //     console.log(i);
+        // }
+        var fun = 10
+        fun()
+
+        function fun(name,age){
+            console.log('hello'+name);
+            console.log(age);
+        }
+        // fun('QTX')
+        fun('18');
+
+        // (function(){
+        //     console.log('hello')
+        // })()
+
+        // var fun2 = function(){
+        //     console.log('hello')
+        // }
+        // fun2()
+        // 休息：9：45～10：00
+        btn.onclick = function(){
+            // alert('hello');
+            var age = 18;
+            uname = 'Maria';
+            fun('QTX',18);
+        }
+        btn.onclick = fun;
+    </script>
+</body>
+</html>

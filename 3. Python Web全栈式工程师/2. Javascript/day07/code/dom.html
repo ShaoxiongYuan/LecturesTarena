@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red{
+            color: red
+        }
+    </style>
+</head>
+<body>
+    <div id="title">
+        <h1>title</h1>
+    </div>
+    <button id="btn" class="red">click me</button>
+    <button>click me</button>
+    <button class="red">click me</button>
+    <button>click me</button>
+    <button class="red">click me</button>
+    <input type="text" id="uname" value="Maria">
+    <script>
+        var btn = document.getElementById('btn');
+        console.log(btn.innerHTML);
+        var div = document.getElementById('title');
+        console.log(div.innerHTML);
+        div.innerHTML = "<h1>中午吃啥?</h1>";
+        var input = document.getElementById('uname');
+        console.log(input.value)
+    </script>
+    <script>
+        var red = document.getElementsByClassName('red');
+        console.log(red);//HTML元素集合
+        // 练习 找到所有class=red的按钮，点击按钮时弹框提示文字"我是小红啊" 10：37～10：42
+        //10:47~11:00
+        for (var i=0;i<red.length;i++){
+            red[i].onclick = function(){
+                alert('我是小红啊');
+            }
+        }
+
+        //根据元素的ID属性查找元素
+        var btn = document.getElementById('btn');//DOM对象
+        //根据元素的标签名查找元素
+        var btns = document.getElementsByTagName('button');
+        // console.log(btns);//HTML元素集合
+        // console.log(btns.length)//对象.length 获取对象的长度
+        // console.log(btns[1]);//使用索引值在集合中取元素
+        //练习 10:16~10:21 使用for循环遍历btns [012] 打印所有的btn
+        // for(var i = 0;i<btns.length;i++){
+        //     console.log(btns[i]);
+        // }
+        
+        
+    </script>
+</body>
+</html>HTML

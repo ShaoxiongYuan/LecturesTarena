@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="d1">测试用的文字</div>
+    <button id="btn">点击让文字变红</button>
+    <button id="btn2">点击取消文字样式</button>
+    <script>
+        //1.查找元素
+        var btn = document.getElementById('btn');
+        var d1 = document.getElementById('d1');
+        //2.绑定事件
+        btn.onclick = function(){
+            // <div id="d1" class="red">
+            // d1.setAttribute('class','red');
+
+            // <div style="color: red;font-weight:bold" id="d1">
+            d1.className = 'red';
+            d1.style = "color: red;font-weight:bold";
+        }
+        //练习 为btn2添加单击事件 当点击按钮时 取消div的文字样式
+        //11：36～11：41
+        var btn2 = document.getElementById('btn2');
+        btn2.onclick = function(){
+            // d1.removeAttribute('class');
+            d1.className = '';
+            d1.style = "";
+        }
+    </script>
+</body>
+</html>

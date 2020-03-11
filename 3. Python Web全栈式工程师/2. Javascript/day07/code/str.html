@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var str = 'this is a test string';
+        var reg = /is/ig;
+        var reg2 = new RegExp('This','ig');
+
+        var result = str.match('is');
+        console.log(result);
+        var newStr = str.replace('is','at')
+        console.log(newStr);
+
+
+        // var newStr = str.replace(reg2,'that');
+        // console.log(newStr);
+        // var result = str.match(reg);
+        // console.log(result);
+
+        // console.log(reg.lastIndex);//0
+        // console.log(reg.test(str));//true
+        // console.log(reg.lastIndex);//4
+        // console.log(reg.test(str));//true
+        // console.log(reg.lastIndex);//7
+        // console.log(reg.test(str));//false
+        // console.log(reg.lastIndex);//0
+
+        
+
+
+        // //16：41～16：45
+        // var str = "shibw@tedu.cn"
+        // //获取str中的用户名shibw和服务商tedu.cn
+        // var arr = str.split('@');
+        // console.log('用户名:'+arr[0],'服务商:'+arr[1]);
+
+
+        // //休息+练习 16:50~17:05
+        // var str2 = "2124_10|1977_5"
+        // // 2124表示商品id 10表示商品数量  
+        // // 获取所有的商品id 以及对应的商品数量
+        // var arr = str2.split('|');
+        // for(var i = 0;i<arr.length;i++){
+        //     var res = arr[i].split('_');
+        //     console.log('shangpinId:'+res[0],'商品数量：'+res[1])
+        // }
+
+        // var str = 'this is a test string';
+        // str.indexOf('test');//10
+        // str.indexOf('t');//0
+        // str.indexOf('x');//-1
+
+        // str.indexOf('t',11)
+        // var str = '1234';
+        // var str2 = new String('1234');
+        // console.log(str[0]);
+        // console.log(str2[0]);
+        // str[0] = '0';
+        // console.log(str);
+
+        // for(var i=0;i<str.length;i++){
+        //     console.log(i);
+        // }
+    </script>
+</body>
+</html>

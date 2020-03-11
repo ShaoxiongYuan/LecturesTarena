@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Array</title>
+</head>
+<body>
+   <script>
+        //休息15：45～16：00
+        function sortASC(a,b){
+            //升序排列  从小到大
+            return a-b;
+        }
+        function sortDESC(a,b){
+            //降序排列  从大到小
+            return b-a;
+        }
+        var arr = [5,7,1,123,70,90];
+
+        arr.sort(sortASC);
+        console.log(arr);
+        arr.sort(sortDESC);
+        console.log(arr);
+        
+        // 休息14：45～15：00
+        // var arr = [1,2,3,4];
+        // arr.push(5,6);
+        // arr.pop();
+        // arr.unshift(0);
+        // arr.shift();
+        // arr.splice(2,3)//从索引值2的位置开始 删除3个元素
+        
+        // var arr1 = ['h','e','l','l','o'];
+        //使用splice 删除数组中的 e l l
+        // arr1.splice(1,3,1,2,3)//从索引值1的位置开始 删除3个元素，然后将1,2,3放入被删除的位置上
+        // console.log(arr1);//['h',1,2,3,'o']
+
+        // var arr2 = [1,2,3,4];
+        // var arr_str = arr2.join('-');
+        // console.log(arr_str);
+
+        // var dateArr = [2020,1,1];
+        // console.log(dateArr.join('/'));
+
+
+
+        //         0 1 2 3
+        // console.log(arr);
+        // console.log(arr[1],arr[2],arr[3]);
+        // arr[2] = 3.14;//修改数组中的值
+        // console.log(arr);
+        // //遍历数组的方法
+        // for(var i=0;i<arr.length;i++){
+        //     console.log(arr[i])
+        // }
+        
+
+   </script>
+</body>
+</html>
