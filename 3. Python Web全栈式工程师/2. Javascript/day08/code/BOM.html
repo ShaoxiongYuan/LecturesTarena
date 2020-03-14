@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #d1{
+            width: 200px;
+            height: 300px;
+            position: fixed;
+            right: 0;
+            bottom: -300px;
+            background-color: red;
+            transition: all 2s;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">停止定时器</button>
+    <button id="btn2">启动定时器</button>
+    <div id="d1"></div>
+    <button id="btn3">前进</button>
+    <a href="countDown.html">前往countDown</a>
+
+    <script>
+        var btn3 = document.getElementById('btn3');
+        btn3.onclick = function(){
+            history.forward();
+        }
+    </script>
+
+    <script>
+        var d1 = document.getElementById('d1');
+        var timer = setTimeout(function(){
+            d1.style = 'bottom:0;'
+        },3000);
+        clearTimeout(timer);
+
+
+
+        // function sayHello(){
+        //     console.log('hello')
+        // }
+        // //设置周期性定时器
+
+        //14:45~15：00 休息
+        //15：05～15：15 完成倒计时功能
+        // setInterval(sayHello,1000);
+        // var timer = null;//初始化一个变量 保存定时器的ID
+        // var btn2 = document.getElementById('btn2');
+        // btn2.onclick = function(){
+        //     if(timer==null){
+        //         timer = setInterval(function(){
+        //             console.log('hello');
+        //         },1000)
+        //     }   
+        // }
+        // // 停止定时器
+        // var btn = document.getElementById('btn');
+        // btn.onclick = function(){
+        //     clearInterval(timer);
+        //     timer = null;
+        // }
+
+
+
+
+
+        //弹框
+        // window.alert('普通的弹框');
+        // alert('普通的弹框');
+        // var input = prompt('请输入内容');
+
+        // var result = confirm('确认要删除么？');
+        // console.log(result);//boolean
+        // if(result){
+        //     alert('删除成功');
+        // }else{
+        //     alert('取消操作');
+        // }
+
+        // confirm('确认要删除么？')?alert('删除成功'):alert('取消操作');
+    </script>
+</body>
+</html>

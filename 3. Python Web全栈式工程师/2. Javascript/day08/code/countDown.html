@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">后退</button>
+    <h1 id="title"></h1>
+    <script>
+        var btn = document.getElementById('btn');
+        btn.onclick = function(){
+            history.back();
+        }
+    </script>
+
+    <script>
+        //如果数字小于10  补零
+        function addZero(num){
+            return num<10?"0"+num:num+"";
+        }
+        function countDown(){
+            var now = new Date();
+            var end = new Date("2020/03/13 15:51:00");
+            var leftTime = parseInt((end.getTime()-now.getTime())/1000);
+            var d = parseInt(leftTime/(60*60*24));
+            var h = parseInt(leftTime/(60*60)%24);
+            var m = parseInt(leftTime/60%60);
+            var s = parseInt(leftTime%60);
+            d = addZero(d);
+            h = addZero(h);
+            m = addZero(m);
+            s = addZero(s);
+            var h1 = document.getElementById('title');
+            h1.innerHTML = "距离上课还有"+d+"天"+h+"时"+m+"分"+s+"秒";
+            // 15:50~16:05
+            if(leftTime<=0){
+                h1.innerHTML = "时间到";
+                return;
+            }
+            setTimeout(countDown,1000);
+        }
+        //当leftTime的值小于0时 停止定时器
+        //使用一次性定时器 setTimeout完成功能
+        // var timer = setInterval(countDown,1000);
+        countDown();
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="title"></h1>
+    <script>
+        var now = new Date();
+        var end = new Date("2020/05/01 12:00:00");
+        //获取时间差的总秒数  转成整数
+        var leftTime = parseInt((end.getTime()-now.getTime())/1000);
+        console.log(leftTime);
+
+        var d = parseInt(leftTime/(60*60*24));
+        var h = parseInt(leftTime/(60*60)%24);
+        var m = parseInt(leftTime/60%60);
+        var s = parseInt(leftTime%60);
+        d = addZero(d);
+        h = addZero(h);
+        m = addZero(m);
+        s = addZero(s);
+        //休息09：55～10：10
+        var h1 = document.getElementById('title');
+        h1.innerHTML = "距离五一还有"+d+"天"+h+"时"+m+"分"+s+"秒";
+
+        //如果数字小于10  补零
+        function addZero(num){
+            return num<10?"0"+num:num+"";
+            // if(num<10){
+            //     return "0"+num
+            // }else{
+            //     return num+''
+            // }
+        }
+    </script>
+</body>
+</html>

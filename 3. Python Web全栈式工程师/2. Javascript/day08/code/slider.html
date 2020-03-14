@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <img id="img" src="" alt="">
+    <div id="desc"></div>
+    <script>
+        var img = document.getElementById('img');
+        var desc = document.getElementById('desc');
+        // [{url:xxx,desc:xx},{}]
+        var imgArr = [
+            {url:"../imgs/bk0-8.jpg",desc:"JavaScript高级程序设计第三版"},
+            {url:"../imgs/bk1-8.jpg",desc:"JavaScript从入门到精通"},
+            {url:"../imgs/bk2-8.jpg",desc:"JavaScript权威指南"},
+            {url:"../imgs/bk3-8.jpg",desc:"JavaScriptDOM编程艺术"},
+            {url:"../imgs/bk4-8.jpg",desc:"Python学习手册"},
+        ]
+        //定义一个随机的索引值 0～4
+        var i = Math.floor(Math.random()*5);
+        //通过索引值获取img对象
+        var imgObj = imgArr[i];
+        //将对应img对象的属性显示在页面上
+        img.src = imgObj.url;
+        desc.innerHTML = imgObj.desc;
+
+
+
+
+
+
+
+
+        //将所有的图片的路径保存到数组
+        //[{},{},{}]
+        // var imgArr = [
+        //     "../imgs/bk0-8.jpg",
+        //     "../imgs/bk1-8.jpg",
+        //     "../imgs/bk2-8.jpg",
+        //     "../imgs/bk3-8.jpg",
+        //     "../imgs/bk4-8.jpg",
+        // ]
+        // //定义一个随机的索引值 0～9
+        // var i = Math.floor(Math.random()*10);
+        // //通过索引值获取imgArr的路径
+        // var url = imgArr[i]; 
+        // //将对应路径的图片显示在页面
+        // img.src = url;
+    </script>
+</body>
+</html>

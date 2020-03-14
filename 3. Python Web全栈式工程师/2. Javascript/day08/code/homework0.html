@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,li{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        #nav{
+            border: 1px solid red;
+        }
+        #nav>li{
+            display: inline-block;
+        }
+        #nav .first{
+            color: #666;
+            margin: 5px 10px;
+        }
+        #nav .item{
+            padding: 0 5px;
+            margin: 5px 15px;
+            transition: all 0.3s;
+        }
+        #nav .active{   /*休息09：51～10：05*/
+            background-color: red;
+            color: #fff;
+        }
+        #nav .item:hover{
+            cursor: pointer;  /*将鼠标改成小手*/
+            background-color: red;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <ul id="nav">
+        <li class="first">难度：</li>
+        <li class="item">全部</li>
+        <li class="item">初级</li>
+        <li class="item active">中级</li>
+        <li class="item">高级</li>
+    </ul>
+    <script>
+        // 休息：10：50～11：05
+        //1.查找页面元素
+        lis = document.getElementsByClassName('item');
+        //2.添加单击事件
+        for(var i=0;i<lis.length;i++){
+            lis[i].onclick = function(){
+                for(var j=0;j<lis.length;j++){
+                    lis[j].setAttribute('class','item');
+                }
+                //this 指代当前对象 谁触发这个事件  当前对象就是谁
+                this.setAttribute('class','item active')
+            }
+        }
+
+
+
+
+        // for(var i=0;i<lis.length;i++){
+        //     lis[i].onclick = function(inner_i){
+        //         //使用闭包的方式 留住外部的i
+        //         return function(){
+        //             for(var j=0;j<lis.length;j++){
+        //                 lis[j].setAttribute('class','item');
+        //             }
+        //             lis[inner_i].setAttribute('class','item active')
+        //         }
+        //     }(i)
+        // }
+
+
+
+
+
+
+        // for(var i=0;i<lis.length;i++){
+        //     lis[i].onclick = function(){
+        //         //3.添加功能
+        //         //lis全部的按钮 class = "item"
+        //         for(var j=0;j<lis.length;j++){
+        //             // lis[j].className = 'item';
+        //             lis[j].setAttribute('class','item');
+        //         }
+        //         //lis中的当前的按钮 class = "item active"
+        //         // lis[i].className='item active';
+        //         // console.log(i);
+        //         // i是函数外部的循环中的值，当函数执行时，外部的i已经变成终止循环时的i的值了 不能表示当前的元素的索引 
+        //         // lis[i].setAttribute('class','item active');
+        //     }
+        // }
+    </script>
+</body>
+</html>
