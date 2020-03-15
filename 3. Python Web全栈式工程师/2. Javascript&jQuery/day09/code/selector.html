@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div id="d1" class="c1"></div>
+    <p class="c1"></p> -->
+    <!-- <div id="parent">
+        <div class="first">以梦为马，越骑越傻</div>
+        <div>中国：我们好多了</div>
+        <p>欧洲：我们好多了</p>
+    </div> -->
+    <ul id="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li class="last">4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li class="last">8</li>
+    </ul>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        // $('li').eq(3).css('color','blue');
+        //找到id值为list下的不包含class=last的li
+        $('#list>li:not(.last)').css('width','300px');
+
+        //匹配索引值为奇数的元素   第二个  第四个...
+        $('#list>li:odd').css('background-color','red');
+        //匹配索引值为偶数的元素   第一个  第三个...
+        $('#list>li:even').css('background-color','pink');
+
+        // $('#list>li:eq(3)').css('color','blue');
+        // $('#list>li:lt(3)').css('color','yellow');
+        // $('#list>li:gt(3)').css('color','green');
+
+        // $('#list>li:first').css('background-color','pink');
+        // $('#list>li:last').html('最后一个元素');
+
+
+        // console.log($('#d1'));
+        // console.log($('.c1'));
+        // $('.c1').html('nihao');
+
+        // $('#parent .first').html('中午吃啥？');
+        //相邻兄弟元素 (在当前元素后面的第一个元素)
+        // $('.first+div').css('background-color','yellow');
+        //通用兄弟元素 (在当前元素后面的所有符合条件的元素)
+        // $('.first~p').css('color','red');
+    </script>
+</body>
+</html>

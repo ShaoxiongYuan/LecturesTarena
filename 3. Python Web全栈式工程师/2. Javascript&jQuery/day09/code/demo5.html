@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>测试用的文字</p>
+    <button id="btn">删除测试用的文字</button>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        //16：52～17：10
+        //删除页面中的h1
+        $('#btn')[0].onclick = function(){
+            $('p').remove();
+            //定义函数时目前页面没有#title 但是函数定义后不会马上执行
+            //当点击按钮执行函数时 #title已经添加到页面上了 所以可以删除
+            $('#title').remove();
+        }
+    </script>
+    <script>
+        //在p元素的前后添加h1
+        $('body').prepend(
+            // $('<h1></h1>').html('这是JQ动态创建的标签').prop('id','title').css('color','red')
+            $('<h1 id="title" style="color:blue">这是JQ动态创建的标签</h1>')
+        );
+    </script>
+</body>
+</html>

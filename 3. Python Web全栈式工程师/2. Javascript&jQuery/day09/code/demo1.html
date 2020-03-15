@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="d1">hello</div>
+    <!-- 引入外部js文件 -->
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        // $('#d1').html('nihao');
+        //使用DOM方式查找 获取的是DOM对象 可以使用DOM提供的方法和属性
+        var d1 = document.getElementById('d1');
+        //使用工厂函数查找 获取的是jQuery对象 可以使用jQuery封装的方法和属性
+        var $d1 = $('#d1');
+        // console.log(d1);
+        // console.log($d1);
+        //DOM --> jQuery
+        var $d2 = $(d1);//jQuery对象
+        //jQuery --> DOM
+        var d2 = $d2[0];//DOM对象
+        console.log($d2);
+        console.log(d2);
+        //this DOM对象
+        //$(this)  jQuery对象
+
+    </script>
+</body>
+</html>

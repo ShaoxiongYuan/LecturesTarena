@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="imgs">
+        <img src="../imgs/gm1-6.jpg" alt="">
+    </div>
+    <div>
+        <button id="btn">隐藏</button>
+        <button id="btn1">上推</button>
+        <button id="btn2">淡隐</button>
+    </div>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $('#btn2')[0].onclick = function(){
+            if($('#btn2').html() == '淡隐'){
+                $('#imgs').fadeOut(1500,function(){
+                    $('#btn2').html('淡现');
+                });
+            }else{
+                $('#imgs').fadeIn(1500,function(){
+                    $('#btn2').html('淡隐');
+                });
+            }
+        }
+
+
+        $('#btn1')[0].onclick = function(){
+            if($('#btn1').html() == '上推'){
+                $('#imgs').slideUp(1500,function(){
+                    $('#btn1').html('下拉');
+                });
+            }else{
+                $('#imgs').slideDown(1500,function(){
+                    $('#btn1').html('上推');
+                });
+            }
+        }
+        //17：26～17：36
+        //测试上推下拉   淡隐淡现
+        $('#btn')[0].onclick = function(){
+            if($('#btn').html() == '隐藏'){
+                $('img').hide(1500,function(){
+                    $('#btn').html('显示');
+                });
+            }else{
+                $('img').show(1500,function(){
+                    $('#btn').html('隐藏');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

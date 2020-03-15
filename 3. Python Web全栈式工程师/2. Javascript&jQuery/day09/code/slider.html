@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 739px;
+            height: 419px;
+            position: relative;
+        }
+        #box #ll, #box #rr{
+            position: absolute;
+            top:50%;
+            margin-top:-20px;
+        }
+        /* #box #img{
+            width: 100%;
+            height: 100%;
+            transition: all 0.5s;
+        } */
+        #box #ll{
+            left:0;
+        }
+        #box #rr{
+            right: 0;
+        }
+    </style>
+</head>
+<body>   
+    <!-- 9:47~10:00 -->
+    <div id="box">
+        <img id="ll" src="../imgs/l1-6.png" alt="">
+        <img id="img" src="../imgs/gm1-6.jpg" alt="">
+        <img id="rr" src="../imgs/r1-6.png" alt="">
+    </div>
+    <script>
+        var i = 1;//表示第一张图片
+        var ll = document.getElementById('ll');
+        var rr = document.getElementById('rr');
+        var img = document.getElementById('img');
+        //点击左侧按钮时的功能
+        ll.onclick = function(){
+            i--;
+            if(i==0){
+                i=5;
+            }
+            showimg(i);
+        }
+        rr.onclick = function(){
+            i++;
+            if(i==6){
+                i=1;
+            }
+            showimg(i);
+        }
+        //添加定时器
+        var timer = setInterval(function(){
+            i++;
+            if(i==6){
+                i=1;
+            }
+            showimg(i);
+        },1000)
+        //停止定时器
+        //给父元素绑定事件
+        var box = document.getElementById('box');
+        box.onmouseover = function(){
+            clearInterval(timer);
+        }
+        box.onmouseout = function(){
+            timer = setInterval(function(){
+                i++;
+                if(i==6){
+                    i=1;
+                }
+                showimg(i);
+            },1000)
+        }
+
+
+
+        // 10:17~10:22
+        //切换图片的功能  
+        //根据用户输入的i匹配不同的图片的路径
+        //将img的src属性改成匹配到的路径   
+        function showimg(i){
+            var url = "";//保存路径
+            switch(i){
+                case 1:
+                    url = '../imgs/gm1-6.jpg';
+                    break;
+                case 2:
+                    url = '../imgs/gm2-6.jpg';
+                    break;
+                case 3:
+                    url = '../imgs/gm3-6.jpg';
+                    break;
+                case 4:
+                    url = '../imgs/gm4-6.jpg';
+                    break;
+                case 5:
+                    url = '../imgs/gm5-6.jpg';
+                    break;
+            }
+            img.src = url;
+        }
+    </script>
+</body>
+</html>

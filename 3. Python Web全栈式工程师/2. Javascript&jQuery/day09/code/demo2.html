@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>操作页面内容</title>
+</head>
+<body>
+    <input type="text" id="text">
+    <button id="btn">click me</button>
+    <div id="show"></div>
+    <!-- 14：50～15：05 -->
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $('#btn')[0].onclick = function(){
+            // $('#show').html('<h1>'+$('#text').val()+'</h1>')
+            //链式操作  查找一次元素之后 可以根据需求多次调用方法
+            $('#show').html($('#text').val()).css('font-size','30px').css('font-weight','bold');
+        }
+
+
+        // //1.找元素
+        // var text = $('#text');
+        // var btn = $('#btn');//jQuery
+        // var show = $('#show');
+        // //2.绑定事件
+        // //当按钮被单击时 将文本框的内容放入div中 放大 加粗显示
+        // //btn[0]DOM对象 
+        // btn[0].onclick = function(){
+        //     show.html('<h1>'+text.val()+'</h1>')
+        // }
+    </script>
+</body>
+</html>

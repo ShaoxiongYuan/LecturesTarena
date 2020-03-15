@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        姓名 <input type="text" id="uname" placeholder="请输入用户名" >
+    </div>
+    <div>
+        密码 <input id="pwd" type="password">
+    </div>
+    <div>
+        <input id="read" type="checkbox">阅读并同意 <a href="#">《协议》</a>
+    </div>   <!-- 15:55~16:10 -->
+    <button id="btn">提交</button>
+    <button id="btn2">显示密码</button>
+    <button id="btn3">移除提示</button>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $('#btn3')[0].onclick = function(){
+            $('#uname').removeAttr('placeholder');
+        }
+        $('#btn2')[0].onclick = function(){
+            $('#pwd').prop('type','text');
+        }
+    </script>
+    <script>
+        $('#btn')[0].onclick = function(){
+            $('#read').prop('checked')?alert('提交成功'):alert('请阅读并同意协议');
+            // console.log($('#read'));
+            // console.log($('#read').attr('checked'));//undefined
+            // console.log($('#read').prop('checked'));//false
+
+            //判断#read是否被选中
+            //如果被选中 提示 提交成功
+            //否则提示 请阅读并同意协议 
+        }
+    </script>
+</body>
+</html>
