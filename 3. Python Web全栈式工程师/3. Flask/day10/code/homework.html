@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>级联下拉菜单</title>
+</head>
+<body>
+<form action="#">
+    <select name="prov" id="prov">
+        <!-- <option value="">请选择</option> -->
+    </select>
+    <select name="city" id="city"></select>
+    <select name="area" id="area"></select>
+</form>
+<script src="../js/data.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script>
+    console.log(data);
+    //查找元素
+    var $prov = $('#prov');
+    var $city = $('#city');
+    var $area = $('#area');
+    //初始化页面
+    $prov.html('<option value="0">请选择</option>')
+    $city.html('<option value="0">请选择</option>')
+    $area.html('<option value="0">请选择</option>')
+    //显示省份
+    //遍历data数组 取出每个对象的provname 添加到option标签中 显示在页面上
+    $.each(data, function (i, obj) {
+        $prov.append('<option value="' + obj.provId + '">' + obj.provname + '</option>');
+    })
+    //当下拉菜单中的选项被选择时  会触发下拉菜单的onchange事件 -->change
+    //onchange  值发生改变
+    $prov.on('change', function () {
+        //查找当前省份所对应的城市
+        //找到对应省份的城市数组
+        $.each(data, function (i, obj) {
+            //判断是否为当前对象
+            if ($prov.val() == obj.provId) {
+                //重置城市菜单
+                $city.html('<option value="0">请选择</option>');
+                //根据当前对象的citys得到所有的城市信息
+                //将城市信息显示到页面
+                $.each(obj.citys, function (i, obj2) {
+                    $city.append('<option value="' + obj2.cityId + '">' + obj2.cityname + '</option>');
+                })
+            }
+        })
+
+        //当省份下拉菜单变成请选择时  将城市下拉菜单初始化
+        if ($prov.val() == 0) {
+            $city.html('<option value="0">请选择</option>')
+        }
+        //当城市被初始化以后 将地区下拉菜单也初始化
+        if ($city.val() == 0) {
+            $area.html('<option value="0">请选择</option>')
+        }
+    })
+
+    //选择城市 显示城市对应的地区
+    $city.on('change', function () {
+        //显示对应城市的所有地区
+        //1.查找到当前的省份  根据省份查找到当前的城市
+        $.each(data, function (i, obj) {
+            if ($prov.val() == obj.provId) {
+                $.each(obj.citys, function (i, obj2) {
+                    if ($city.val() == obj2.cityId) {
+                        $area.html('<option value="0">请选择</option>')
+                        $.each(obj2.areas, function (i, obj3) {
+                            $area.append('<option value="' + obj3.areaId + '">' + obj3.areaname + '</option>')
+                        })
+                    }
+                })
+            }
+        })
+
+        //当城市下拉菜单变成请选择时  初始化地区下拉菜单
+        if ($city.val() == 0) {
+            $area.html('<option value="0">请选择</option>');
+        }
+    })
+</script>
+</body>
+</html>
