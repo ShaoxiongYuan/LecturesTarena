@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="uname">
+    <button id="btn">发送ajax</button>
+    <h1 id="show"></h1>
+    <script>
+        //休息：15：50～16：05
+        //练习16：15
+        //当btn被单击时 发送ajax请求
+          //创建xhr对象
+          //创建请求  方式get  地址/exer_server  异步
+          //绑定事件
+                //当服务器端程序响应的结果全都下载完成 同时 响应的状态码为200时
+                    //接收服务器端数据 将服务器端数据放入页面h1中显示
+          //发送请求
+        var btn = document.getElementById('btn');
+        var uname = document.getElementById('uname');
+        btn.onclick = function(){
+            var xhr = new XMLHttpRequest();
+            var data = uname.value;
+            //http://127.0.0.1:5000/exer_server?uname=xxx
+            xhr.open('get','/exer_server?uname='+data,true);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4 && xhr.status==200){
+                    var h1 = document.getElementById('show')
+                    h1.innerHTML = xhr.responseText
+                }
+            }
+            xhr.send(null);
+        }
+          
+    </script>
+</body>
+</html>

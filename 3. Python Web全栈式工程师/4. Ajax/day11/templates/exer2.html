@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>注册用户</h1>
+    <div>
+        姓名： <input type="text" id="uname">
+        <span id="msg"></span>
+    </div>
+    <div>
+        密码： <input type="password" id="pwd">
+    </div>
+    <button id="btn">提交</button>
+    <script src="../static/js/jquery.min.js"></script>
+    <script>
+        // 休息16:57~17:10
+        // 练习 发送ajax请求 17:12~17:17
+        //当文本框的内容发生改变时  检测用户名
+        $('#uname').change(function(){
+            var xhr = new XMLHttpRequest();
+            var data = $('#uname').val();
+            xhr.open('get','/exer2_server?uname='+data,true);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    console.log(xhr.responseText)
+                    //1000表示用户名已存在
+                    //1001表示用户名不存在
+                    if(xhr.responseText=='1000'){
+                        $('#msg').html('用户名已存在').css('color','red')
+                    }else{
+                        $('#msg').html('OK').css('color','green')
+                    }
+                }
+            }
+            xhr.send(null);
+        })
+        // 当按钮btn被单击时 发送ajax请求
+            // 获取uname的值   //创建xhr对象
+            // 创建请求  方式get  地址/exer2_server  异步
+            // 绑定事件
+                //当服务器端程序响应的结果全都下载完成 同时 响应的状态码为200时
+                    //接收服务器端数据  console.log()
+                    // 如果用户名重复 提示用户名已存在，如果用户名不重复 提示OK 
+            //发送请求
+    </script>
+</body>
+</html>

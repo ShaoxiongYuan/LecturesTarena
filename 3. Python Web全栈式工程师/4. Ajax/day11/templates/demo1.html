@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>demo1.html</h1>
+    <script>
+        //0.创建xhr对象
+        var xhr = new XMLHttpRequest();
+        console.log(xhr);
+        //1.创建请求
+        //http://127.0.0.1:5000/demo  显示页面
+        //http://127.0.0.1:5000/server 服务器端功能
+        // open(mehtod,url,async)
+        // method   get/post
+        // url      服务器端程序地址
+        // async    是否异步 true/false
+        xhr.open('get','/server',true)
+        //2.绑定事件
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState==2){
+                console.log('已开始发送请求')
+            }else if(xhr.readyState==3){
+                console.log('服务端程序处理完毕，前端正在下载响应内容');
+            }else if(xhr.readyState==4){
+                console.log('响应数据全部下载完成')
+                //判断响应数据是否正常
+                if(xhr.status==200){
+                    //获取服务器端程序响应的结果
+                    console.log(xhr.responseText)
+                }
+            }
+        }
+        //3.发送请求
+        xhr.send(null);
+    </script>
+</body>
+</html>
