@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>getData</title>
+</head>
+<body>
+    <script>
+        var json_obj = {"uname":"laowang","age":18};
+        console.log(json_obj);
+
+        var json_arr = ["laowang","Maira","QTX"];
+        var json_obj_arr = [
+            {"name":"laowang","age":18},
+            {"name":"Maira","age":18},
+            {"name":"QTX","age":18},
+        ]
+    </script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('get','/getData_server',true);
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState==4&&xhr.status==200){
+                var data = xhr.responseText;
+                console.log(data);
+                console.log(typeof data);//string
+                // JSON.parse(json_str)  解析json串  将对应格式的JSON对象返回
+                //后端 json.dumps()将后端的数据格式转换成JSON串
+                //前端 JSON.parse()将后端响应的JSON串解析成前端能用数据格式
+                var json_obj = JSON.parse(data);
+                console.log(json_obj)
+            }
+        }
+        xhr.send(null);
+    </script>
+</body>
+</html>

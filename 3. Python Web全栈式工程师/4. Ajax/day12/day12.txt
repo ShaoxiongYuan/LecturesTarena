@@ -1,0 +1,19 @@
+各位小伙伴下午好!
+14点准时上课
+今日内容:
+    1.ajax发送post请求
+    2.json格式
+    3.前后端处理json数据
+
+
+作业：
+
+@app.route(/data)
+def data():
+    显示页面 cartData.html
+@app.route(/data_server)
+    cartdata={xxx}
+    将数据以JSON格式返回给前端
+
+
+

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>注册用户</h1>
+    <div>
+        姓名： <input type="text" id="uname">
+        <span id="msg"></span>
+    </div>
+    <div>
+        密码： <input type="password" id="pwd">
+    </div>
+    <button id="btn">提交</button>
+    <script src="../static/jquery.min.js"></script>
+    <script>
+        //整理代码+休息16：48～17：00
+        //检测用户名 如果用户名已存在 返回true 如果用户名未存在返回false
+        function checkUname(){
+            var result = false;//默认用户名未存在
+            var xhr = new XMLHttpRequest();
+            var data = $('#uname').val();
+            //用户名是否存在需要向服务器发送请求之后才能得到准确结果，后面的程序需要依靠本次请求的结果来执行代码，这时需要让程序同步执行，将open第三个参数改为false
+            xhr.open('get','/exer2_server?uname='+data,false);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    //将json字符串解析成json对象
+                    var data = JSON.parse(xhr.responseText);
+                    if(data.code==1000){
+                        result = true//表示用户名已存在
+                        $('#msg').html(data.msg).css('color','red')
+                    }else{
+                        $('#msg').html(data.msg).css('color','green')
+                    }
+                }
+            }
+            xhr.send(null);
+            return result;
+        }
+        //当文本框的内容发生改变时  检测用户名
+        $('#uname').change(checkUname)
+        //16：14～16：24
+        //为btn按钮添加功能  当按钮被点击时 检测用户名
+        $('#btn').click(function(){
+            if(checkUname()){
+                //用户名重复 
+                alert('用户名已存在，请修改用户名后重试');
+                $('#uname').val('')
+                $('#msg').html('')
+            }else{
+                var xhr = new XMLHttpRequest();
+                xhr.open('post','/register',true);
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState==4&&xhr.status==200){
+                        console.log(xhr.responseText)
+                    }
+                }
+                //使用JSON格式发送数据
+                var json_obj = {
+                    "uname":$('#uname').val(),
+                    "pwd":$('#pwd').val()
+                }
+                //前端使用JSON.stringify JSON对象 --> JSON串
+                //后端使用request.json接收
+                var json_str = JSON.stringify(json_obj);
+                //'application/json' 表示要发送的数据是json格式
+                xhr.setRequestHeader('Content-Type','application/json');
+                xhr.send(json_str);
+                //使用表单方式发送数据
+                // xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                // xhr.send('uname='+$('#uname').val()+"&pwd="+$('#pwd').val());
+            }
+        })
+        //如果用户名没有重复
+            //向服务器 :5000/register提交数据
+            //post    uname=xxx&pwd=xxx
+        //如果用户名重复
+            //alert('请修改用户名')
+            //不发送请求
+    </script>
+</body>
+</html>

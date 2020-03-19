@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../static/jquery.min.js"></script>
+    <style>
+        #search{
+            margin: 0;
+            padding: 0;
+            outline: 0;/*去掉文本框外边的轮廓*/
+            width: 175px;
+        }
+        #searchList{
+            border: 5px solid red;
+            width: 169px;
+            margin-top: -2px;
+            display: none;/*隐藏元素*/
+        }
+    </style>
+</head>
+<body>
+    <h1>这是homework</h1>
+    <input type="text" id="search">
+    <button>搜索</button>
+    <div id="searchList">
+        <div>和搜索有关的内容</div>
+        <div>和搜索有关的内容</div>
+        <div>和搜索有关的内容</div>
+        <div>和搜索有关的内容</div>
+    </div>
+
+    <script>
+        $('#search').change(function(){
+            var xhr = new XMLHttpRequest();
+            xhr.open('get','/server?kw='+$('#search').val(),true);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    console.log(xhr.responseText)
+                    var arr = xhr.responseText.split('|');
+                    arr.pop();//删除最后一个|导致的空数组对象
+                    console.log(arr);
+                    //清空原本的内容
+                    $('#searchList').html('');
+                    // 遍历arr取出每一个数据 显示到searchList中
+                    $.each(arr,function(i,obj){
+                        $('#searchList').append('<div>'+obj+'</div>')
+                    })
+                    //显示搜索列表
+                    $('#searchList').show();
+                }
+            }
+            xhr.send(null);
+        })
+
+
+        // 休息9：56～10：10
+        //当文本框的值发生改变时，将文本框的值发送给服务器
+        //服务器接收到值以后，将和值有关的数据响应给前端
+        //前端拿到响应的数据以后 解析数据显示到页面
+
+
+
+        
+    </script>
+</body>
+</html>

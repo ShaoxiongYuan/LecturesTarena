@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax_post</title>
+</head>
+<body>
+    <input type="text" id="uname">
+    <button id="btn">点击发送post请求</button>
+    <div id="show"></div>
+    <script src="../static/jquery.min.js"></script>
+    <script>
+        //当点击按钮时 发送post请求
+        $('#btn').click(function(){
+            var xhr = new XMLHttpRequest();
+            xhr.open('post','/post',true);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    $('#show').html(xhr.responseText)
+                }
+            }
+            //定义要发送的数据
+            //数据格式为 uname=xx&age=xxx&...
+            var data = "uname="+$('#uname').val()
+            //指定数据发送的格式 以表单的格式发送
+            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xhr.send(data);
+        })
+
+
+
+        //休息+练习10：50～11：05
+        //编写服务器端代码
+        //当用户访问http://127.0.0.1:5000/post时 显示页面ajax_post.html
+    </script>
+</body>
+</html>
