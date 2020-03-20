@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq_ajax_post</title>
+</head>
+<body>
+    <div>
+        姓名 <input type="text" id="uname">
+    </div>
+    <div>
+        年龄 <input type="text" id="age">
+    </div>
+    <button id="btn">jq_ajax_post</button>
+    <div id="show"></div>
+    <script src="../static/jquery.min.js"></script>
+    <script>
+        $('#btn').click(function(){
+            var params = {
+                uname:$('#uname').val(),
+                age:$('#age').val()
+            }
+            $.post('/post',params,function(res){
+                console.log(res);
+                $('#show').html(res.msg)
+            },'json')
+        })
+    </script>
+</body>
+</html>

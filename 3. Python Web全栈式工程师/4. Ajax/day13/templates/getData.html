@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table,td{
+            border:1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">获取购物车数据</button>
+    <table>
+        <thead>
+            <tr>
+                    <td>id</td>
+                    <td>count</td>
+                    <td>name</td>
+                    <td>default_image_url</td>
+                    <td>price</td>
+                    <td>selected</td>
+            </tr>
+        </thead>
+        <tbody>        
+            
+        </tbody>
+    </table>
+
+    <script src="../static/jquery.min.js"></script>
+    <script>    
+        $('#btn').click(function(){
+            //获取服务器端数据
+            var xhr = new XMLHttpRequest();
+            xhr.open('get','/getData_server',true);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    var data = xhr.responseText;
+                    //将数据解析显示到页面
+                    console.log(data);
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    //如果代码逻辑没有问题  code==200
+                    if(obj.code == 200){
+                        //将数据显示到页面  obj.data.cart
+                        var html = '';
+                        $.each(obj.data.cart,function(i,o){
+                            html += '<tr>'
+                            html += '<td>'+o.id+'</td>'
+                            html += '<td>'+o.count+'</td>'
+                            html += '<td>'+o.name+'</td>'
+                            html += '<td>'+o.default_image_url+'</td>'
+                            html += '<td>&yen;'+o.price+'</td>'
+                            html += '<td>'
+                            if(o.selected){
+                                html += '<input type="checkbox" name="" checked id="">'
+                            }else{
+                                html += '<input type="checkbox" name=""id="">'
+                            }
+                            html += '</td>'
+                            html += '</tr>'
+                        })
+                        console.log(html)
+                        $('tbody').html(html)
+                    }
+                    // }else if (obj.code == 201){
+                    //     alert('购物车是空的')
+                    // }
+                }
+            }
+            xhr.send(null);
+        })
+    </script>
+</body>
+</html>

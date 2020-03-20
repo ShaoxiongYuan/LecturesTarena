@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>load</title>
+</head>
+<body>
+    <header></header>
+    <button id="btn">显示load_server中的内容</button>
+    <div id="show"></div>
+    <footer></footer>
+    <script src="../static/jquery.min.js"></script>
+    <script>
+        $('#btn').click(function(){
+            //load 加载页面内容到指定元素上
+            // $('#show').load('/load_server')
+            //加载远程页面中的指定元素
+            // $('#show').load('/load_server #btn2')
+
+            //传输数据  get方式
+            // $('#show').load('/load_server','uname=laowang&age=18')
+            //post方式
+            // $('#show').load('/load_server',{uname:"laowang",age:18})
+            
+            //要求 在load.html中定义元素header  footer
+            //定义页面header.html  自定义页面样式  
+            // 访问:5000/header时能显示页面
+            //定义footer.html  自定义页面样式
+            // 访问:5000/footer时能显示页面
+            //在load.html中  点击按钮 为header和footer 加载页面内容
+            // $('header').load('/header')
+            // $('footer').load('/footer')
+
+            
+            // $('#show').load('/load_server',function(){
+            //     console.log('远程页面的数据加载完成')
+            // })
+
+            $('#show').load('http://www.baidu.com')
+        })
+    </script>
+</body>
+</html>

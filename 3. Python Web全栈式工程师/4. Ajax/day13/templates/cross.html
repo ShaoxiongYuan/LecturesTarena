@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">向5001端口发送请求</button>
+    <script src="../static/jquery.min.js"></script>
+
+    <script>
+        //1.先定义函数
+        function print(res){
+            console.log(res)
+        }
+        //调用函数
+        // print('这是5001端口返回的数据')
+        //2.前端将自定义函数名传给服务器，在服务器上拼接调用函数的字符串 同时传递服务器端的参数
+        //在5001端口的服务器上 拼一个调用函数的字符串
+        //"print('这是5001端口返回的数据')"
+        //通过src的方式
+    </script>
+    <!-- 3.创建script标签  将scr属性指向服务器端地址 -->
+    <!-- scr会直接向该地址发送get请求 获取到响应的字符串回到页面直接执行，执行的同时服务器端数据就获取到并显示 -->
+    <script src="http://127.0.0.1:5001/cross_server">
+    </script>
+
+
+    <script>
+        $('#btn').click(function(){
+            $.ajax({
+                url:'http://127.0.0.1:5001/cross_server',
+                type:'get',
+                success:function(res){
+                    console.log(res)
+                }
+            })
+        })
+    </script>
+
+    <!-- <script>
+        // http:// 127.0.0.1  :5000   /load
+        //  协议       域名    端口号
+        function sayHello(){
+            alert('nihaonihaonihao')
+        }
+    </script>
+    <script src="../static/demo.js">
+    // sayHello();
+    </script> -->
+</body>
+</html>

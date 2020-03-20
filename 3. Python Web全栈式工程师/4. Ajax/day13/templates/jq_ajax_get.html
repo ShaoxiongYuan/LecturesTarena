@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq_ajax_get</title>
+</head>
+<body>
+    <button id="btn">jq_ajax_get</button>
+    <div id="show"></div>
+    <script src="../static/jquery.min.js"></script>
+    <script>
+        $('#btn').click(function(){
+            //休息14：45～15：00
+            //var str = "uname=laowang&age=15"
+            var params = {uname:'laowang',age:15}
+            $.get('/get_server',params,function(response){
+                //如果指定返回数据格式为json后，直接得到json对象
+                console.log(response)
+                // Uncaught SyntaxError: Unexpected token o in JSON at position 1
+                // 原因 对一个对象使用JSON.parse进行解析
+                // var data = JSON.parse(response);
+                if(response.code==200){
+                    $('#show').html(data.msg).css('color','green')
+                }else{
+                    $('#show').html(response.msg).css('color','red')
+                }
+            },'json')
+        })
+    </script>
+</body>
+</html>

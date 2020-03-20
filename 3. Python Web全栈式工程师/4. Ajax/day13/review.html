@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //status 
+        //200
+        //3xx  304
+        //4xx  403 404 405
+        //5xx  500
+
+        //Content-Type
+        //text/plain 普通文本
+        //application/x-www-form-urlencoded  表单格式
+        //application/json  JSON格式
+
+
+        //JSON
+        //JSON 对象
+        //{"name":"laowang"}
+        //["laowang","QTX"]
+        //[{},{}]
+        //前端向服务器发送JSON数据
+        //1.JSON.stringify(obj)    JSON对象-->JSON串
+        //2.将JSON串发送给服务器
+        //  post   Content-Type：application/json
+        //3.服务区接收    request.json
+
+        //服务器端向前端发送JSON数据
+        //1.定义好JSON类型的数据格式  字典  列表  元组
+        //    import json
+        //2.json.dumps(data)   JSON格式的数据-->JSON串
+        //3.将JSON串响应给前端
+        //4.前端获取到JSON串后 使用JSON.parse()解析JSON串，得到JSON对象使用
+
+
+
+        // JavaScript  XML/JSON   
+        // var xhr = new XMLHttpRequest()
+        // xhr.open(method,url,async)
+        // xhr.onreadystatechange = funtion(){
+            // if(xhr.readyState==4&&xhr.status==200){
+                // xhr.responseText
+            // }   
+        // }
+        // xhr.setRequestHeader('Content-Type'，'xx')
+        // xhr.send()
+        
+    </script>
+</body>
+</html>
