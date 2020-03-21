@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">获取5001端口数据</button>
+    <script src="../static/jquery.min.js"></script> 
+    <script>
+        // function print(res){
+        //     console.log(res)
+        //     // var data = JSON.parse(res);
+        //     console.log(res.msg)
+        // }
+        // 'http://127.0.0.1:5001/cross_server?callback=print';
+        $('#btn').click(function(){
+            $.ajax({
+                url:'http://127.0.0.1:5001/cross_server',
+                type:'get',//jsonp只允许发get请求
+                dataType:'jsonp',
+                success:function(res){
+                    console.log(res.msg)
+                }
+                // jsonp:'callback',
+                // jsonpCallback:'print'
+            })
+        })
+    </script>
+</body>
+</html>

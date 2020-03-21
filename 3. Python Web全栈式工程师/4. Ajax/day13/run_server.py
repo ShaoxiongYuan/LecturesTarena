@@ -1,5 +1,5 @@
 from flask import Flask,request
-
+import json
 app = Flask(__name__)
 
 #GET http://127.0.0.1:5001/cross_sever net::ERR_CONNECTION_REFUSED
@@ -10,8 +10,12 @@ app = Flask(__name__)
 @app.route('/cross_server')
 def cross_server():
     fun = request.args.get('callback')
-    #"print('这是5001端口返回的数据')""
-    return fun+"('这是5001端口返回的数据')"
+    print(fun)
+    data = {"code":200,"msg":"OK"}
+    #"print()"
+    print(fun+"("+json.dumps(data)+")")
+    # 'print({"code": 200, "msg": "OK"})'
+    return fun+"("+json.dumps(data)+")"
 
 #休息+练习17：05～17：20
 #在 run.py中定路由和视图函数

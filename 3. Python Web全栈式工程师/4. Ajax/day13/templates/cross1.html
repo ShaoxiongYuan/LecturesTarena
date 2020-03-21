@@ -10,8 +10,21 @@
     <button id="btn">向5001端口发送请求</button>
     <script src="../static/jquery.min.js"></script>
     <script>
+        // run_server.py
+        // @app.route('/cross_server')
+        // def cross_server():
+        //     fun = request.args.get('callback')
+        //     print(fun)
+        //     data = {"code":200,"msg":"OK"}
+        //     #"print()"
+        //     print(fun+"("+json.dumps(data)+")")
+        //     # 'print({"code": 200, "msg": "OK"})'
+        //     return fun+"("+json.dumps(data)+")"
+
         function print(res){
             console.log(res)
+            // var data = JSON.parse(res);
+            console.log(res.msg)
         }
     </script>
     <script>
