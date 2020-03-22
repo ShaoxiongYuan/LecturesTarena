@@ -1,0 +1,7 @@
+各位小伙伴下午好～
+14点准时上课
+今日主要内容：
+    1.JSONP跨域
+    2.Bootstrap
+
+今天的素材已经上传到ftp://code.tarena.com.cn/09_project/day01/目录中，请各位小伙伴提前下载

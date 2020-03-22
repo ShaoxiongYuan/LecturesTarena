@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // $obj.load(url,params,function(){})
+        // params = 'uname=laowang&age=10'  //get
+        // params = {uname:"laowang"}       //post
+
+        // $.get(url,params,function(res){},type)
+        // $.get(url,params,function(res){
+        //     // var data = JSON.parse(res);
+        //     res.uname //obj
+        // },'json')
+
+        // $.post(url,params,function(res){},type)
+
+        // $.ajax({})
+        // $.ajax({
+        //     url:'',
+        //     type:'post',
+        //     data:'xx',
+        //     dataType:'json',
+        //     // contentType:'application/json',
+        //     success:function(res){},
+        //     error:function(err){},
+        //     beforeSend:function(xhr){
+        //         // xhr.setRequestHeader()
+        //     },
+        // })
+
+        // http://      127.0.0.1         :5000
+
+        // src
+        function print(msg){
+            console.log(msg);
+        }
+    </script>
+    <!-- return "print('xxx')" -->
+    <script src="http://127.0.0.1:5001/server?callback=print"></script>
+</body>
+</html>
