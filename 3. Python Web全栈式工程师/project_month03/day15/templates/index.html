@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello Tarena!</title>
+    <link rel="shortcut icon " href="">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <script src="../static/js/jquery.min.js"></script>
+    <style type="text/css">
+        body {background-color: rgb(245, 245, 245) !important;}
+        p {overflow-wrap: break-word; word-wrap: break-word;}
+        .container {max-width: 640px !important;}
+        .hello-form {margin-bottom: 20px;}
+        header {margin: 50px 0 40px 0;}
+        header h1 {font-size: 60px; font-weight: bold;}
+        .sub-title {font-size: 24px;}
+        @media screen and (max-width: 600px) {.sub-title {display: block;}}
+        header a {text-decoration: none !important;}
+        footer {margin: 20px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="text-center">
+                <span class="text-success">HELLO</span>
+                <small>tarena</small>
+            </h1>
+        </header>
+        <!-- 休息:10:45~11:00 -->
+        <div class="hello-form">
+            <div class="form-group">
+                <label for="uname">Name</label>
+                <input type="text" id="uname" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="content">Message</label>
+                <textarea id="content" class="form-control"></textarea>
+            </div>
+            <button class="btn btn-success">Submit</button>
+        </div>
+        <div class="list-group">
+            
+            <!-- <a href="#" class="list-group-item">
+                <p class="text-center">
+                    感谢您的使用,没有内容了,请浏览已有内容吧
+                </p>
+            </a> -->
+        </div>
+        <footer class="text-center">
+            <small>
+                &copy; 2020 <a href="#">Franckisses</a> / <a href="#">Hello Tarena</a>
+            </small>
+            <p>
+                <a href="#">&uarr;</a>
+            </p>
+        </footer>
+    </div>
+    <!-- ~12:00 调研浏览器滚动条事件以及如何在滚动到底时显示内容 -->
+
+    <script>
+        $(function(){
+            function add_note(data){
+                var html = "";
+                if(data){
+                    $.each(data,function(i,obj){
+                        html += '<a href="#" class="list-group-item">'
+                        html += '<div>'
+                        html += '<h5 class="pull-left text-success">'    
+                        html += obj.username        
+                        html += '<small class="text-muted">第'+obj.num+'条评论</small>'
+                        html += '</h5>'            
+                        html += '<h5 class="pull-right text-muted">'        
+                        html += '<small>'+obj.time+'</small>'        
+                        html += '</h5>'            
+                        html += '<div class="clearfix"></div>'        
+                        html += '</div>'        
+                        html += '<p>'+obj.content+'</p>'    
+                        html += '</a>'    
+                    })
+                }else{
+                    html += '<a href="#" class="list-group-item">'
+                    html += '<p class="text-center">感谢您的使用,没有内容了,请浏览已有内容吧</p>'
+                    html += '</a>'
+                }
+                $('.list-group').append(html);
+            }
+            
+            $.ajax({
+                url:'http://127.0.0.1:5000/data',
+                type:'get',
+                dataType:'json',
+                success:function(res){
+                    console.log(res)
+                    //自定义函数 加载评论的内容到页面元素上
+                    // 将服务器端响应的数据作为参数传递给函数
+                    // 由函数在页面上显示内容
+                    add_note(res.data)
+                },
+                error:function(){
+                    alert('服务器故障')
+                }
+            })
+            //滚动事件 onscroll
+            // window.onscroll = function(){
+            //     console.log('我滚啦')
+            // }
+            
+            // //获取当前滚动条的高度(绿色)
+            // function getScrolTop(){
+            //     if(document.documentElement.scrollTop&&document.documentElement){
+            //         var scrollTop = document.documentElement.scrollTop
+            //     }else if(document.body){
+            //         var scrollTop = document.body.scrollTop
+            //     }
+            //     return scrollTop
+            // }
+            // //获取可视范围的高度(蓝色)
+            // function getClientHeight(){
+            //     if(document.body.clientHeight && document.documentElement.clientHeight){
+            //         var clientHeight = Math.min(document.body.clientHeight,document.documentElement.clientHeight)
+            //     }else{
+            //         var clientHeight = Math.max(document.body.clientHeight,document.documentElement.clientHeight)
+            //     }
+            //     return clientHeight
+            // }
+
+            // //获取完整的文档高度(红色)
+            // function getScrollHeight(){
+            //     return Math.max(document.body.scrollHeight,document.documentElement.scrollHeight)
+            // }
+            
+            //如果没有数据时   滚动条滚动也不再发送请求
+            var canLoad = true//是否可以加载数据
+            $(document).scroll(function(){
+                // console.log('我滚啦-jq')
+                //休息 16:00~16:15
+                //获取当前滚动条的高度(绿色)
+                //会随着页面的缩放而改变  缩放的过程中可能会变成小数 需要处理
+                var scrollT = parseInt($(document).scrollTop());
+                //获取可视范围的高度(蓝色)
+                //会随当前窗口的大小而改动
+                var windowH = $(window).height();
+                //获取完整的文档高度(红色)
+                var documentH = $(document).height();
+                // console.log(scrollT,windowH,documentH)
+                if(scrollT+windowH==documentH){
+                    console.log('到底了')
+                    //再次向服务器端发生请求  获取10条数据
+                    //通过list-group-item类获取到所有的页面评论 取出数量发给服务器
+                    //休息17:08~17:20
+                    var size = $('.list-group-item').length;
+                    if (canLoad){
+                        $.ajax({
+                            url:'http://127.0.0.1:5000/data?size='+size,
+                            type:'get',
+                            dataType:'json',
+                            success:function(res){
+                                console.log(res)
+                                //需要先判断是否还有数据 然后在添加到页面
+                                if (res.code == 200){
+                                    add_note(res.data)
+                                }else{
+                                    alert(res.error)
+                                    canLoad = false//禁止再次发送请求
+                                    add_note("")
+                                }
+                            },
+                            error:function(){
+                                alert('服务器故障')
+                            }
+                        })
+                    }
+
+                }
+            })
+
+
+        })
+    </script>
+
+    <script>
+        $('.btn').click(function(){
+            var username = $('#uname').val()
+            var content = $('#content').val()
+            if(username!=''&&content!=''){
+                $.ajax({
+                    url:'http://127.0.0.1:5000/add',
+                    type:'post',
+                    contentType:'application/json',
+                    data:JSON.stringify({
+                        username:username,
+                        content:content
+                    }),
+                    dataType:'json',
+                    success:function(res){
+                        console.log(res)
+                        alert(res.msg)
+                        // location.reload()
+                        $('#uname').val('')
+                        $('#content').val('')
+                    }
+                })
+            }else{
+                alert('请填写完整内容')
+            }
+        })
+    </script>
+</body>
+</html>

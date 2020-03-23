@@ -1,0 +1,7 @@
+各位小伙伴下午好~
+14点准时上课
+今日主要内容:
+    1.回顾
+    2.bootstrap+flask瀑布流加载
+
+今天的素材上传到ftp://code.tarena.com.cn/09_project/day02/中,请各位提前下载
