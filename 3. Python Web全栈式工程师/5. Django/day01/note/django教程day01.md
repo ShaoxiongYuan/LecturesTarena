@@ -329,7 +329,6 @@
         显示为: 生日为:2015年12月11日
         输入网址: http://127.0.0.1:8000/birthday/2/28/2008
         显示为: 生日为:2008年2月28日
-    - 
 
 
 ## HTTP协议的请求和响应
@@ -422,7 +421,7 @@
 - HttpResponse 子类
     | 类型 | 作用 | 状态码 |
     |-|-|-|
-    | HttpResponseRedirect | 重定响 | 302 |
+    | HttpResponseRedirect | 重定向 | 302 |
     | HttpResponseNotModified | 未修改 | 304 |
     | HttpResponseBadRequest | 错误请求 | 400 |
     | HttpResponseNotFound | 没有对应的资源 | 404 |
@@ -495,7 +494,7 @@
 ```html
 <form method='post' action="/login">
     姓名:<input type="text" name="username">
-    <input type='submit' value='登陆'>
+    <input type='submit' value='登录'>
 </form>
 ```
 
