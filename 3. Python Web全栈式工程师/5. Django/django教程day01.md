@@ -19,7 +19,7 @@
     1. 视图 view
     1. Model模型,数据库连接和ORM数据库管理
     1. 中间件
-    1. Cookie & Seesion
+    1. Cookie & Session
     1. 分页
     1. 数据库后台管理系统admin
 
