@@ -88,7 +88,7 @@ TEMPLATES = [
 1. 在模板中使用变量语法
     - `{{ 变量名 }}`
     - `{{ 变量名.index }}`
-    - `{{ 变量名.key}}`
+    - `{{ 变量名.key }}`
     - `{{ 对象.方法 }}`
     - `{{ 函数名 }}`
 
@@ -130,7 +130,7 @@ TEMPLATES = [
             <input type='text' name="y" value="2"> = <span>3</span>
             <div>
                 <input type="submit" value='开始计算'>
-            <div>
+            </div>
         </form>
         ```
 
