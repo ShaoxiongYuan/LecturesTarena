@@ -102,7 +102,7 @@
     - 用于分发将当前路由转到各个应用的路由配置文件的 urlpatterns 进行分布式处理
 - 函数格式
     - include('app命字.url模块名')
-    > 模块`app命字/url模块名.py` 文件件里必须有urlpatterns 列表
+    > 模块`app名字/url模块名.py` 文件件里必须有urlpatterns 列表
     > 使用前需要使用 `from django.conf.urls import include` 导入此函数
 
 - 练习:
