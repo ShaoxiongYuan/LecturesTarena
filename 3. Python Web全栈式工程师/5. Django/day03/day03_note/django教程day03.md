@@ -124,7 +124,7 @@
     ```
 
 ```python
-#应用下templates 和 外层templates 都存在时，django得查找模板规则
+#应用下templates 和 外层templates 都存在时，django的查找模板规则
 1，优先查找外层templates目录下的模板
 2，按INSTALLED_APPS配置下的 应用顺序 逐层查找
 ```
