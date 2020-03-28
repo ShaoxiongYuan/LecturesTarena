@@ -139,7 +139,7 @@
     # 等同于 select * from author where name like '%w%'
     ```
 3. `__startswith` : 以 XXX 开始
-3. `__endswith` : 以 XXX 开始
+3. `__endswith` : 以 XXX 结束
 3. `__gt` : 大于指定值
     ```python
     Author.objects.filer(age__gt=50)
@@ -237,7 +237,7 @@
         books.update(market_price=100)
         ```
 
-练习：修改图书得零售价
+练习：修改图书的零售价
 
 路由：	/bookstore/mod/5
 
