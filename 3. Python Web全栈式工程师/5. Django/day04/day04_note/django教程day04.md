@@ -314,7 +314,7 @@
             - 如: 
                 ```python
                 pub_set = models.Book.objects.values('pub')
-            print(pub_set)  # <QuerySet [{'pub': '清华大学出版社'}, {'pub': '清华大学出版社'}, {'pub_hou {'pub': '机械工业出版社'}, {'pub': '清华大学出版社'}]>
+            print(pub_set)  # <QuerySet [{'pub': '清华大学出版社'}, {'pub': '清华大学出版社'}, {'pub': '机械工业出版社'}, {'pub': '清华大学出版社'}]>
     
                 ```
         2. 通过返回结果的 QuerySet.annotate 方法分组聚合得到分组结果
@@ -328,7 +328,7 @@
             
         - .values('查询列名')
     - 示例:
-        - 得到哪儿个出版社共出版多少本书
+        - 得到哪几个出版社共出版多少本书
         ```python
         def test_annotate(request):
            from django.db.models import Count
