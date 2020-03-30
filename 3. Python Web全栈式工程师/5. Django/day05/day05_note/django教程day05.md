@@ -265,7 +265,7 @@ class B(model.Model):
 
     class Book(models.Model):
         title = models.CharField('书名', max_length=50)
-        publisher = ForeignKey(Publisher)
+        publisher = models.ForeignKey(Publisher)
         
     #创建数据
     from . import models
