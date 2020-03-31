@@ -426,7 +426,7 @@ from django.http import HttpResponse
 - cookies是保存在客户端浏览器上的存储空间，通常用来记录浏览器端自己的信息和当前连接的确认信息
 - cookies 在浏览器上是以键-值对的形式进行存储的，键和值都是以ASCII字符串的形存储(不能是中文字符串)
 - cookies 的内部的数据会在每次访问此网址时都会携带到服务器端，如果cookies过大会降低响应速度
-- 在Django 服务器端来设置 设置浏览器的COOKIE 必须通过 HttpResponse 对象来完成
+- 在Django 服务器端来设置浏览器的COOKIE 必须通过 HttpResponse 对象来完成
 - HttpResponse 关于COOKIE的方法
     - 添加、修改COOKIE
         - HttpResponse.set_cookie(key, value='', max_age=None, expires=None)
