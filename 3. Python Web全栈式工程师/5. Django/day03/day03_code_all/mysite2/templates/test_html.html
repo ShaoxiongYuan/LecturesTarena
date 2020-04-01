@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试模板</title>
+</head>
+<body>
+<h1>这是我第一个模板</h1>
+<h1>姓名: {{ username|truncatechars:'4' }} 年龄: {{ age|add:'10' }}</h1>
+<h1> lst: {{ lst }}  </h1>
+<h1> lst第一个元素: {{ lst.0 }} </h1>
+<h1> dict: {{ d }} </h1>
+<h1> dict['title']: {{ d.title }} </h1>
+<h1> func: {{ func }} </h1>
+<h1> class_obj: {{ class_obj.say }}</h1>
+<h1> script: {{ script }} </h1>
+
+
+{% if age >= 18 %}
+    <h1> 您已成年 </h1>
+{% else %}
+    <h1> 您未成年 </h1>
+{% endif %}
+
+
+<h3>循环演示</h3>
+{% for i in lst %}
+
+    {% if forloop.first %} ===== {% endif %}
+   <p>{{ forloop.revcounter0 }} 姓名: {{ i }}</p>
+    {% if forloop.last %} &&& {% endif %}
+
+    {% empty %}
+        <p>对不起 暂时无数据, 请稍候再试</p>
+
+{% endfor %}
+
+
+
+</body>
+</html>

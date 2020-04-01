@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block mytitle %}
+    <title>主页</title>
+    {% endblock %}
+
+</head>
+<body>
+<a href="/test_music">音乐频道</a>
+<a href="/test_sport">体育频道</a>
+<br>
+{{ lst }}
+{% block info %}
+    这是主页
+{% endblock %}
+<br>
+
+<h3>有问题请致电 400-xxxx</h3>
+
+</body>
+</html>

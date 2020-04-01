@@ -1,0 +1,63 @@
+回顾01
+
+Django
+用途：HTTP请求
+版本：1.11.8
+
+django-admin startproject 项目名
+
+manage.py - django命令的入口
+mysite1 - 配置文件夹
+   settings.py  DEBUG=True
+   urls.py  - 主路由
+   wsgi.py  - 上线后启动文件
+
+url:  协议://hostname[:port] / path [?query][#fragment]
+
+
+主路由进行url配置
+
+urlpatterns=[
+
+  url(r'^page1', views.page1_view, name=别名)
+  url(r'(\d+)', views.xxx) ->位置传参 -> 视图函数
+  url(r'(?P<name>\d+)', views.xx) ->关键字传参 ->视图函数(request,name)
+
+]
+
+
+视图函数
+   def page1_view(request)
+
+       return HttpResponse
+
+
+
+回顾 02
+GET 和 POST 
+GET -> 获取数据
+POST -> 给服务器提交数据
+
+后端 ->
+if request.method == 'GET':
+    pass
+
+GET -> 可以用查询字符串提交少量数据 [数据在起始行]
+       request.GET -> 类字典 -> request.GET['查询字符串变量名'] ..
+POST -> [数据在请求体] request.POST['表单控件name'] / .get('')  -> Content-Type: application/x-www-form-urlencoded
+
+
+MVC vs MTV
+
+T层
+detail.html  ->  {{ goods }}
+
+配置 -> TEMPLATES
+
+使用：视图函数中 - return render(request, '模板名', 字典数据)
+
+{{ 字典的key }}
+
+
+{% if %}
+{% endif %}

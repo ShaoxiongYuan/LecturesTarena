@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test static</title>
+</head>
+<body>
+
+<img src="/static/image/lena.jpg" width="100px" height="100px">
+<img src="http://127.0.0.1:8000/static/image/lena.jpg" width="100px" height="100px">
+
+{% load static %}
+<img src="{% static 'image/lena.jpg' %}" width="100px" height="100px">
+
+
+
+</body>
+</html>
