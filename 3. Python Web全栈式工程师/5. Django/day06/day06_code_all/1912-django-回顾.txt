@@ -1,0 +1,130 @@
+回顾01
+
+Django
+用途：HTTP请求
+版本：1.11.8
+
+django-admin startproject 项目名
+
+manage.py - django命令的入口
+mysite1 - 配置文件夹
+   settings.py  DEBUG=True
+   urls.py  - 主路由
+   wsgi.py  - 上线后启动文件
+
+url:  协议://hostname[:port] / path [?query][#fragment]
+
+
+主路由进行url配置
+
+urlpatterns=[
+
+  url(r'^page1', views.page1_view, name=别名)
+  url(r'(\d+)', views.xxx) ->位置传参 -> 视图函数
+  url(r'(?P<name>\d+)', views.xx) ->关键字传参 ->视图函数(request,name)
+
+]
+
+
+视图函数
+   def page1_view(request)
+
+       return HttpResponse
+
+
+
+回顾 02
+GET 和 POST 
+GET -> 获取数据
+POST -> 给服务器提交数据
+
+后端 ->
+if request.method == 'GET':
+    pass
+
+GET -> 可以用查询字符串提交少量数据 [数据在起始行]
+       request.GET -> 类字典 -> request.GET['查询字符串变量名'] ..
+POST -> [数据在请求体] request.POST['表单控件name'] / .get('')  -> Content-Type: application/x-www-form-urlencoded
+
+
+MVC vs MTV
+
+T层
+detail.html  ->  {{ goods }}
+
+配置 -> TEMPLATES
+
+使用：视图函数中 - return render(request, '模板名', 字典数据)
+
+{{ 字典的key }}
+
+
+{% if %}
+{% endif %}
+
+回顾03
+
+过滤器 - 改变变量在模板中的输出
+
+{{ 变量|过滤器1:'参数1'|过滤器2:'参数2' }}
+
+
+模板的继承
+
+父模板：
+   {% block bname %}
+   {% endblock %}
+
+
+子模板：
+   {% extends '父模板名称' %}
+   {% block bname %}
+     新内容
+   {% endblock %}
+
+
+url反向解析
+   url(reg, views, name=xxx)
+
+   模板层 
+      {% url '别名' '参数1' %}
+   视图层
+      from django.urls import reverse
+      reverse('别名', args=[], kwargs={})
+
+
+静态文件 - js/图片/css
+
+配置settings.py
+   STATIC_URL = '/static/'
+   # http://127.0.0.1:8000/static/
+   STATICFILES_DIRS =(os.path.join(BASE_DIR,"static"),)
+
+   {% load static %}
+   {% static 'images/lena.jpg' %}
+
+
+app应用 
+每一个应用都是独立的MTV
+1，python3 manage.py startapp 应用名
+2，记得！！！！settings.py中INSTALLED_APPS中注册
+
+分布式路由
+url(r'^music/', include('music.urls'))
+music应用下 手动创建urls.py
+   urlpatterns = [
+         url(r'^index$', views.视图函数)
+       
+   ]
+
+
+M层
+
+1，EOF错误  - 检查是否有全角符号
+2，no module named 'news'  - [INSTALL_APPS-先注册了/没创建应用] /  检查 news
+3, not appear to have any patterns in it 
+   【主路由中 指定分布式路由时， include('app.urls'), 如果app.urls中没有 urlpatterns 会报错】
+
+
+
+

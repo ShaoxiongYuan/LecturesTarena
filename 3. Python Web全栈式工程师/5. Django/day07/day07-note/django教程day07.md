@@ -253,7 +253,7 @@ Expires=max-age + 请求时间
 
 1，精度不一样 -  Etag 高
 
-2，性能上 - Last-Modifi 高
+2，性能上 - Last-Modified 高
 
 3，优先级 - Etag 高
 
@@ -272,7 +272,7 @@ Expires=max-age + 请求时间
         - `def process_response(self, request, response):` 所有响应返回浏览器  被调用，在每个请求上调用，返回HttpResponse对象
         - `def process_exception(self, request, exception):` 当处理过程中抛出异常时调用，返回一个HttpResponse对象
         - `def process_template_response(self, request, response):` 在视图刚好执行完毕之后被调用，在每个请求上调用，返回实现了render方法的响应对象
-    - 注： 中间件中的大多数方法在返回None时表示忽略当前操作进入下一项事件，当返回HttpResponese对象时表示此请求结束，直接返回给客户端
+    - 注： 中间件中的大多数方法在返回None时表示忽略当前操作进入下一项事件，当返回HttpResponse对象时表示此请求结束，直接返回给客户端
 
 - 编写中间件类:
 ```python
