@@ -1,0 +1,363 @@
+回顾01
+
+Django
+用途：HTTP请求
+版本：1.11.8
+
+django-admin startproject 项目名
+
+manage.py - django命令的入口
+mysite1 - 配置文件夹
+   settings.py  DEBUG=True
+   urls.py  - 主路由
+   wsgi.py  - 上线后启动文件
+
+url:  协议://hostname[:port] / path [?query][#fragment]
+
+
+主路由进行url配置
+
+urlpatterns=[
+
+  url(r'^page1', views.page1_view, name=别名)
+  url(r'(\d+)', views.xxx) ->位置传参 -> 视图函数
+  url(r'(?P<name>\d+)', views.xx) ->关键字传参 ->视图函数(request,name)
+
+]
+
+
+视图函数
+   def page1_view(request)
+
+       return HttpResponse
+
+
+
+回顾 02
+GET 和 POST 
+GET -> 获取数据
+POST -> 给服务器提交数据
+
+后端 ->
+if request.method == 'GET':
+    pass
+
+GET -> 可以用查询字符串提交少量数据 [数据在起始行]
+       request.GET -> 类字典 -> request.GET['查询字符串变量名'] ..
+POST -> [数据在请求体] request.POST['表单控件name'] / .get('')  -> Content-Type: application/x-www-form-urlencoded
+
+
+MVC vs MTV
+
+T层
+detail.html  ->  {{ goods }}
+
+配置 -> TEMPLATES
+
+使用：视图函数中 - return render(request, '模板名', 字典数据)
+
+{{ 字典的key }}
+
+
+{% if %}
+{% endif %}
+
+回顾03
+
+过滤器 - 改变变量在模板中的输出
+
+{{ 变量|过滤器1:'参数1'|过滤器2:'参数2' }}
+
+
+模板的继承
+
+父模板：
+   {% block bname %}
+   {% endblock %}
+
+
+子模板：
+   {% extends '父模板名称' %}
+   {% block bname %}
+     新内容
+   {% endblock %}
+
+
+url反向解析
+   url(reg, views, name=xxx)
+
+   模板层 
+      {% url '别名' '参数1' %}
+   视图层
+      from django.urls import reverse
+      reverse('别名', args=[], kwargs={})
+
+
+静态文件 - js/图片/css
+
+配置settings.py
+   STATIC_URL = '/static/'
+   # http://127.0.0.1:8000/static/
+   STATICFILES_DIRS =(os.path.join(BASE_DIR,"static"),)
+
+   {% load static %}
+   {% static 'images/lena.jpg' %}
+
+
+app应用 
+每一个应用都是独立的MTV
+1，python3 manage.py startapp 应用名
+2，记得！！！！settings.py中INSTALLED_APPS中注册
+
+分布式路由
+url(r'^music/', include('music.urls'))
+music应用下 手动创建urls.py
+   urlpatterns = [
+         url(r'^index$', views.视图函数)
+       
+   ]
+
+
+M层
+
+1，EOF错误  - 检查是否有全角符号
+2，no module named 'news'  - [INSTALL_APPS-先注册了/没创建应用] /  检查 news
+3, not appear to have any patterns in it 
+   【主路由中 指定分布式路由时， include('app.urls'), 如果app.urls中没有 urlpatterns 会报错】
+
+回顾day04
+M层 增删改查
+
+class 模型类(models.Model):
+    类属性 = models.xxxField()
+
+python3 manage.py makemigrations -> 生成迁移文件
+python3 manage.py migrate ->将迁移文件同步到数据库
+
+创建数据：
+1，模型类.objects.create(属性=值,) ->创建
+2，obj = 模型类(属性=值,..)
+   obj.save()
+
+查询
+模型类.objects.all() -> QuerSet([obj,...])
+xxx.values('列1'，'列2') -> QuerSet([{'列1':值}])
+xxx.values_list('列1','列2') -> QuerySet([(值1,值2)])
+PS: print(QuerySet.query) 
+xxx.order_by('-列')  -> 排序 默认升序，降序【'-列名'】
+
+xxx.filter(属性=值, 属性2=值2) -> QuerySet([obj,..])
+
+查询谓词  类属性名__查询谓词
+
+xxx.exclude(属性=值) 条件以外的数据
+
+xxx.get(属性=值) -> 查询单条数据 【查多了报错/没查到报错】 -> 返回单个obj
+
+更新
+1，单条数据
+   1）查 2）改【obj.属性=值】 3）保存【obj.save()】
+2，多条数据
+   QuerySet.update(属性=值)
+
+删除
+1，单条数据
+   1）查 2）删 obj.delete()
+2，多条数据
+   QuerySet.delete()
+伪删除 -> 把删除动作转化成了更新 / is_active=True
+
+
+回顾day05
+1，聚合查询
+   1）不带分组
+      from django.db.models import *
+	  例如：Sum, Avg
+      Book.objects.aggregate(结果变量名=聚合函数('字段名'))
+	  结果：{'结果变量名'：值}
+
+   2）分组聚合
+	  Book.objects.values('pub').annotate(结果变量名=聚合函数('字段名'))
+	  结果: QuerySet [{'pub':'xxx','结果变量名': 聚合值}]
+
+
+2, F对象 & Q对象
+   F对象：
+   from django.db.models import F
+   update topic set like=like+1 where id =1 
+   Topic.objects.filter(id=1).update(like=F('like') + 1)
+
+   Q对象:
+   from django.db.models import Q
+   Q(条件)|Q(条件2)  或
+          &          与
+          &~         与非
+
+3，原生Sql语句的方式操作数据库
+
+   sql注入
+   1，Book.objects.raw('sql语句', [])
+   2, from django.db import connection
+      with connection.cursor() as cur:
+	      cur.execute('sql语句',[])
+
+4, admin管理后台
+   createsuperuser
+   127.0.0.1:8000/admin/
+   注册自定义的模型类 - admin.py
+   admin.site.register(模型类)
+
+   定义管理器类 class xxxManager(admin.ModelAdmin):
+      类属性 = []
+   admin.site.register(模型类, xxxManager)
+
+5, 表管理
+   class Book(models.Model):
+       class Meta:
+          db_table = '表名'
+          verbose_name = '单数名'
+		  verbose_name_plural = '复数名'
+
+6，关系映射
+   1，一对一
+     外键属性 = models.OneToOneField(A)
+     A - B(外键属性)
+     a1 = A.objects.create()
+     #b1 = B.objects.create(外键属性=a1)
+	 b1 = B.objects.create(外键属性_id = a1.id)
+ 
+     正向查询 -> B查A
+	   b1.外键属性
+	 反向查询 
+       a1.隐藏属性【类名小写】
+	   a1.b
+
+   2, 一对多
+      A[一]  B[多]
+	  B类中创建外键属性
+	  外键属性 = models.ForeignKey(一的类名)
+
+	  a1 = A.objects.create()
+	  #b1 = B.objects.create(外键属性=a1)
+	  b2 = B.objects.create(外键属性_id=a1.id)
+
+      正向查询 B查A
+	    b1.外键属性
+	  反向查询 A查B
+	    a1.b_set.all()/filter()/..
+
+   3, on_delete 
+   
+      A[一] B[多]
+      CASCADE  可以删[django默认]
+
+
+回顾06
+1，多对多映射
+   属性 = models.ManyToManyField(类名)
+   
+   A(b_set)  B(属性)
+   
+   创建数据：
+      obj.b_set/显示属性.create()
+      obj.b_set/显示属性.add(对象)
+   查询：
+      b_set/显示属性.all()/filter()
+
+2, cookies 和 session
+    
+   c - 浏览器
+   s - 服务器【django_session】
+   
+
+回顾07
+1，缓存
+  why: 更快的将数据返回给我们的用户；
+       后端: 缓存还可以有效的帮助我们减轻mysql的压力
+	   前端：降低网络成本
+
+  how: 有缓存就返缓存；没缓存 存缓存
+
+
+  技术使用：
+      后端： django 配置 CACHES
+
+      前端： 浏览器缓存
+             强缓存
+			    Expire=xxx Cache-Control:max-age=xxx
+			 协商缓存
+			    响应头：
+                Last-Modified: xxx
+				Etag: xxxx
+                过期之后，浏览器协商时
+				请求头：
+				   If-Modified-Since: <Last-Modified>
+				   If-None-Match:<Etag>
+				特殊的响应码
+                   304 响应体为空
+				   200 响应体是最新资源的内容
+
+2，中间件：
+     全局改变django的输入和输出
+	 代码：中间件类
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+	 
+
+     
+
+    
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
