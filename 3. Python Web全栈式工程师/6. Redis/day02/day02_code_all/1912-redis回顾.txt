@@ -1,0 +1,55 @@
+redis 01 回顾
+nginx + uwsgi + django
+静态文件- debug只要False,原有静态文件处理方式不可用
+；转由nginx 处理静态文件
+
+redis - 纯内存型 单进程单线程 数据库
+
+
+django 07学习的缓存内容
+方案1：
+   配置：CACHES
+   @cache_page
+   def view(request):
+      pass
+
+方案2：
+   配置： CACHES
+   def view(request):
+ 
+	  if cache.get('key'):
+	     res = cache.get('key')
+	  else:
+         query = Class.objects.all()
+	     cache.set('key', query)
+
+方案3：
+   在视图函数中 直接引用 redis连接对象
+   用redis的hash结构进行 缓存的局部存储/获取
+
+
+创建rmysite1 [数据库名rmysite1]
+创建应用user
+    class User():
+        nickname = varchar(11)
+        age = int(default=0)
+同步数据库
+进入shell 创建一个User表的数据 create
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
