@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>达达商城登陆页面</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link href="../static/css/animate.css" rel="Stylesheet" />
+    <link href="../static/css/login.css" rel="stylesheet" />
+    <link rel="icon" href="../static/images/index/py.ico">
+    <script src="../static/js/init.js"></script>
+</head>
+
+<body>
+    <!-- 页面顶部-->
+    <header id="top">
+        <div class="top">
+            <a href="/">
+                <!-- <img src="../static/images/header/logo.png" alt="" /> -->
+            </a>
+            <span>欢迎登录</span>
+        </div>
+    </header>
+    <div id="container">
+        <div id="cover" class="rt">
+            <form id="login-form" method="post" name="form1">
+
+                <div class="txt">
+                    <p>登录
+                        <span>
+                            <a href="register.html">新用户注册</a>
+                        </span>
+                    </p>
+                    <div class="text">
+                        <input type="text" placeholder="请输入您的用户名" name="username" id="username" required>
+                        <!-- <span><img src="../static/images/login/user.png"></span> -->
+                    </div>
+
+                    <div class="text">
+                        <input type="password" id="password" placeholder="请输入您的密码" name="password" required minlength="6"
+                            maxlength="15">
+                        <!-- <span><img src="../static/images/login/password.png"></span> -->
+                    </div>
+                    <!-- 验证码 -->
+                    <div class="verification">
+<!-- {#                        <img src="/user/verifycode" alt="" class="verification_img">#} -->
+                        <!-- <input placeholder="请输入验证码" type="text" class="verification_input"> -->
+<!-- {#                        <span class="verification_text"></span>#} -->
+                    </div>
+
+                    <div class="chose">
+                        <input type="checkbox" class="checkbox" id="ck_rmbUser" value="0">自动登录
+                        <a href="findPass.html"><span>忘记密码？</span></a>
+                        <span class="weibo_login">微博登陆</span>
+                    </div>
+
+                    <input class="button_login" type="button" value="登录" id="bt-login" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--错误提示-->
+    <div id="showResult"></div>
+
+    <!-- 页面底部-->
+    <div class="foot_bj">
+        <div id="foot">
+            <div class="lf">
+                <!-- <p class="footer1"><img src="../static/images/footer/logo.png" alt="" class=" footLogo" /></p> -->
+                <!-- <p class="footer2"><img src="../static/images/footer/footerFont.png" alt="" /></p> -->
+
+            </div>
+            <div class="service">
+                <p>达达商城客户端</p>
+                <!-- <img src="../static/images/footer/ios.png" class="lf"> -->
+                <!-- <img src="../static/images/footer/android.png" alt="" class="lf" /> -->
+            </div>
+            <div class="download">
+                <!-- <img src="../static/images/footer/erweima.png"> -->
+            </div>
+            <!-- 页面底部-备案号 #footer -->
+            <div class="record">
+                &copy;2018 达达集团有限公司 版权所有 京ICP证xxxxxxxxxxx
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <!-- <script src="../static/jquery/jquery.cookie.js"></script> -->
+
+
+    <script>
+        // document.querySelector('#bt-login')[0].onclick = function (){
+        $('#bt-login').click(function () {
+            //异步提交请求，进行验证
+            //var verification = $(".verification_input").val();
+            var username = $("#username").val();
+            var password = $("#password").val();
+            // 获取用户本地缓存的购物车信息
+            var carts_data = JSON.parse(window.localStorage.getItem('cart'))
+            var inputData = {'username':username, 'password':password,'carts':carts_data };
+            if (username != '' && password != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl+'/v1/tokens',
+                    contentType:'application/json',
+                    data: JSON.stringify(inputData),
+                    success: function (result) {
+                        if (result.code == 200) { //登录成功
+                            window.localStorage.clear()
+                            window.localStorage.setItem('dashop_token', result.data.token);
+                            window.localStorage.setItem('dashop_count',result.carts_count);
+                            window.localStorage.setItem('dashop_user', result.username);
+                            alert('登录成功');
+                            window.location.href = 'index.html';
+                        } else { //登录失败
+                            $('#showResult').html(result.error);
+                        }
+                    }
+                });
+            }
+        });
+        $('.weibo_login').click(function(){
+            //异步获取微博登陆地址
+            $.ajax({
+                type:'GET',
+                url:baseUrl+'/v1/users/weibo/authorization',
+                success:function(response){
+                    if(response.code==200){
+                        window.location.href=response.oauth_url
+                    }else{
+                        alert('服务器异常')
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

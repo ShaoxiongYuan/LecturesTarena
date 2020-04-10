@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>达达商城注册页面</title>
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link href="../static/css/animate.css" rel="Stylesheet" />
+  <link href="../static/css/login.css" rel="stylesheet" />
+  <link rel="icon" href="../static/images/index/py.ico">
+  <script src="../static/js/init.js"></script>
+</head>
+
+<body>
+  <!-- 页面顶部-->
+  <header id="top">
+    <div class="top">
+      <a href="index.html">
+        <img src="../static/images/header/logo.png" alt="" />
+      </a>
+      <span>欢迎注册</span>
+    </div>
+  </header>
+  <div class="parent">
+    <!--<video src="audio/snow.mp4" width="100%" autoplay loop muted></video>-->
+    <div class="container">
+      <div class="panel rt">
+        <div id="form-register">
+          <div class="txt">
+            <p>新用户注册
+              <span>
+                <a href="login.html">直接登录</a>
+              </span>
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="uname">用户名：</label>
+            <input autocomplete required minlength="6" maxlength="11" type="text" placeholder="请输入用户名" autofocus name="uname"
+              id="uname" />
+            <span class="msg-default" >用户名长度在6到11位之间</span>
+          </div>
+          <div class="form-group">
+            <label for="upwd">登录密码：</label>
+            <input required type="password" minlength="6" maxlength="12" placeholder="请输入密码" name="upwd" autofocus id="upwd" />
+            <span class="msg-default">密码长度在6到12位之间</span>
+          </div>
+          <div class="form-group">
+            <label for="email">邮箱：</label>
+            <input autocomplete required type="email" placeholder="请输入邮箱地址" value="dada@tedu.cn"  name="email" id="email" />
+            <span class="msg-default hidden">请输入合法的邮箱地址</span>
+          </div>
+          <div class="form-group">
+            <label for="phone">手机号：</label>
+            <input id="phone" name="phone" placeholder="请输入您的手机号" required type="text" value="" />
+            <span class="msg-default hidden">请输入合法的手机号</span>
+          </div>
+          <div class="form-group">
+            <label></label>
+            <input type="button" value="提交注册信息" id="bt-register" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页面底部-->
+  <div class="foot_bj">
+    <div id="foot">
+      <div class="lf">
+        <p class="footer1"><img src="../static/images/footer/logo.png" alt="" class=" footLogo" /></p>
+        <p class="footer2"><img src="../static/images/footer/footerFont.png" alt="" /></p>
+
+      </div>
+      <div class="service">
+        <p>达达商城客户端</p>
+        <img src="../static/images/footer/ios.png" class="lf">
+        <img src="../static/images/footer/android.png" alt="" class="lf" />
+      </div>
+      <div class="download">
+        <img src="../static/images/footer/erweima.png">
+      </div>
+      <!-- 页面底部-备案号 #footer -->
+      <div class="record">
+        &copy;2019达达集团有限公司 版权所有 京ICP证xxxxxxxxxxx
+      </div>
+    </div>
+  </div>
+  <script src="../static/js/jquery-3.1.1.min.js"></script>
+  <script>
+    /**
+      * @let {Array} validation [验证结果集合]
+      */
+    function checkUname(){
+       return $('#uname').val().length<6||$('#uname').val().length>11
+    }
+    function checkPWD(){
+        return $('#upwd').val().length<6||$('#upwd').val().length>12
+    }
+    function checkEmail(){
+　　     var myReg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+    　　 return myReg.test($('#email').val())
+    }
+     function checkPhone() {
+        var myReg = /^1[3|4|5|6|7|8|9][0-9]{9}$/;
+        return myReg.test($('#phone').val())
+    }
+    // $('#uname').blur(function () {
+    //   if(checkUname()){
+    //     $('.msg-default')[0].setAttribute('class','msg-default')
+    //   }else {
+    //     $('.msg-default')[0].setAttribute('class','msg-default hidden')
+    //   }
+    // });
+    // $('#upwd').blur(function () {
+    //   if(checkPWD()){
+    //     $('.msg-default')[1].setAttribute('class','msg-default')
+    //   }else {
+    //     $('.msg-default')[1].setAttribute('class','msg-default hidden')
+    //   }
+    // });
+    $('#email').blur(function () {
+        console.log(checkEmail())
+        if(checkEmail()){
+            $('.msg-default')[2].setAttribute('class','msg-default hidden')
+        }else {
+            $('.msg-default')[2].setAttribute('class','msg-default')
+        }
+    });
+    $('#phone').blur(function () {
+        if(checkPhone()){
+            $('.msg-default')[3].setAttribute('class','msg-default hidden')
+        }else {
+            $('.msg-default')[3].setAttribute('class','msg-default')
+        }
+    });
+    $('#bt-register').click(function () {
+      /**
+       * @let {Array} validation [验证结果结合]
+       */
+      if(!checkUname()&&!checkPWD()&&checkEmail()&&checkPhone()){
+          $.ajax({
+        type: "post",
+        url: baseUrl+"/v1/users",
+        contentType:'application/json',
+        datatype: "json",
+        data: JSON.stringify({
+          "uname": $('#uname').val(),
+          "password": $('#upwd').val(),
+          "phone": $('#phone').val(),
+          "email": $('#email').val(),
+          "carts":localStorage.getItem('cart'),
+        }),
+        success: function (data) { //成功的回调函数
+            if (data.code === 200){
+                //window.localStorage.setItem('dashop_token', data.data.token);
+                //window.localStorage.setItem('dashop_user', data.username);
+                window.localStorage.setItem('dashop_token', data.data.token);
+		        window.localStorage.setItem('dashop_user', data.username);
+		        window.localStorage.setItem('dashop_count', data.carts_count);
+                alert('注册成功！');
+                window.location.href = '/dadashop/templates/index.html';
+            }else {
+                alert(data.error);
+            }
+        },
+        error: function (e) {
+          alert(data);
+        }
+      });
+      }else{
+          alert('请按照要求填写信息')
+      }
+
+    })
+  </script>
+</body>
+
+</html>
