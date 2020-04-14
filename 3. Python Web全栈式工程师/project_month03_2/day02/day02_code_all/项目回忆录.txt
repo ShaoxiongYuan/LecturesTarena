@@ -1,0 +1,34 @@
+项目回忆录
+第一集
+1，立项会议
+   如何线下转线上
+
+2，BToC 包包
+
+
+3，Python3.6.8 + Django 1.11.8 + mysql5.x + redis4.x
+
+4, 前后端分离式开发
+     原因：如果web端效果好，加大移动端的尝试
+	前后端分离的解耦式，可以快速的帮助我们后端以最低成本融合安卓和IOS
+
+
+5，前后端分离 - web
+   1，http状态保持 - token
+      调研jwt / base64 + SHA-256 + HMAC-SHA256
+        jwt 三大组成
+
+	      header.payload.sign
+
+   2, 用了token 且 弃用了Cookies， csrf
+
+
+   3，前端7000端口  后端8000端口
+
+   4，跨域：CORS
+   
+
+ /v1/tokens 
+
+
+
