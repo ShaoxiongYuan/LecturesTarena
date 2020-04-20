@@ -1,0 +1,237 @@
+项目回忆录
+第一集
+1，立项会议
+   如何线下转线上
+
+2，BToC 包包
+
+
+3，Python3.6.8 + Django 1.11.8 + mysql5.x + redis4.x
+
+4, 前后端分离式开发
+     原因：如果web端效果好，加大移动端的尝试
+	前后端分离的解耦式，可以快速的帮助我们后端以最低成本融合安卓和IOS
+
+
+5，前后端分离 - web
+   1，http状态保持 - token
+      调研jwt / base64 + SHA-256 + HMAC-SHA256
+        jwt 三大组成
+
+	      header.payload.sign
+
+   2, 用了token 且 弃用了Cookies， csrf
+
+
+   3，前端7000端口  后端8000端口
+
+   4，跨域：CORS
+   
+
+ /v1/tokens 
+
+第二集
+   CORS  可以灵活的使用GET POST ... 进行跨域
+       1，浏览器自动完成
+	   2，服务端进行简单配置即可
+   
+   简单请求 
+     由于我们前端采用 json提交， 所以我们项目中的请求都被定义为预检请求
+
+     过程
+	 请求 - > Origin
+	 响应 - > Access-Control-Allow-Origin
+   
+   
+   预检请求
+     1, 预检阶段
+	    先发 OPTIONS 请求 -> Origin/A-C-Request-Method/A-C-Request-Headers
+		响应 -> A-C-A-Origin/A-C-A-Methods/A-C-A-Headers
+        特殊头: A-C-Max-Age 单位s
+
+
+	 2，主请求阶段
+        请求 -> Origin
+		响应 -> A-C-A-Origin
+
+
+   RESTful - API规范
+   
+   url 中尽量名词化
+   配合 HTTP 动作  + url名词 形成规范化的语义
+
+   GET /v1/users/<id>?nickname=1
+
+
+
+
+第三集
+   
+   1，注册激活功能
+  
+Django中使用redis
+1，views中 
+      import redis
+	  r = redis.Redis(..)
+      r.get / r.set...
+
+2, django-redis
+   1, settings.py 配置 CACHES
+   2, views中
+      方案1【详情见django 07缓存相关方法】
+      from django.core.cache import cache
+      cache.set/get  ->  操作的是redis中字符串类型的key
+      
+	  方案2
+	  from django_redis import get_redis_connection
+      
+	  r = get_redis_connection() -> 可以操作redis所有的数据结构
+
+3，异步 -  Celery【生产者消费者模型】
+
+4，CBV - class base view
+
+  
+第四集
+
+Oauth2.0
+   1, 微博开放平台 注册账号/登陆
+   2，创建应用 - 获取应用appid  key
+   3, 把平台应用信息 添加到 项目settings.py
+   
+   4, 前端 登陆页面 点击 微博登陆，跳转至 微博平台的授权登陆页
+       1， 点击7000登陆页面中的微博登陆，前端给后端 http://127.0.0.1:8000/v1/users/weibo/authorization
+
+	   2，后端返回 微博授权页 地址
+          1，在开放平台 应用详情的 高级信息中 注册回调地址
+		      http://127.0.0.1:7000/dadashop/templates/callback.html
+          
+          2，按官方要求拼接地址 https://api.weibo.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=YOUR_REGISTERED_REDIRECT_URI
+
+	   3，前端根据返回，进行跳转
+
+       共性问题：
+	   1，404 - 检查代码  tw账号
+	   2，redirect_uri 不一致 检查redirect_uri
+
+   5，用户在授权页 输入 用户名密码 并同意授权后，
+   微博将用户重定向到了 redirect_uri，并在uri后方添加查询字符串?code=xxxxx
+
+   6, 前端接到该请求后，立刻把code交由后端[给/v1/users/weibo/users?code=xxxxx]
+
+   7, 后端接到 /v1/users/weibo/users?code=xxxxx 请求后，取出 授权码；django给weibo发了个post请求换取令牌
+
+   8, 检查该令牌对应的微博用户 是否在 我方表里有数据
+       1，有数据【之前来过】
+           检查是否有外键
+		   1，有外键 - 绑定注册过 - 生成登陆token
+		   2, 没有外键 - 执行绑定注册 - 生成登陆token
+
+	   2，没数据【第一次访问我们的网站】
+           执行绑定注册 - 生成登陆token
+
+
+
+第五集
+
+商品目标：
+1，数据库表设计 - 规范
+   范式 - 规则&思想 - 1NF 2NF 3NF
+   1NF - 拆字段 
+   2NF - 数据必须拿主键定位出来的 - 拆表
+   3NF - 非主键字段之间 有依赖 - 拆表
+
+   增加冗余 - 增加查询效率/还原数据真实性
+
+2，特有的表结构
+   SPU - 标准化单元
+   SKU - 库存单元
+   
+   抽象模型类 -  
+      class Meta:
+	       abstract = True
+
+   数据的导入导出  dumpdata&loaddata
+
+3，图片上传(ImageFiled/FilesFiled)
+     1，settings.py 添加 MEDIA_ROOT,MEDIA_URL
+	 2, 项目的主路由  
+	     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+     3, 字段的upload_to选项，指明图片/文件传到MEDIA_ROOT中具体得子目录 【按需】
+     4，DEBUG=False后，请用nginx处理media资源
+	 方法-参照static方式
+
+4，缓存
+   主页
+      存取：在goods路由中 使用 cache_page
+      删除：admin - 管理器类中
+
+   详情页
+      存取：自制装饰器【考虑到删除得成本】
+      删除：admin - 管理器类中
+
+5，搜索 - ES[ElasticSearch]？
+   带有某个关键字的数据 - 全文检索类得数据库
+
+   灰色  -  1,2
+   大尺寸 - 1 
+
+   1 - 安踏A灰色大尺寸
+   2 - 安踏B灰色小尺寸
+
+
+第六集
+购物车功能
+    
+    mysql    redis
+    
+	登录状态下  - redis - cache对象操作redis
+     1, 为什么用cache对象操作？- redis-String
+	     cache.set(key, value)
+          cpickle 序列化  value -> 字节串
+		  cache.set(key, {'1':{'count':1,'xx':0}})
+
+		 cache.get(key)
+		  cpickle 反序列化 字节串 -> Python value
+          
+
+	 2，存储结构？
+          skuid, count, selected
+          
+
+		  String
+			  key:'carts_%s'%(user_id)
+              vaule:'{skuid:{count:xx,'selected':0/1}}'
+ 
+              {skuid:[count, selected]} ->
+			  {'2':[1,1]}
+
+
+		  Hash
+              key: 'carts_%s'%(user_id)
+              value: filed:value-string
+			         skuid:'{count:xx,'selected':0/1}'
+
+
+	非登录状态下 - 浏览器里【本地存储】
+
+    合并购物车时，出现了相同商品时得处理？
+	   离线：     A   1
+	   上次登陆： A   3
+
+{"username":"xiaonao6","password":"123456","carts":[{"id":"3","count":"1","name":"蓝色小尺寸","default_image_url":"sku/3_1Dc1Us9.png","price":167,"selected":true,"sku_sale_attr_name":["安踏B/尺寸：","安踏B/颜色："],"sku_sale_attr_val":["15寸","蓝色"]}]}
+
+
+"GET /payment/result?charset=utf-8&out_trade_no=2020041816121209&method=alipay.trade.page.pay.return&total_amount=999.00&sign=czOuh%2BkFtEnpsmnh0ubFHK5q13J368fSz%2FxUYUmk0J27mb0F1q3Od46j8KGrEG0eX3T1v6
+
+
+
+{'code': '10000', 'msg': 'Success', 'buyer_logon_id': 'pec***@sandbox.com', 'buyer_pay_amount': '0.00', 'buyer_user_id': '2088102180092245', 'buyer_user_type': 'PRIVATE', 'invoice_amount': '0.00', 'out_trade_no': '202004181607123', 'point_amount': '0.00', 'receipt_amount': '0.00', 'send_pay_date': '2020-04-18 17:46:46', 'total_amount': '999.00', 'trade_no': '2020041822001492240511988161', 'trade_status': 'TRADE_SUCCESS'}
+
+
+
+
+
+
+
+
