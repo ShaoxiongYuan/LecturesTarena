@@ -1,0 +1,53 @@
+csv
+
+import csv
+writer = csv.writer(f)
+writer.writerow(['','',''])
+writer.writerows([(),(),()]
+
+
+mysql
+
+import pymysql
+db = pymysql.connect(xx,xx,xx)
+cur = db.cursor()
+cur.execute(sql, ['','',''])
+cur.executemany(sql, [(),(),()])
+
+mongodb
+
+import pymongo
+conn = pymongo.MongoClient('localhost', 27017)
+db = conn['库名']
+myset = db['集合名']
+myset.insert_one({})
+myset.insert_many([{},{},{}])
+
+
+mongo
+>show dbs
+>use 库名
+>show collections
+>db.集合名.count()
+>db.集合名.find().pretty()
+>db.集合名.drop()
+>db.dropDatabase()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

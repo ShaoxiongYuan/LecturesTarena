@@ -1,0 +1,47 @@
+1、使用流程
+     from lxml import etree
+     
+     p = etree.HTML(html)
+     r_list = p.xpath('xxxxxx')
+
+2、r_list可能的类型
+    情况1：[<element div at xxx>, <element div at xxx>, ... , <element div at xxx>]
+                //div    //ul/li/p      //ul/li/p[@class="abc"]
+
+    情况2：['字符串1', '字符串2', ... , '字符串n']
+               //div/p/text()     //div/p/a/@href      //div/p/a/@title
+
+3、xpath最常用 - 数据一般一个一个提
+     dd_list = p.xpath('//div/dd')
+     for dd in dd_list:
+          name = dd.xpath('.//p[@class="name"]/a/text()')[0].strip()
+
+4、xpath得到的结果一定为列表
+
+
+练习：
+URL地址： https://lf.lianjia.com/ershoufang/pg1/
+
+1、请求,拿到响应内容
+
+2、xpath解析提取这1页的数据，打印输出
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -357,9 +357,9 @@ mongo
 - **终极总结**
 
   ```python
-  【1】xpath表达式的末尾为: /text() 、/@href  得到的列表中为'字符串'
+  【1】字符串: xpath表达式的末尾为: /text() 、/@href  得到的列表中为'字符串'
    
-  【2】其他剩余所有情况得到的列表中均为'节点对象' 
+  【2】节点对象: 其他剩余所有情况得到的列表中均为'节点对象' 
       [<element dd at xxxa>,<element dd at xxxb>,<element dd at xxxc>]
       [<element div at xxxa>,<element div at xxxb>]
       [<element p at xxxa>,<element p at xxxb>,<element p at xxxc>]
@@ -412,7 +412,7 @@ mongo
      for dd in dd_list:
   	 	item['name'] = dd.xpath('.//p[@class="name"]/a/text()').strip()
   	 	item['star'] = dd.xpath('.//p[@class="star"]/text()').strip()[3:]
-  	 	item['time'] = dd.xpath('//p[@class="releasetime"]/text()').strip()[5:15]
+  	 	item['time'] = dd.xpath('.//p[@class="releasetime"]/text()').strip()[5:15]
   ```
 
 - **猫眼电影-xpath**
@@ -456,15 +456,6 @@ mongo
               print(item)
               self.i += 1
   
-      def save_html(self,film_list):
-          item = {}
-          for film in film_list:
-              item['name'] = film[0].strip()
-              item['star'] = film[1].strip()
-              item['time'] = film[2].strip()[5:15]
-              print(item)
-              self.i += 1
-  
       def run(self):
           for offset in range(0,91,10):
               url = self.url.format(offset)
@@ -498,6 +489,9 @@ mongo
       '此处滚动鼠标滑轮时,li节点的class属性值会发生变化,通过查看网页源码确定xpath表达式'
       //ul[@class="sellListContent"]/li[@class="clear LOGVIEWDATA LOGCLICKDATA"]
   
+      //ul[@class="sellListContent"]/li
+      
+      
   【2】依次遍历后每个房源信息xpath表达式
      2.1)名称: .//div[@class="positionInfo"]/a[1]/text()
      2.2)地址: .//div[@class="positionInfo"]/a[2]/text()
