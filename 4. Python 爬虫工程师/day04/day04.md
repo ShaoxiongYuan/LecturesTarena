@@ -28,24 +28,13 @@
 - **响应对象res属性**
 
   ```python
-  res.text        : '字符串'
-  res.content     : 'bytes'
-  res.status_code : 'HTTP响应码'
-  res.url         : '实际数据URL地址'
+  【1】res.encoding    : '字符编码'
+  【2】res.text        : '字符串'
+  【3】res.content     : 'bytes'
+  【4】res.status_code : 'HTTP响应码'
+  【5】res.url         : '实际数据URL地址'
   ```
 
-- **非结构化数据保存**
-
-  ```python
-  【1】文件名 : 可以使用URL地址进行切割或切片
-  
-  【2】保存时以 wb 的方式打开文件
-  
-  【3】可用os模块创建并指定保存路径
-      import os
-      if not os.path.exists(directory):
-          os.makedirs(directory)
-  ```
 
 ## **Chrome浏览器安装插件**
 
@@ -89,6 +78,9 @@
    2.1) url
    2.2) headers
    2.3) timeout
+   2.4) params
+   2.5) verify
+   2.6) proxies
 ```
 
 ## **解析模块总结**
@@ -120,7 +112,7 @@ r_list = p.xpath('xpath表达式')
      1.1) xpath示例: //div、//div[@class="student"]、//div/a[@title="stu"]/span
   
   【2】结果: 字符串列表
-     2.1) xpath表达式中末尾为: @src、@href、text()
+     2.1) xpath表达式中末尾为: @src、@href、/text()
   ```
 
 - **最常用**
@@ -145,156 +137,7 @@ r_list = p.xpath('xpath表达式')
 
 # **Day04笔记**
 
-## **百度贴吧图片抓取**
-
-- **目标**
-
-  ```python
-  抓取指定贴吧所有图片
-  ```
-
-- **思路**
-
-  ```python
-  【1】获取贴吧主页URL,下一页,找到不同页的URL规律
-  【2】获取1页中所有帖子URL地址: [帖子链接1,帖子链接2,...]
-  【3】对每个帖子链接发请求,获取图片URL列表: [图片链接1,图片链接2,...]
-  【4】向图片的URL发请求,以wb方式写入本地文件
-  ```
-
-- **实现步骤**
-
-  ```python
-  【1】响应内容总是否存在所抓数据 : 存在!
-    
-  【2】贴吧URL规律
-     http://tieba.baidu.com/f?kw=??&pn=50
-      
-  【3】xpath表达式
-     3.1) 帖子链接: //div[@class="t_con cleafix"]/div/div/div/a/@href
-     3.2) 图片链接: //div[@class="d_post_content j_d_post_content  clearfix"]/img[@class="BDE_Image"]/@src
-     3.3) 视频链接: //div[@class="video_src_wrapper"]/embed/@data-video
-          此处视频链接前端对响应内容做了处理,需要查看网页源代码来查看，复制HTML代码在线格式化 
-  ```
-
-- **代码实现**
-
-  ```python
-  """抓取指定贴吧的所有帖子中图片"""
-  import requests
-  from lxml import etree
-  import time
-  import random
-  from urllib import parse
-  
-  class TiebaImageSpider(object):
-      def __init__(self):
-          self.url = 'http://tieba.baidu.com/f?kw={}&pn={}'
-          self.headers = { 'User-Agent':'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; InfoPath.3)' }
-  
-      def get_html(self,url):
-          """请求功能函数"""
-          html = requests.get(url=url,headers=self.headers).text
-  
-          return html
-  
-      def xpath_func(self,html,xpath_bds):
-          """解析功能函数"""
-          parse_html = etree.HTML(html)
-          r_list = parse_html.xpath(xpath_bds)
-  
-          return r_list
-  
-      def get_images(self,one_url):
-          one_html = self.get_html(one_url)
-          xpath_bds = '//div[@class="t_con cleafix"]/div/div/div/a/@href'
-          href_list = self.xpath_func(one_html,xpath_bds)
-          # href_list: ['/p/2323','/p/23322','']
-          for href in href_list:
-              t_link = 'http://tieba.baidu.com' + href
-              # 把1个帖子中所有图片保存下来
-              self.save_images(t_link)
-  
-      def save_images(self,t_link):
-          two_html = self.get_html(t_link)
-          two_xpath = '//div[@class="d_post_content j_d_post_content  clearfix"]/img[@class="BDE_Image"]/@src | //div[@class="video_src_wrapper"]/embed/@data-video'
-          src_list = self.xpath_func(two_html,two_xpath)
-          for src in src_list:
-              img_html = requests.get(url=src,headers=self.headers).content
-              filename = src[-10:]
-              with open(filename,'wb') as f:
-                  f.write(img_html)
-              print(filename,'下载成功')
-              time.sleep(random.uniform(0,1))
-  
-      def run(self):
-          name = input("请输入贴吧名:")
-          begin = int(input('请输入起始页:'))
-          end = int(input('请输入终止页:'))
-          name = parse.quote(name)
-          for page in range(begin,end+1):
-              pn = (page-1)*50
-              url = self.url.format(name,pn)
-              self.get_images(url)
-  
-  if __name__ == '__main__':
-      spider = TiebaImageSpider()
-      spider.run()
-  ```
-
-## **requests.get()参数**
-
-### **查询参数-params**
-
-- **参数类型**
-
-  ```python
-  字典,字典中键值对作为查询参数
-  ```
-
-- **使用方法**
-
-  ```python
-  【1】res = requests.get(url=baseurl,params=params,headers=headers)
-  【2】特点: 
-     2.1) url为基准的url地址，不包含查询参数
-     2.2) 该方法会自动对params字典编码,然后和url拼接
-  ```
-
-- **示例**
-
-  ```python
-  import requests
-  
-  baseurl = 'http://tieba.baidu.com/f?'
-  params = {
-    'kw' : '赵丽颖吧',
-    'pn' : '50'
-  }
-  headers = {'User-Agent' : 'Mozilla/4.0'}
-  # 自动对params进行编码,然后自动和url进行拼接,去发请求
-  html = requests.get(url=baseurl,params=params,headers=headers).content.decode()
-  ```
-
-### **SSL证书认证参数-verify**
-
-- **适用网站及场景**
-
-  ```python
-  【1】适用网站: https类型网站但是没有经过 证书认证机构 认证的网站
-  【2】适用场景: 抛出 SSLError 异常则考虑使用此参数
-  ```
-
-- **参数类型**
-
-  ```python
-  【1】verify=True(默认)   : 检查证书认证
-  【2】verify=False（常用）: 忽略证书认证
-  【3】示例
-     res = requests.get(url=url,params=params,headers=headers,verify=False)
-  ```
-
-### **代理参数-proxies**
+## **代理参数-proxies**
 
 - **定义及分类**
 
@@ -370,17 +213,138 @@ r_list = p.xpath('xpath表达式')
   print(html)
   ```
 
-**get()方法参数**
+- **课堂练习**
 
-```python
-【1】url=url
-【2】params={}
-【3】proxies={}
-【4】headers={}
-【5】timeout=3
-【6】verify=False | True
-【7】cookies={}
-```
+  ```python
+  【1】使用开放代理建立自己的代理IP池
+  【2】使用私密代理建立自己的代理IP池
+  ```
+
+## **民政部网站数据抓取**
+
+- **目标**
+
+  ```python
+  【1】URL: http://www.mca.gov.cn/ - 民政数据 - 行政区划代码
+      即: http://www.mca.gov.cn/article/sj/xzqh/2020/
+          
+  【2】目标: 抓取最新中华人民共和国县以上行政区划代码
+  ```
+
+- **实现步骤**
+
+  ```python
+  【1】从民政数据网站中提取最新行政区划代码链接
+     1.1) 新的在上面第2个
+     1.2) xpath表达式: //table//tr[2]/td[2]/a/@href
+     
+    
+  【2】从二级页面响应内容中提取真实链接
+     2.1) 反爬 - 响应内容中嵌入JS，指向新的链接
+     2.2) 打印响应内容，搜索真实链接URL，找到位置
+     2.3) 正则匹配: window.location.href="(.*?)"
+  
+  【3】从真实链接中提取所需数据
+     3.1) 基准xpath(以响应内容为主): //tr[@height="19"]
+     3.2) for循环依次遍历提取数据
+          编码: ./td[2]/text() | ./td[2]/span/text()
+          名称: ./td[3]/text()
+  ```
+
+- **代码实现 - 使用redis实现增量**
+
+  ```python
+  import requests
+  from lxml import etree
+  import re
+  import redis
+  from hashlib import md5
+  import pymysql
+  import sys
+  
+  class GovementSpider(object):
+      def __init__(self):
+          self.index_url = 'http://www.mca.gov.cn/article/sj/xzqh/2020/'
+          self.headers = {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+          }
+          # redis指纹增量
+          self.r = redis.Redis(host='localhost',port=6379,db=0)
+  
+      def get_html(self,url):
+          """请求功能函数"""
+          html = requests.get(url=url,headers=self.headers).text
+  
+          return html
+  
+      def xpath_func(self, html, xpath_bds):
+          """解析功能函数"""
+          p = etree.HTML(html)
+          r_list = p.xpath(xpath_bds)
+  
+          return r_list
+  
+      def md5_url(self,url):
+          """URL加密函数"""
+          s = md5()
+          s.update(url.encode())
+  
+          return s.hexdigest()
+  
+      def get_false_url(self):
+          """获取最新月份链接 - 假链接"""
+          html = self.get_html(self.index_url)
+          # 解析提取最新月份链接 - 假链接
+          one_xpath = '//table/tr[2]/td[2]/a/@href'
+          false_href_list = self.xpath_func(html,one_xpath)
+          if false_href_list:
+              false_href = false_href_list[0]
+              false_url = 'http://www.mca.gov.cn' + false_href
+              # 生成指纹
+              finger = self.md5_url(false_url)
+              # redis集合增量判断
+              if self.r.sadd('govspider:fingers',finger):
+                  self.get_real_url(false_url)
+              else:
+                  sys.exit('数据已是最新')
+          else:
+              print('提取最新月份链接失败')
+  
+      def get_real_url(self,false_url):
+          """获取真链接"""
+          # 嵌入JS执行URL跳转,提取真实链接
+          html = self.get_html(false_url)
+          regex = r'window.location.href="(.*?)"'
+          pattern = re.compile(regex,re.S)
+          true_url_list = pattern.findall(html)
+          if true_url_list:
+              true_url = true_url_list[0]
+              # 提取具体的数据
+              self.get_data(true_url)
+          else:
+              print('提取真实链接失败')
+  
+      def get_data(self,true_url):
+          """提取具体的数据"""
+          html = self.get_html(true_url)
+          # xpath提取数据
+          two_xpath = '//tr[@height="19"]'
+          tr_list = self.xpath_func(html, two_xpath)
+          for tr in tr_list:
+              code_list = tr.xpath('./td[2]/text() | ./td[2]/span/text()')
+              name_list = tr.xpath('./td[3]/text()')
+              code = code_list[0].strip() if code_list else None
+              name = name_list[0].strip() if name_list else None
+              print(name, code)
+  
+      def run(self):
+          """程序入口函数"""
+          self.get_false_url()
+  
+  if __name__ == '__main__':
+    spider = GovementSpider()
+    spider.run()
+  ```
 
 ## **requests.post()**
 
@@ -420,7 +384,7 @@ r_list = p.xpath('xpath表达式')
        c> Response：响应内容
   ```
 
-### **有道翻译破解案例(post)**
+## **有道翻译破解案例(post)**
 
 - **目标**
 
@@ -497,9 +461,10 @@ bv: f4d62a2579ebb44874d7ef93ba47e822
 【sign】（'设置断点调试，来查看 e 的值，发现 e 为要翻译的单词'）
    js代码实现) n.md5("fanyideskweb" + e + salt + "n%A-rKaT5fb[Gy?;N5@Tj")
    python实现)
+   string = '"fanyideskweb" + e + salt + "n%A-rKaT5fb[Gy?;N5@Tj"'
    from hashlib import md5
    s = md5()
-   s.update(xxx.encode())
+   s.update(string.encode())
    sign = s.hexdigest()
 ```
 
@@ -589,24 +554,41 @@ if __name__ == '__main__':
   spider.run()
 ```
 
+## **动态加载数据抓取-Ajax**
+
+- **特点**
+
+  ```python
+  【1】右键 -> 查看网页源码中没有具体数据
+  【2】滚动鼠标滑轮或其他动作时加载,或者页面局部刷新
+  ```
+
+- **抓取**
+
+  ```python
+  【1】F12打开控制台，页面动作抓取网络数据包
+  【2】抓取json文件URL地址
+     2.1) 控制台中 XHR ：异步加载的数据包
+     2.2) XHR -> QueryStringParameters(查询参数)
+  ```
+
 ## **今日作业**
 
 ```python
-【1】总结前几天内容,理顺知识点
-
-【2】抓取西刺免费高匿代理并测试，建立自己的IP代理池(注意数据抓取的频率)
+【1】抓取西刺免费高匿代理并测试，建立自己的IP代理池(注意数据抓取的频率)
     https://www.xicidaili.com/nn/{}   # {}为: 1 2 3 4 5
 
-【3】民政部网站数据抓取 - # 一切以响应内容为主（URL的JS的跳转）
-   3.1) URL: http://www.mca.gov.cn/ - 民政数据 - 行政区划代码
-        即: http://www.mca.gov.cn/article/sj/xzqh/2019/
-   3.2) 目标: 抓取最新中华人民共和国县以上行政区划代码
-   3.3) 要求一:增量,每次运行程序只抓取最新的，如未更新则提示未更新，不进行抓取
-   3.4) 要求二:所抓数据存入数据库，最好分表存储 - 省、市、县 3张表
-      省表: province   字段: pname pcode
-      市表: city       字段: cname ccode cfather_code
-      县表: county     字段: xname xcode xfather_code
-  【特殊情况】: 四个直辖市在省表和市表中都存一份
+【2】民政部网站案例完善）
+    3.1) 数据存入到 MySQL 数据库，分表存储
+    3.2) 三张表
+        a> 省表(province) : 名称  编号
+        b> 市表(city)     : 名称  编号  对应省的编号
+        c> 县表(county)   : 名称  编号  对应市的编号
+            
+【3】豆瓣电影数据抓取
+    3.1) 地址: 豆瓣电影 - 排行榜 - 剧情
+    3.2) 目标: 电影名称、电影评分
+    3.3) 数据分别存入到MySQL数据库和MongoDB数据库中
 ```
 
 

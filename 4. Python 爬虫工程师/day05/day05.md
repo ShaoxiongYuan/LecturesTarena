@@ -79,274 +79,6 @@
 
 # **Day05笔记**
 
-## **有道翻译步骤梳理**
-
-- **1、开启F12抓包，找到Form表单数据如下:**
-
-  ```python
-  i: 喵喵叫
-  from: AUTO
-  to: AUTO
-  smartresult: dict
-  client: fanyideskweb
-  salt: 15614112641250
-  sign: 94008208919faa19bd531acde36aac5d
-  ts: 1561411264125
-  bv: f4d62a2579ebb44874d7ef93ba47e822
-  doctype: json
-  version: 2.1
-  keyfrom: fanyi.web
-  action: FY_BY_REALTlME
-  ```
-
-- **2、在页面中多翻译几个单词，观察Form表单数据变化**
-
-  ```python
-  salt: 15614112641250
-  sign: 94008208919faa19bd531acde36aac5d
-  ts: 1561411264125
-  bv: f4d62a2579ebb44874d7ef93ba47e822
-  # 但是bv的值不变
-  ```
-
-- **3、一般为本地js文件加密，刷新页面，找到js文件并分析JS代码**
-
-  ```python
-  # 方法1
-  Network - JS选项 - 搜索关键词salt
-  # 方法2
-  控制台右上角 - Search - 搜索salt - 查看文件 - 格式化输出
-  
-  # 最终找到相关JS文件 : fanyi.min.js
-  ```
-
-- **4、打开JS文件，分析加密算法，用Python实现**
-
-  ```python
-  # ts : 经过分析为13位的时间戳，字符串类型
-  js代码实现:  "" + (new Date).getTime()
-  python实现: str(int(time.time()*1000))
-  
-  # salt
-  js代码实现:  ts + parseInt(10 * Math.random(), 10);
-  python实现:  ts + str(random.randint(0,9))
-  
-  # sign（设置断点调试，来查看 e 的值，发现 e 为要翻译的单词）
-  js代码实现: n.md5("fanyideskweb" + e + salt + "n%A-rKaT5fb[Gy?;N5@Tj")
-  python实现:
-  from hashlib import md5
-  s = md5()
-  s.update(''.encode())
-  sign = s.hexdigest()
-  ```
-
-- **5、pycharm中正则处理headers和formdata**
-
-  ```python
-  1、pycharm进入方法 ：Ctrl + r ，选中 Regex
-  2、处理headers和formdata
-    (.*): (.*)
-    "$1": "$2",
-  3、点击 Replace All
-  ```
-
-
-## **民政部网站数据抓取**
-
-- **目标**
-
-  ```python
-  【1】URL: http://www.mca.gov.cn/ - 民政数据 - 行政区划代码
-      即: http://www.mca.gov.cn/article/sj/xzqh/2020/
-          
-  【2】目标: 抓取最新中华人民共和国县以上行政区划代码
-  ```
-
-- **实现步骤**
-
-  ```python
-  【1】从民政数据网站中提取最新行政区划代码链接
-     1.1) 新的在上面第2个
-     1.2) xpath表达式: //table//tr[2]/td[2]/a/@href
-     
-    
-  【2】从二级页面响应内容中提取真实链接
-     2.1) 反爬 - 响应内容中嵌入JS，指向新的链接
-     2.2) 打印响应内容，搜索真实链接URL，找到位置
-     2.3) 正则匹配: window.location.href="(.*?)"
-  
-  【3】从真实链接中提取所需数据
-     3.1) 基准xpath(以响应内容为主): //table/tr[2]/td[2]/a/@href
-     3.2) for循环依次遍历提取数据
-          编码: ./td[2]/text() | ./td[2]/span/text()
-          名称: ./td[3]/text()
-              
-  【4】扩展 - 补充
-     4.1) 数据存入到 MySQL 数据库，一定要分表存储
-     4.2) 三张表
-          a> 省表(province) : 名称  编号
-          b> 市表(city)     : 名称  编号  对应省的编号
-          c> 县表(county)   : 名称  编号  对应市的编号
-              
-  【5】MySQL建库建表语句
-  create database govdb charset utf8;
-  use govdb;
-  create table province(
-  id int primary key auto_increment,
-  pname varchar(50),
-  pcode varchar(20)
-  )charset=utf8;
-  create table city(
-  id int primary key auto_increment,
-  cname varchar(50),
-  ccode varchar(20),
-  cfcode varchar(20)
-  )charset=utf8;
-  create table county(
-  id int primary key auto_increment,
-  xname varchar(50),
-  xcode varchar(20),
-  xfcode varchar(20)
-  )charset=utf8;
-  ```
-
-- **代码实现 - 使用redis实现增量**
-
-  ```python
-  import requests
-  from lxml import etree
-  import re
-  import redis
-  from hashlib import md5
-  import pymysql
-  import sys
-  
-  class GovementSpider(object):
-      def __init__(self):
-          self.index_url = 'http://www.mca.gov.cn/article/sj/xzqh/2020/'
-          self.headers = {
-              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-          }
-          # redis指纹增量
-          self.r = redis.Redis(host='localhost',port=6379,db=0)
-          # MySQL相关变量
-          self.db = pymysql.connect('localhost', 'root', '123456', 'govdb', charset='utf8')
-          self.cursor = self.db.cursor()
-          # 插入语句
-          self.ins1 = 'insert into province(pname,pcode) values(%s,%s)'
-          self.ins2 = 'insert into city(cname,ccode,cfcode) values(%s,%s,%s)'
-          self.ins3 = 'insert into county(xname,xcode,xfcode) values(%s,%s,%s)'
-  
-      def get_html(self,url):
-          """请求功能函数"""
-          html = requests.get(url=url,headers=self.headers).text
-  
-          return html
-  
-      def xpath_func(self, html, xpath_bds):
-          """解析功能函数"""
-          p = etree.HTML(html)
-          r_list = p.xpath(xpath_bds)
-  
-          return r_list
-  
-      def md5_url(self,url):
-          """URL加密函数"""
-          s = md5()
-          s.update(url.encode())
-  
-          return s.hexdigest()
-  
-      def get_false_url(self):
-          """获取最新月份链接 - 假链接"""
-          html = self.get_html(self.index_url)
-          print(html)
-          # 解析提取最新月份链接 - 假链接
-          one_xpath = '//table/tr[2]/td[2]/a/@href'
-          false_href_list = self.xpath_func(html,one_xpath)
-          if false_href_list:
-              false_href = false_href_list[0]
-              false_url = 'http://www.mca.gov.cn' + false_href
-              # 生成指纹
-              finger = self.md5_url(false_url)
-              # redis集合增量判断
-              if self.r.sadd('govspider:fingers',finger):
-                  self.get_real_url(false_url)
-              else:
-                  sys.exit('数据已是最新')
-          else:
-              print('提取最新月份链接失败')
-  
-      def get_real_url(self,false_url):
-          """获取真链接"""
-          # 嵌入JS执行URL跳转,提取真实链接
-          html = self.get_html(false_url)
-          regex = r'window.location.href="(.*?)"'
-          pattern = re.compile(regex,re.S)
-          true_url_list = pattern.findall(html)
-          if true_url_list:
-              true_url = true_url_list[0]
-              # 提取具体的数据
-              self.get_data(true_url)
-          else:
-              print('提取真实链接失败')
-  
-      def get_data(self,true_url):
-          """提取具体的数据"""
-          html = self.get_html(true_url)
-          # xpath提取数据
-          two_xpath = '//tr[@height="19"]'
-          tr_list = self.xpath_func(html, two_xpath)
-          # 在存入新数据之前先清空数据库
-          self.delete()
-          for tr in tr_list:
-              code_list = tr.xpath('./td[2]/text() | ./td[2]/span/text()')
-              name_list = tr.xpath('./td[3]/text()')
-              code = code_list[0].strip() if code_list else None
-              name = name_list[0].strip() if name_list else None
-              print(name, code)
-              # 将所抓数据存入MySQL数据库
-              if code[-4:] == '0000':
-                  self.insert(self.ins1, [name, code])
-                  # 四个直辖市特殊,需要存到市表中一份
-                  if name in ['北京市', '天津市', '上海市', '重庆市']:
-                      self.insert(self.ins2, [name, code, code])
-              elif code[-2:] == '00':
-                  self.insert(self.ins2, [name, code, code[:2] + '0000'])
-                  # 记录最近1次城市的编号
-                  last_city = code
-              else:
-                  if code[:2] in ['11', '12', '31', '50']:
-                      xfcode = code[:2] + '0000'
-                  else:
-                      xfcode = last_city
-                  self.insert(self.ins3, [name, code, xfcode])
-  
-  
-      def delete(self):
-          """删除表记录功能函数"""
-          del1 = 'delete from province;'
-          del2 = 'delete from city;'
-          del3 = 'delete from county;'
-          self.cursor.execute(del1)
-          self.cursor.execute(del2)
-          self.cursor.execute(del3)
-          self.db.commit()
-  
-      def insert(self, ins, li):
-          """存入MySQL功能函数"""
-          self.cursor.execute(ins, li)
-          self.db.commit()
-  
-      def run(self):
-          """程序入口函数"""
-          self.get_false_url()
-  
-  if __name__ == '__main__':
-    spider = GovementSpider()
-    spider.run()
-  ```
-
 ## **动态加载数据抓取-Ajax**
 
 * **特点**
@@ -365,7 +97,7 @@
      2.2) XHR -> QueryStringParameters(查询参数)
   ```
 
-### **豆瓣电影数据抓取案例**
+## **豆瓣电影数据抓取案例**
 
 * **目标**
 
@@ -385,102 +117,106 @@
       action: ''
       start: 0  # 每次加载电影的起始索引值 0 20 40 60 
       limit: 20 # 每次加载的电影数量
-          
-  【3】URL
-      https://movie.douban.com/j/chart/top_list?type=13&interval_id=100%3A90&action=&start={}&limit=20
   ```
   
 * **代码实现 - 全站抓取**
 
   ```python
+  """
+  豆瓣电影 - 全站抓取
+  """
   import requests
+  from fake_useragent import UserAgent
   import time
   import random
   import re
-  from fake_useragent import UserAgent
+  import json
   
-  class DoubanSpider(object):
+  class DoubanSpider:
       def __init__(self):
           self.url = 'https://movie.douban.com/j/chart/top_list?'
           self.i = 0
+          # 存入json文件
+          self.f = open('douban.json', 'w', encoding='utf-8')
+          self.all_film_list = []
   
-      # 获取随机headers
-      def get_headers(self):
-          headers = {'User-Agent':UserAgent().random }
+      def get_agent(self):
+          """获取随机的User-Agent"""
+          return UserAgent().random
   
-          return headers
+      def get_html(self, params):
+          headers = {'User-Agent':self.get_agent()}
+          html = requests.get(url=self.url, params=params, headers=headers).text
+          # 把json格式的字符串转为python数据类型
+          html = json.loads(html)
   
-      # 获取页面
-      def get_page(self,params):
-        # 返回 python 数据类型
-          html = requests.get(url=self.url,params=params,headers=self.get_headers()).json()
-          self.parse_page(html)
+          self.parse_html(html)
   
-      # 解析并保存数据
-      def parse_page(self,html):
+      def parse_html(self, html):
+          """解析"""
+          # html: [{},{},{},{}]
           item = {}
-          # html为大列表 [{电影1信息},{},{}]
-          for one in html:
-              # 名称 + 评分
-              item['name'] = one['title'].strip()
-              item['score'] = float(one['score'].strip())
-              # 打印测试
+          for one_film in html:
+              item['rank'] = one_film['rank']
+              item['title'] = one_film['title']
+              item['score'] = one_film['score']
               print(item)
+              self.all_film_list.append(item)
               self.i += 1
   
-      # 主函数
       def run(self):
-          # 获取type的值
-          type_dict = self.get_all_type_films()
-          # 生成菜单
+          # d: {'剧情':'11','爱情':'13','喜剧':'5',...,...}
+          d = self.get_d()
+          # 1、给用户提示,让用户选择
           menu = ''
-          for key in type_dict:
-            menu += key + '|'
+          for key in d:
+              menu += key + '|'
+          print(menu)
+          choice = input('请输入电影类别：')
+          if choice in d:
+              code = d[choice]
+              # 2、total: 电影总数
+              total = self.get_total(code)
+              for start in range(0,total,20):
+                  params = {
+                      'type': code,
+                      'interval_id': '100:90',
+                      'action': '',
+                      'start': str(start),
+                      'limit': '20'
+                  }
+                  self.get_html(params=params)
+                  time.sleep(random.randint(1,2))
   
-          menu = menu + '\n请做出你的选择:'
-          name = input(menu)
-          type_number = type_dict[name]
-          # 获取电影总数
-          total = self.total_number(type_number)
-          for start in range(0,(total+1),20):
-              params = {
-                  'type' : type_number,
-                  'interval_id' : '100:90',
-                  'action' : '',
-                  'start' : str(start),
-                  'limit' : '20'
-              }
-              # 调用函数,传递params参数
-              self.get_page(params)
-              # 随机休眠1-3秒
-              time.sleep(random.randint(1,3))
-          print('电影数量:',self.i)
+              # 把数据存入json文件
+              json.dump(self.all_film_list, self.f, ensure_ascii=False)
+              self.f.close()
+              print('数量:',self.i)
+          else:
+              print('请做出正确的选择')
   
-      # 获取电影总数
-      def total_number(self,type_number):
-          # F12抓包抓到的地址
-          url = 'https://movie.douban.com/j/chart/top_list_count?type={}&interval_id=100%3A90'.format(type_number)
-          headers = self.get_headers()
-          html = requests.get(url=url,headers=headers).json()
-          total = int(html['total'])
-  
-          return total
-  
-      # 获取所有电影的名字和对应type值
-      def get_all_type_films(self):
-          # 获取 类型和类型码
+      def get_d(self):
+          """{'剧情':'11','爱情':'13','喜剧':'5',...,...}"""
           url = 'https://movie.douban.com/chart'
-          headers = self.get_headers()
-          html = requests.get(url=url,headers=headers).text
-          re_bds = r'<a href=.*?type_name=(.*?)&type=(.*?)&.*?</a>'
-          pattern = re.compile(re_bds,re.S)
+          html = requests.get(url=url,headers={'User-Agent':self.get_agent()}).text
+          regex = '<span><a href=".*?type_name=(.*?)&type=(.*?)&interval_id=100:90&action=">'
+          pattern = re.compile(regex, re.S)
+          # r_list: [('剧情','11'),('喜剧','5'),('爱情':'13')... ...]
           r_list = pattern.findall(html)
-          # 存放所有类型和对应类型码大字典
-          type_dict = {}
+          # d: {'剧情': '11', '爱情': '13', '喜剧': '5', ..., ...}
+          d = {}
           for r in r_list:
-              type_dict[r[0].strip()] = r[1].strip()
+              d[r[0]] = r[1]
   
-          return type_dict
+          return d
+  
+      def get_total(self, code):
+          """获取某个类别下的电影总数"""
+          url = 'https://movie.douban.com/j/chart/top_list_count?type={}&interval_id=100%3A90'.format(code)
+          html = requests.get(url=url,headers={'User-Agent':self.get_agent()}).text
+          html = json.loads(html)
+  
+          return html['total']
   
   if __name__ == '__main__':
       spider = DoubanSpider()
@@ -575,6 +311,222 @@
   【6】Redis数据库
   ```
 
+## **execjs**
+
+- **安装**
+
+  ```python
+  【1】Linux
+      1.1) 首先安装nodejs执行环境 : sudo apt-get install nodejs
+      1.2) 然后安装execjs模块 : sudo pip3 install pyexecjs
+    
+  【2】Windows
+      python -m pip install pyexecjs
+  ```
+
+- **使用说明**
+
+  ```python
+  【1】作用
+      python中执行js代码，js逆向解决反爬
+      
+  【2】使用流程
+      2.1) 导入模块: import pyexecjs
+      2.2) 读取js文件的js代码
+      2.3) 创建编译对象: loader = execjs.compile(js代码)
+      2.4) 执行js代码:   loader.call('js中函数名', '函数参数')
+  ```
+
+- **使用示例1**
+
+  ```python
+  import execjs
+  
+  js_data = """
+      function test(name){
+          return "Hello, " + name;
+      }
+  """
+  loader = execjs.compile(js_data)
+  result = loader.call("test", "张三丰")
+  print(result)
+  ```
+
+- **使用示例2**
+
+  ```python
+  # output.js
+  function test(name){
+      return "Hello, " + name;
+  }
+  
+  # output.py
+  import execjs
+  
+  with open('output.js', 'r') as f:
+      js_data = f.read()
+  
+  loader = execjs.compile(js_data)
+  result = loader.call("test", "张三丰")
+  print(result)
+  ```
+
+## **JS逆向 - 百度翻译破解案例**
+
+- **目标**
+
+  ```python
+  破解百度翻译接口，抓取翻译结果数据
+  ```
+
+- **实现步骤**
+
+**1. F12抓包,找到json的地址,观察查询参数**
+
+```python
+1、POST地址: https://fanyi.baidu.com/v2transapi
+2、Form表单数据（多次抓取在变的字段）
+   from: zh
+   to: en
+   sign: 54706.276099  #这个是如何生成的？
+   token: a927248ae7146c842bb4a94457ca35ee # 固定不变
+```
+
+**2. 抓取相关JS文件**
+
+```python
+右上角 - 搜索 - sign: - 找到具体JS文件 - 格式化输出
+```
+
+**3. 在JS中寻找sign的生成代码**
+
+```python
+1、在格式化输出的JS代码中搜索: sign: 找到如下JS代码：sign: y(n),
+2、通过设置断点，找到y(n)函数的位置，即生成sign的具体函数
+   2.1) n为要翻译的单词
+   2.2) 鼠标移动到 y(n) 位置处，点击可进入具体y(n)函数代码块
+```
+
+**4. 生成sign的m(a)函数具体代码如下(在一个大的define中)**
+
+```javascript
+function a(r) {
+    if (Array.isArray(r)) {
+        for (var o = 0, t = Array(r.length); o < r.length; o++)
+            t[o] = r[o];
+        return t
+    }
+    return Array.from(r)
+}
+function n(r, o) {
+    for (var t = 0; t < o.length - 2; t += 3) {
+        var a = o.charAt(t + 2);
+        a = a >= "a" ? a.charCodeAt(0) - 87 : Number(a),
+            a = "+" === o.charAt(t + 1) ? r >>> a : r << a,
+            r = "+" === o.charAt(t) ? r + a & 4294967295 : r ^ a
+    }
+    return r
+}
+function e(r) {
+//    断点调试，发现i的值不变，所以在此处定义，否则运行时会报错：i 未定义
+    var i = "320305.131321201";
+    var o = r.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g);
+    if (null === o) {
+        var t = r.length;
+        t > 30 && (r = "" + r.substr(0, 10) + r.substr(Math.floor(t / 2) - 5, 10) + r.substr(-10, 10))
+    } else {
+        for (var e = r.split(/[\uD800-\uDBFF][\uDC00-\uDFFF]/), C = 0, h = e.length, f = []; h > C; C++)
+            "" !== e[C] && f.push.apply(f, a(e[C].split(""))),
+                C !== h - 1 && f.push(o[C]);
+        var g = f.length;
+        g > 30 && (r = f.slice(0, 10).join("") + f.slice(Math.floor(g / 2) - 5, Math.floor(g / 2) + 5).join("") + f.slice(-10).join(""))
+    }
+    var u = void 0
+    , l = "" + String.fromCharCode(103) + String.fromCharCode(116) + String.fromCharCode(107);
+    u = null !== i ? i : (i = window[l] || "") || "";
+    for (var d = u.split("."), m = Number(d[0]) || 0, s = Number(d[1]) || 0, S = [], c = 0, v = 0; v < r.length; v++) {
+        var A = r.charCodeAt(v);
+        128 > A ? S[c++] = A : (2048 > A ? S[c++] = A >> 6 | 192 : (55296 === (64512 & A) && v + 1 < r.length && 56320 === (64512 & r.charCodeAt(v + 1)) ? (A = 65536 + ((1023 & A) << 10) + (1023 & r.charCodeAt(++v)),
+            S[c++] = A >> 18 | 240,
+            S[c++] = A >> 12 & 63 | 128) : S[c++] = A >> 12 | 224,
+                                                                    S[c++] = A >> 6 & 63 | 128),
+                                S[c++] = 63 & A | 128)
+    }
+    for (var p = m, F = "" + String.fromCharCode(43) + String.fromCharCode(45) + String.fromCharCode(97) + ("" + String.fromCharCode(94) + String.fromCharCode(43) + String.fromCharCode(54)), D = "" + String.fromCharCode(43) + String.fromCharCode(45) + String.fromCharCode(51) + ("" + String.fromCharCode(94) + String.fromCharCode(43) + String.fromCharCode(98)) + ("" + String.fromCharCode(43) + String.fromCharCode(45) + String.fromCharCode(102)), b = 0; b < S.length; b++)
+        p += S[b],
+            p = n(p, F);
+    return p = n(p, D),
+        p ^= s,
+        0 > p && (p = (2147483647 & p) + 2147483648),
+        p %= 1e6,
+        p.toString() + "." + (p ^ m)
+}
+```
+
+**5. 直接将4中代码写入本地translate.js文件,利用pyexecjs模块执行js代码进行调试**
+
+```python
+# test_translate.py
+import execjs
+
+with open('translate.js', 'r', encoding='utf-8') as f:
+    js_code = f.read()
+
+obj = execjs.compile(js_code)
+print(obj.call('e', 'python'))
+```
+
+**6. 代码实现**
+
+```python
+import requests
+import execjs
+
+class BaiduTranslateSpider:
+    def __init__(self):
+        self.url = 'https://fanyi.baidu.com/v2transapi?from=en&to=zh'
+        self.headers = {
+            'Cookie':'BIDUPSID=46D0471B72D849FC7EDF21BA4702F83C; PSTM=1587698693; BAIDUID=46D0471B72D849FCE9A270A451DF87D1:FG=1; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; delPer=0; PSINO=2; H_PS_PSSID=30969_1463_31326_21107_31427_31341_31228_30824_31164; Hm_lvt_64ecd82404c51e03dc91cb9e8c025574=1587727393; REALTIME_TRANS_SWITCH=1; FANYI_WORD_SWITCH=1; HISTORY_SWITCH=1; SOUND_SPD_SWITCH=1; SOUND_PREFER_SWITCH=1; Hm_lpvt_64ecd82404c51e03dc91cb9e8c025574=1587727413; __yjsv5_shitong=1.0_7_6a5f66b7527ef7c72b25325159665a94b252_300_1587727413634_101.30.19.86_2f87d549; yjs_js_security_passport=81df417e6e29094c4b7fa337affa272f3e7a7bfb_1587727414_js',
+            'Referer':'https://fanyi.baidu.com/',
+            'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36'
+        }
+
+    def get_sign(self, word):
+        """获取sign"""
+        with open('translate.js', 'r', encoding='utf-8') as f:
+            js_code = f.read()
+
+        obj = execjs.compile(js_code)
+        sign = obj.call('e', word)
+
+        return sign
+
+    def get_result(self, word):
+        sign = self.get_sign(word)
+        data = {
+            "from": "en",
+            "to": "zh",
+            "query": word,
+            "transtype": "realtime",
+            "simple_means_flag": "3",
+            "sign": sign,
+            "token": "4cf7c952bf4500c7446f7cb3ab40860f",
+            "domain": "common",
+        }
+        html = requests.post(url=self.url, data=data, headers=self.headers).json()
+        result = html['trans_result']['data'][0]['dst']
+
+        return result
+
+    def run(self):
+        word = input('请输入要翻译的单词:')
+        print(self.get_result(word))
+
+if __name__ == '__main__':
+    spider = BaiduTranslateSpider()
+    spider.run()
+```
+
 ## **多线程爬虫**
 
 - **应用场景**
@@ -626,6 +578,94 @@
   
   for t in t_list:
       t.join()
+  ```
+
+- **多线程爬虫示例代码**
+
+  ```python
+  # 抓取豆瓣电影剧情类别下的电影信息
+  """
+  豆瓣电影 - 剧情 - 抓取
+  """
+  import requests
+  from fake_useragent import UserAgent
+  import time
+  import random
+  from threading import Thread,Lock
+  from queue import Queue
+  
+  class DoubanSpider:
+      def __init__(self):
+          self.url = 'https://movie.douban.com/j/chart/top_list?type=13&interval_id=100%3A90&action=&start={}&limit=20'
+          self.i = 0
+          # 队列 + 锁
+          self.q = Queue()
+          self.lock = Lock()
+  
+      def get_agent(self):
+          """获取随机的User-Agent"""
+          return UserAgent().random
+  
+      def url_in(self):
+          """把所有要抓取的URL地址入队列"""
+          for start in range(0,684,20):
+              url = self.url.format(start)
+              # url入队列
+              self.q.put(url)
+  
+      # 线程事件函数：请求+解析+数据处理
+      def get_html(self):
+          while True:
+              # 从队列中获取URL地址
+              # 一定要在判断队列是否为空 和 get() 地址 前后加锁,防止队列中只剩一个地址时出现重复判断
+              self.lock.acquire()
+              if not self.q.empty():
+                  headers = {'User-Agent': self.get_agent()}
+                  url = self.q.get()
+                  self.lock.release()
+  
+                  html = requests.get(url=url, headers=headers).json()
+                  self.parse_html(html)
+              else:
+                  # 如果队列为空,则最终必须释放锁
+                  self.lock.release()
+                  break
+  
+      def parse_html(self, html):
+          """解析"""
+          # html: [{},{},{},{}]
+          item = {}
+          for one_film in html:
+              item['rank'] = one_film['rank']
+              item['title'] = one_film['title']
+              item['score'] = one_film['score']
+              print(item)
+              # 加锁 + 释放锁
+              self.lock.acquire()
+              self.i += 1
+              self.lock.release()
+  
+      def run(self):
+          # 先让URL地址入队列
+          self.url_in()
+          # 创建多个线程,开干吧
+          t_list = []
+          for i in range(1):
+              t = Thread(target=self.get_html)
+              t_list.append(t)
+              t.start()
+  
+          for t in t_list:
+              t.join()
+  
+          print('数量:',self.i)
+  
+  if __name__ == '__main__':
+      start_time = time.time()
+      spider = DoubanSpider()
+      spider.run()
+      end_time = time.time()
+      print('执行时间:%.2f' % (end_time-start_time))
   ```
 
 ## **今日作业**
