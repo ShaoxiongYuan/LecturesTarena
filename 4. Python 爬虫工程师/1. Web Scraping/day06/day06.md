@@ -53,6 +53,18 @@
      2.4) 使用res.json()获取数据,利用列表或者字典的方法获取所需数据
   ```
 
+- **execjs模块使用**
+
+  ```python
+  import execjs
+  
+  with open('xxx.js', 'r') as f:
+      js_code = f.read()
+      
+  loader = execjs.compile(js_code)
+  loader.call('js中函数名', 'js中参数1', 'js中参数2', ...)
+  ```
+  
 - **多线程爬虫思路梳理**
 
   ```python
@@ -71,6 +83,7 @@
       def __init__(self):
           """创建URL队列"""
           self.q = Queue()
+          self.lock = Lock()
           
       def url_in(self):
           """生成待爬取的URL地址,入队列"""
@@ -84,6 +97,7 @@
                   url = self.q.get()
                   self.lock.release()
               else:
+                  self.lock.release()
                   break
                   
       def run(self):
@@ -409,7 +423,7 @@
 【1】适用网站及场景 : 抓取需要登录才能访问的页面
 ```
 
-## **豆瓣网登录案例**
+### **豆瓣网登录案例**
 
 - **方法一 - 登录网站手动抓取Cookie**
 
@@ -488,7 +502,7 @@
 - **方法三 - requests模块处理Cookie**
 
   ```python
-  【1】 思路 : requests模块提供了session类,来实现客户端和服务端的会话保持
+  【1】 思路 : requests模块提供了session类,来实现客户端和服务端的会话保持,自动提交Cookie
   
   【2】原理
       2.1) 实例化session对象 : s = requests.session()
@@ -576,7 +590,7 @@
       
   【3】特点
       3.1) 可根据指令操控浏览器
-      1.2) 只是工具，必须与第三方浏览器结合使用
+      3.2) 只是工具，必须与第三方浏览器结合使用
       
   【4】安装
       4.1) Linux: sudo pip3 install selenium
@@ -592,6 +606,7 @@
   【2】下载地址
       2.1) chromedriver : 下载对应版本
          http://chromedriver.storage.googleapis.com/index.html
+         http://npm.taobao.org/mirrors/chromedriver/
       
       2.2) geckodriver
          https://github.com/mozilla/geckodriver/releases
@@ -735,7 +750,57 @@
       1.3) node.get_attribute('value') - 获取按钮文本
   ```
 
-## **作业1 - 京东爬虫**
+### **chromedriver设置无界面模式**
+
+```python
+from selenium import webdriver
+
+options = webdriver.ChromeOptions()
+# 添加无界面参数
+options.add_argument('--headless')
+browser = webdriver.Chrome(options=options)
+```
+
+### **selenium - 键盘操作**
+
+```python
+from selenium.webdriver.common.keys import Keys
+
+browser = webdriver.Chrome()
+browser.get('http://www.baidu.com/')
+# 1、在搜索框中输入"selenium"
+browser.find_element_by_id('kw').send_keys('赵丽颖')
+# 2、输入空格
+browser.find_element_by_id('kw').send_keys(Keys.SPACE)
+# 3、Ctrl+a 模拟全选
+browser.find_element_by_id('kw').send_keys(Keys.CONTROL, 'a')
+# 4、Ctrl+c 模拟复制
+browser.find_element_by_id('kw').send_keys(Keys.CONTROL, 'c')
+# 5、Ctrl+v 模拟粘贴
+browser.find_element_by_id('kw').send_keys(Keys.CONTROL, 'v')
+# 6、输入回车,代替 搜索 按钮
+browser.find_element_by_id('kw').send_keys(Keys.ENTER)
+```
+
+### **==selenium - 鼠标操作==**
+
+```python
+from selenium import webdriver
+# 导入鼠标事件类
+from selenium.webdriver import ActionChains
+
+driver = webdriver.Chrome()
+driver.get('http://www.baidu.com/')
+
+# 移动到 设置，perform()是真正执行操作，必须有
+element = driver.find_element_by_xpath('//*[@id="u1"]/a[8]')
+ActionChains(driver).move_to_element(element).perform()
+
+# 单击，弹出的Ajax元素，根据链接节点的文本内容查找
+driver.find_element_by_link_text('高级搜索').click()
+```
+
+## **作业 - 京东商品爬虫**
 
 * **目标**
 
@@ -790,13 +855,6 @@
   【2】一定要注意给页面元素加载预留时间
   
   【3】执行JS脚本
-  ```
-  
-  ## **作业2**
-  
-  ```python
-  【1】多线程改写 - 链家二手房案例
-  【2】多线程改写 - 汽车之家案例
   ```
   
 
