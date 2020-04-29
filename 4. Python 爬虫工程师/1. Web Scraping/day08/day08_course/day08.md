@@ -117,16 +117,21 @@
       CONCURRENT_REQUESTS = 32
       
   【4】下载延迟时间
-      DOWNLOAD_DELAY = 1
+      DOWNLOAD_DELAY = 0.5
       
   【5】请求头，此处也可以添加User-Agent
-      DEFAULT_REQUEST_HEADERS = {}
+      DEFAULT_REQUEST_HEADERS = {'User-Agent':'', 'Cookie':''}
+      
   ```
 
-  ## **还记得百度一下,你就知道吗**
-
+【6】开启Cookie
+      COOKIES_ENABLED = False
+```
+  
+## **还记得百度一下,你就知道吗**
+  
   - **步骤跟踪**
-
+  
     ```python
     【1】创建项目 'Baidu' 和爬虫文件 'baidu'
         1.1) scrapy startproject Baidu
@@ -139,19 +144,20 @@
             name = 'baidu'
             allowed_domains = ['www.baidu.com']
             start_urls = ['http://www.baidu.com/']
+            
             def parse(self, response):
-                r_list = respone.xpath('')
+                pass
                 
     【3】全局配置文件: settings.py
         ROBOTSTXT_OBEY = False
-        DEFAULT_REQUEST_HEADERS = {'User-Agent':'Mozilla/5.0'}
+        DEFAULT_REQUEST_HEADERS = {'User-Agent':''}
         
     【4】创建文件(和项目目录同路径): run.py
         from scrapy import cmdline
         cmdline.execute('scrapy crawl baidu'.split())
         
     【5】运行 run.py 启动爬虫
-    ```
+```
 
 # **Day08笔记**
 
@@ -458,7 +464,7 @@
 - **节点对象.xpath('')**
 
   ```python
-  【1】列表,元素为选择器 
+  【1】列表,元素为选择器 @
       [
           <selector xpath='xxx' data='A'>,
           <selector xpath='xxx' data='B'>
@@ -529,13 +535,12 @@
       2.2) 汽车名称
       2.3) 汽车价格
   【3】二级页面所抓取数据
-      3.1) 上牌时间: //ul[@class="assort clearfix"]/li[1]/span/text()
-      3.2) 行驶里程: //ul[@class="assort clearfix"]/li[2]/span/text()
-      3.3) 排量:    //ul[@class="assort clearfix"]/li[3]/span/text()
-      3.4) 变速箱:  //ul[@class="assort clearfix"]/li[4]/span/text()
+      3.1) 行驶里程: //ul[@class="assort clearfix"]/li[2]/span/text()
+      3.2) 排量:    //ul[@class="assort clearfix"]/li[3]/span/text()
+      3.3) 变速箱:  //ul[@class="assort clearfix"]/li[4]/span/text()
   ```
-
-  ### **在原有项目基础上实现**
+  
+### **在原有项目基础上实现**
 
 - **步骤1 - items.py**
 
@@ -596,7 +601,6 @@
           """汽车详情页的解析函数"""
           # 获取上个解析函数传递过来的 meta 数据
           item = response.meta['meta_1']
-          item['time'] = response.xpath('//ul[@class="assort clearfix"]/li[1]/span/text()').get()
           item['km'] = response.xpath('//ul[@class="assort clearfix"]/li[2]/span/text()').get()
           item['disp'] = response.xpath('//ul[@class="assort clearfix"]/li[3]/span/text()').get()
           item['trans'] = response.xpath('//ul[@class="assort clearfix"]/li[4]/span/text()').get()
@@ -604,7 +608,7 @@
           # 1条数据最终提取全部完成,交给管道文件处理
           yield item
   ```
-
+  
 - **步骤3 - pipelines.py**
 
   ```python

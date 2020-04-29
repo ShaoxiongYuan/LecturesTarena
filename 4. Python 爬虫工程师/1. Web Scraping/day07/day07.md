@@ -117,7 +117,7 @@
   【1】最常用     -  browser.find_element_by_id('id属性值')
   【2】最常用     -  browser.find_element_by_name('name属性值')
   【3】最常用     -  browser.find_element_by_class_name('class属性值')
-  【4】最牛逼     -  browser.find_element_by_xpath('xpath表达式')
+  【4】最万能     -  browser.find_element_by_xpath('xpath表达式')
   【5】文字链接   -  browser.find_element_by_link_text('链接文本')
   【6】文字链接   -  browser.find_element_by_partical_link_text('部分链接文本')
   【7】也还不错   -  browser.find_element_by_css_selector('css表达式')
@@ -131,12 +131,12 @@
 - **节点对象操作**
 
   ```python
-  【1】node.send_keys('')  - 向文本框发送内容
-  【2】node.click()        - 点击
-  【3】node.clear()        - 清空文本
-  【4】node.is_enabled()   - 判断按钮是否可用
-  【5】node.get_attribute()- 获取节点属性值
-  【6】node.text           - 获取节点文本内容（包含子节点和后代节点）
+  【1】node.send_keys('')        - 向文本框发送内容
+  【2】node.click()              - 点击
+  【3】node.clear()              - 清空文本
+  【4】node.is_enabled()         - 判断按钮是否可用，针对于<button>按钮
+  【5】node.get_attribute('href')- 获取节点属性值
+  【6】node.text                 - 获取节点文本内容（包含子节点和后代节点）
   ```
 
 # **Day07笔记**
@@ -344,7 +344,7 @@ driver.find_element_by_link_text('高级搜索').click()
     spider.run()
   ```
 
-## **selenium - iframe**
+## **==selenium - iframe==**
 
 - **特点+方法**
 
