@@ -87,26 +87,26 @@
       2.1) 设置日志级别
            LOG_LEVEL = ''
       2.2) 保存到日志文件(不在终端输出)
-           LOG_FILE = ''
+           LOG_FILE = 'xxx.log'
       2.3) 设置数据导出编码(主要针对于json文件)
            FEED_EXPORT_ENCODING = 'utf-8'
       2.4) 设置User-Agent
-           USER_AGENT = ''
+           USER_AGENT = 'Mozilla/5.0'
       2.5) 设置最大并发数(默认为16)
            CONCURRENT_REQUESTS = 32
       2.6) 下载延迟时间(每隔多长时间请求一个网页)
-           DOWNLOAD_DELAY = 1
+           DOWNLOAD_DELAY = 0.1
       2.7) 请求头
-           DEFAULT_REQUEST_HEADERS = {'User-Agent':'Mozilla/'}
+           DEFAULT_REQUEST_HEADERS = {'Cookie':'','User-Agent':''}
       2.8) 添加项目管道
-           ITEM_PIPELINES = {'项目目录名.pipelines.类名':优先级}
+           ITEM_PIPELINES = {'项目目录名.pipelines.类名' : 200}
       2.9) cookie(默认禁用,取消注释-True|False都为开启)
            COOKIES_ENABLED = False
       2.10) 非结构化数据存储路径
            IMAGES_STORE = '/home/tarena/images/'
            FILES_STORE = '/home/tarena/files/'
       2.11) 添加下载器中间件
-          DOWNLOADER_MIDDLEWARES = {'项目名.middlewares.类名':200}
+           DOWNLOADER_MIDDLEWARES = {'项目目录名.middlewares.类名' : 200}
       
   【3】日志级别
       DEBUG < INFO < WARNING < ERROR < CRITICAL
@@ -268,291 +268,7 @@
 
 # **Day09笔记**
 
-## **新浪新闻全站抓取**
-
-- **目标**
-
-  ```python
-  【1】抓取新浪新闻下的所有分类的所有新闻，保存到本地
-  【2】URL: 新浪官网 - 更多 - 导航  
-      http://news.sina.com.cn/guide/
-  【3】要求
-      将信息保存到scrapy项目目录的 data 文件夹中,并按照分类名称创建子文件夹
-  ```
-
-### **实现步骤**
-
-- **步骤1 - 创建项目和爬虫文件**
-
-  ```python
-  scrapy startproject Sina
-  cd Sina
-  scrapy genspider sina news.sina.com.cn
-  ```
-
-- **步骤2 - 定义要抓取的数据结构（items.py)**
-
-  ```python
-  class SinaItem(scrapy.Item):
-      # define the fields for your item here like:
-      # 一级页面: 大类名称、大类URL、小类名称、小类URL
-      parent_name = scrapy.Field()
-      parent_url = scrapy.Field()
-      son_name = scrapy.Field()
-      son_url = scrapy.Field()
-      # 二级页面: 新闻链接
-      news_url = scrapy.Field()
-      # 三级页面: 新闻标题、新闻内容
-      news_head = scrapy.Field()
-      news_content = scrapy.Field()
-      # 路径: ./data/体育/NBA/
-      son_directory = scrapy.Field()
-  ```
-  
-- **步骤3 - 爬虫文件进行数据解析提取(sina.py)**
-
-  ```python
-  # -*- coding: utf-8 -*-
-  import scrapy
-  from ..items import SinaItem
-  import os
-  
-  class SinaSpider(scrapy.Spider):
-      name = 'sina'
-      allowed_domains = ['sina.com.cn']
-      start_urls = ['http://news.sina.com.cn/guide/']
-  
-      def parse(self, response):
-          # 基准xpath: 提取所有大分类的节点对象列表
-          div_list = response.xpath('//div[@id="tab01"]/div')
-          for div in div_list:
-              # 大分类名称+URL
-              # xpath表达式或 | , 匹配地方站(./h3/span/text())
-              parent_name = div.xpath('./h3/a/text() | ./h3/span/text()').get()
-              parent_url = div.xpath('./h3/a/@href').get()
-              # 地方站情况特殊,没有大链接
-              if not parent_url:
-                  parent_url = 'http://'
-  
-              # 小分类的 li 节点对象列表
-              li_list = div.xpath('./ul/li')
-              for li in li_list:
-                  # 创建item对象: 继续交给调度器入队列的请求对象
-                  item = SinaItem()
-                  item['son_name'] = li.xpath('./a/text()').get()
-                  item['son_url'] = li.xpath('./a/@href').get()
-                  item['parent_name'] = parent_name
-                  item['parent_url'] = parent_url
-                  # son_directory: ./data/体育/NBA/
-                  son_directory = './data/{}/{}/'.format(item['parent_name'],item['son_name'])
-                  item['son_directory'] = son_directory
-                  # 创建对应的目录结构
-                  if not os.path.exists(son_directory):
-                      os.makedirs(son_directory)
-  
-                  yield scrapy.Request(url=item['son_url'],meta={'meta1':item},callback=self.parse_son_url)
-  
-      def parse_son_url(self,response):
-          """解析1个小分类的函数 - 提取新闻链接"""
-          meta1_item = response.meta['meta1']
-          # 通过观察URL地址规律,新闻链接基本上都是以 大分类URL开头,且以.shtml结尾
-          news_url_list = response.xpath('//a/@href').extract()
-          for news_url in news_url_list:
-              if news_url.startswith(meta1_item['parent_url']) and news_url.endswith('.shtml'):
-                  # 只要你想把URL地址交给调度器入队列了,说明你创建item对象的时刻到了
-                  item = SinaItem()
-                  item['news_url'] = news_url
-                  item['parent_name'] = meta1_item['parent_name']
-                  item['parent_url'] = meta1_item['parent_url']
-                  item['son_name'] = meta1_item['son_name']
-                  item['son_url'] = meta1_item['son_url']
-                  item['son_directory'] = meta1_item['son_directory']
-  
-                  yield scrapy.Request(url=item['news_url'],meta={'meta2':item},callback=self.get_content)
-  
-      def get_content(self,response):
-          """提取具体新闻内容的函数"""
-          item = response.meta['meta2']
-          # 此处增加了几个类别的xpath匹配,因为有些类别的新闻 xpath 不一样
-          item['news_head'] = response.xpath('//h1[@class="main-title"]/text() | //span[@class="location"]/h1/text()').get()
-          item['news_content'] = '\n'.join(response.xpath('//div[@class="article"]/p/text() | //div[@id="artibody"]//p/text()').extract())
-  
-          yield item
-  ```
-
-- **步骤4 - 数据处理(pipelines.py)**
-
-  ```python
-  class SinaPipeline(object):
-      def process_item(self, item, spider):
-          # url: http://dl.sina.com.cn/zt/auto/sinadlcyh/index.shtml
-          # 文件名使用url地址的中间(即去掉协议和后缀.shtml)
-          filename = item['news_url'][7:-6].replace('/','-')
-          filename_ = item['son_directory'] + filename + '.txt'
-          # 写入本地文件
-          with open(filename_,'w',encoding='utf-8') as f:
-              f.write(item['news_content'])
-  
-          return item
-  
-  ```
-  
-- **步骤5 - 全局配置(settings.py)**
-
-  ```python
-  """settings.py"""
-  ROBOTSTXT_OBEY = False
-  DOWNLOAD_DELAY = 1
-  DEFAULT_REQUEST_HEADERS = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Language': 'en',
-    'User-Agent': 'Mozilla/5.0',
-  }
-  ITEM_PIPELINES = {
-     'Sina.pipelines.SinaPipeline': 300,
-  }
-  ```
-
-- **步骤6 - 运行爬虫(run.py)**
-
-  ```python
-  from scrapy import cmdline
-  cmdline.execute('scrapy crawl sina'.split())
-  ```
-
-## **图片管道(360图片抓取案例)**
-
-- **目标** 
-
-  ```python
-  【1】URL地址
-      1.1) www.so.com -> 图片 -> 美女
-      1.2) 即: https://image.so.com/z?ch=beauty
-  
-  【2】图片保存路径
-      ./images/xxx.jpg
-  ```
-
-- **抓取网络数据包**
-
-  ```python
-  【1】通过分析，该网站为Ajax动态加载
-  【2】F12抓包，抓取到json地址 和 查询参数(QueryString)
-      2.1) url = 'https://image.so.com/zjl?ch=beauty&sn={}&listtype=new&temp=1'
-      2.2) 查询参数
-           ch: beauty
-           sn: 0 # 发现sn的值在变,0 30 60 90 120 ... ...
-           listtype: new
-           temp: 1
-  ```
-
-### **项目实现**
-
-- **1、创建爬虫项目和爬虫文件**
-
-  ```python
-  scrapy startproject So
-  cd So
-  scrapy genspider so image.so.com
-  ```
-
-- **2、定义要爬取的数据结构(items.py)**
-
-  ```python
-  img_url = scrapy.Field()
-  img_title = scrapy.Field()
-  ```
-
-- **3、爬虫文件实现图片链接+名字抓取**
-
-  ```python
-  import scrapy
-  import json
-  from ..items import SoItem
-  
-  class SoSpider(scrapy.Spider):
-      name = 'so'
-      allowed_domains = ['image.so.com']
-      # 重写start_requests()方法
-      url = 'https://image.so.com/zjl?ch=beauty&sn={}&listtype=new&temp=1'
-  
-      def start_requests(self):
-          for sn in range(0,91,30):
-              full_url = self.url.format(sn)
-              # 扔给调度器入队列
-              yield scrapy.Request(url=full_url,callback=self.parse_image)
-  
-      def parse_image(self,response):
-          html = json.loads(response.text)
-          item = SoItem()
-          for img_dict in html['list']:
-              item['img_url'] = img_dict['qhimg_url']
-              item['img_title'] = img_dict['title']
-  
-              yield item
-  ```
-
-- **4、管道文件（pipelines.py）**
-
-  ```python
-  from scrapy.pipelines.images import ImagesPipeline
-  import scrapy
-  
-  class SoPipeline(ImagesPipeline):
-      # 重写get_media_requests()方法
-      def get_media_requests(self, item, info):
-          yield scrapy.Request(url=item['img_url'],meta={'name':item['img_title']})
-  
-      # 重写file_path()方法,自定义文件名
-      def file_path(self, request, response=None, info=None):
-          img_link = request.url
-          # request.meta属性
-          filename = request.meta['name'] + '.' + img_link.split('.')[-1]
-          return filename
-  ```
-
-- **5、全局配置(settings.py)**
-
-  ```python
-  ROBOTSTXT_OBEY = False
-  DOWNLOAD_DELAY = 0.1
-  DEFAULT_REQUEST_HEADERS = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Language': 'en',
-    'User-Agent': 'Mozilla/5.0',
-  }
-  ITEM_PIPELINES = {
-     'So.pipelines.SoPipeline': 300,
-  }
-  IMAGES_STORE = 'D:/AID1910/spider_day09_code/So/images/'
-  ```
-
-- **6、运行爬虫(run.py)**
-
-  ```python
-  from scrapy import cmdline
-  
-  cmdline.execute('scrapy crawl so'.split())
-  ```
-
-### **图片管道使用方法总结**
-
-```python
-【1】爬虫文件: 将图片链接yield到管道
-【2】管道文件:
-   from scrapy.pipelines.images import ImagesPipeline
-   class XxxPipeline(ImagesPipeline):
-        def get_media_requests(self,xxx):
-            pass
-        
-        def file_path(self,xxx):
-            pass
-        
-【3】settings.py中:
-   IMAGES_STORE = '绝对路径'
-```
-
-### **文件管道使用方法总结**
+## **文件管道使用方法**
 
 ```python
 【1】爬虫文件: 将文件链接yield到管道
@@ -566,8 +282,170 @@
             return filename
         
 【3】settings.py中:
-   FILES_STORE = '绝对路径'
+   FILES_STORE = '路径'
 ```
+
+## **图片管道使用方法**
+
+```python
+【1】爬虫文件: 将图片链接yield到管道
+【2】管道文件:
+   from scrapy.pipelines.images import ImagesPipeline
+   class XxxPipeline(ImagesPipeline):
+        def get_media_requests(self,xxx):
+            pass
+        
+        def file_path(self,xxx):
+            pass
+        
+【3】settings.py中:
+   IMAGES_STORE = '路径'
+```
+
+## **第一PPT模板下载 - 文件管道**
+
+- **项目概述**
+
+  ```python
+  【1】URL地址
+      1.1) http://www.1ppt.com/xiazai/
+           抓取所有栏目分类的所有页的PPT文件
+  
+  【2】文件保存路径
+      /home/tarena/ppt/xxx/xxx.rar
+      
+  【3】思路
+      3.1) 主页提取数据: 所有分类名称、所有分类链接
+           基准xpath: //div[@class="col_nav clearfix"]/ul/li
+           分类名称:  ./a/text()
+           分类链接:  ./a/@href
+      3.2) 获取每个分类下的PPT总页数
+           获取'末页'节点,想办法提取 : //ul[@class="pages"]/li[last()]/a/@href
+           total = int(last_page_a.split('.')[0].split('_')[-1])
+      3.3) 获取一页中所有PPT的名称、链接
+           基准xpath: //ul[@class="tplist"]/li
+           PPT名称:   ./h2/a/text()
+           PPT链接:   ./a/@href
+      3.4) 获取具体ppt下载链接
+           下载链接: //ul[@class="downurllist"]/li/a/@href
+  ```
+
+  ### **项目实现**
+
+  - **1 - 创建项目和爬虫文件**
+
+    ```python
+    scrapy startproject Ppt
+    cd Ppt
+    scrapy genspider ppt www.1ppt.com
+    ```
+
+  - **2 - 定义抓取的数据结构**
+
+    ```python
+    import scrapy
+    
+    class PptItem(scrapy.Item):
+        # pipelines.py中所需数据：大分类名称、具体PPT文件名、PPT下载链接
+        parent_name = scrapy.Field()
+        ppt_name = scrapy.Field()
+        download_url = scrapy.Field()
+    ```
+
+  - **3 - 爬虫文件提取数据**
+
+    ```python
+    # -*- coding: utf-8 -*-
+    import scrapy
+    from ..items import PptItem
+    
+    class PptSpider(scrapy.Spider):
+        name = 'ppt'
+        allowed_domains = ['www.1ppt.com']
+        start_urls = ['http://www.1ppt.com/xiazai/']
+    
+        def parse(self, response):
+            """一级页面解析函数: 提取大分类名称和链接"""
+            li_list = response.xpath('//div[@class="col_nav clearfix"]/ul/li')
+            for li in li_list[1:]:
+                item = PptItem()
+                # 大分类名称、链接
+                item['parent_name'] = li.xpath('./a/text()').get()
+                parent_url = 'http://www.1ppt.com' + li.xpath('./a/@href').get()
+    
+                # 依次将大分类链接交给调度器入队列
+                yield scrapy.Request(url=parent_url, meta={'meta1':item}, callback=self.get_total_page)
+    
+        def get_total_page(self, response):
+            """二级页面解析函数:获取总页数,并交给调度器入队列"""
+            meta1 = response.meta['meta1']
+            try:
+                # last_page_a : ppt_jihua_12.html
+                last_page_a = response.xpath('//ul[@class="pages"]/li[last()]/a/@href').get()
+                total = int(last_page_a.split('.')[0].split('_')[-1])
+                url_name = last_page_a.split('.')[0].split('_')[-2]
+    
+                page_url = 'http://www.1ppt.com/xiazai/{}/ppt_{}_{}.html'
+                for page in range(1, total+1):
+                    # 拼接此类别下的所有页的URL地址
+                    url = page_url.format(url_name, url_name, page)
+                    yield scrapy.Request(url=url, meta={'meta2': meta1}, callback=self.get_ppt_info)
+            except Exception as e:
+                # 如果捕捉到异常,说明只有1页
+                yield scrapy.Request(url=response.url, meta={'meta2': meta1}, callback=self.get_ppt_info)
+    
+        def get_ppt_info(self, response):
+            """提取PPT详情页链接,以及PPT名字"""
+            meta2 = response.meta['meta2']
+            li_list = response.xpath('//ul[@class="tplist"]/li')
+            for li in li_list:
+                item = PptItem()
+                ppt_info_url = 'http://www.1ppt.com' + li.xpath('./a/@href').get()
+                item['ppt_name'] = li.xpath('./h2/a/text()').get()
+                item['parent_name'] = meta2['parent_name']
+    
+                yield scrapy.Request(url=ppt_info_url, meta={'meta3': item}, callback=self.download_ppt)
+    
+        def download_ppt(self, response):
+            """获取PPT下载链接"""
+            item = response.meta['meta3']
+            item['download_url'] = response.xpath('//ul[@class="downurllist"]/li/a/@href').get()
+    
+            yield item
+    ```
+
+  - **4 - 管道文件**
+
+    ```python
+    import scrapy
+    from scrapy.pipelines.files import FilesPipeline
+    
+    class PptPipeline(FilesPipeline):
+        def get_media_requests(self, item, info):
+            yield scrapy.Request(url=item['download_url'], meta={'item':item})
+    
+        def file_path(self, request, response=None, info=None):
+            item = request.meta['item']
+            filename = '{}/{}.rar'.format(item['parent_name'], item['ppt_name'])
+    
+            return filename
+    ```
+
+  - **5 - 全局配置**
+
+    ```python
+    ROBOTSTXT_OBEY = False
+    DOWNLOAD_DELAY = 1
+    DEFAULT_REQUEST_HEADERS = {
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      'Accept-Language': 'en',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36',
+    }
+    ITEM_PIPELINES = {
+       'Ppt.pipelines.PptPipeline': 300,
+    }
+    FILES_STORE = '/home/tarena/ppt/'
+    ```
 
 ## **scrapy - post请求**
 
@@ -596,6 +474,7 @@
       2.4) 所属城市
       
   【3】将所抓数据存储到MySQL数据库中
+  <a href=".*?rel="(.*?)">
   ```
 
 - **步骤1 - 创建项目+爬虫文件**
@@ -906,6 +785,7 @@
   *1、request.url     : 请求URL地址
   *2、request.headers ：请求头(字典)
   *3、request.meta    ：item数据传递，定义代理(字典)
+  *4、request.cookies : Cookie
   
   4、response.text    ：字符串
   5、response.body    ：bytes
@@ -948,7 +828,7 @@
   ```python
   【1】获取User-Agent方式
       1.1) 方法1 ：新建useragents.py,存放大量User-Agent，random模块随机切换
-      1.2) 方法2 ：安装fake_useragent模块(sudo pip3 install fack_useragent)
+      1.2) 方法2 ：安装fake_useragent模块(sudo pip3 install fake_useragent)
           from fake_useragent import UserAgent
           agent = UserAgent().random 
           
@@ -979,18 +859,127 @@ class RandomProxyDownloaderMiddleware(object):
   有道翻译,将cookie以中间件的方式添加的scrapy项目中
   ```
 
+
+
 ## **今日作业**
 
 ```python
-【1】URL地址：http://www.1ppt.com/xiazai/
-【2】目标:
-    2.1) 爬取所有栏目分类下的,所有页的PPT
-    2.2) 数据存放: /home/tarena/ppts/工作总结PPT/xxx
-                  /home/tarena/ppts/个人简历PPT/xxx
-【提示】: 使用 from scrapy.pipelines.files import FilesPipeline 管道,并重写方法
+【1】URL地址
+    1.1) www.so.com -> 图片 -> 美女
+    1.2) 即: https://image.so.com/z?ch=beauty
+    1.3) 抓取5页即可，共计150张图片
+            
+【2】图片保存路径
+    ./images/xxx.jpg
+    
+【提示】: 使用 from scrapy.pipelines.images import ImagesPipeline 管道,并重写方法
+    
+settings.py:  IMAGES_STORE = '路径'
 ```
 
+## **答案**
 
+- **抓取网络数据包**
+
+  ```python
+  【1】通过分析，该网站为Ajax动态加载
+  【2】F12抓包，抓取到json地址 和 查询参数(QueryString)
+      2.1) url = 'https://image.so.com/zjl?ch=beauty&sn={}&listtype=new&temp=1'
+      2.2) 查询参数
+           ch: beauty
+           sn: 0 # 发现sn的值在变,0 30 60 90 120 ... ...
+           listtype: new
+           temp: 1
+  ```
+
+### **项目实现**
+
+- **1、创建爬虫项目和爬虫文件**
+
+  ```python
+  scrapy startproject So
+  cd So
+  scrapy genspider so image.so.com
+  ```
+
+- **2、定义要爬取的数据结构(items.py)**
+
+  ```python
+  img_url = scrapy.Field()
+  img_title = scrapy.Field()
+  ```
+
+- **3、爬虫文件实现图片链接+名字抓取**
+
+  ```python
+  import scrapy
+  import json
+  from ..items import SoItem
+  
+  class SoSpider(scrapy.Spider):
+      name = 'so'
+      allowed_domains = ['image.so.com']
+      # 重写start_requests()方法
+      url = 'https://image.so.com/zjl?ch=beauty&sn={}&listtype=new&temp=1'
+  
+      def start_requests(self):
+          for sn in range(0,91,30):
+              full_url = self.url.format(sn)
+              # 扔给调度器入队列
+              yield scrapy.Request(url=full_url,callback=self.parse_image)
+  
+      def parse_image(self,response):
+          html = json.loads(response.text)
+          item = SoItem()
+          for img_dict in html['list']:
+              item['img_url'] = img_dict['qhimg_url']
+              item['img_title'] = img_dict['title']
+  
+              yield item
+  ```
+
+- **4、管道文件（pipelines.py）**
+
+  ```python
+  from scrapy.pipelines.images import ImagesPipeline
+  import scrapy
+  
+  class SoPipeline(ImagesPipeline):
+      # 重写get_media_requests()方法
+      def get_media_requests(self, item, info):
+          yield scrapy.Request(url=item['img_url'],meta={'name':item['img_title']})
+  
+      # 重写file_path()方法,自定义文件名
+      def file_path(self, request, response=None, info=None):
+          img_link = request.url
+          # request.meta属性
+          filename = request.meta['name'] + '.' + img_link.split('.')[-1]
+          return filename
+  ```
+
+- **5、全局配置(settings.py)**
+
+  ```python
+  ROBOTSTXT_OBEY = False
+  DOWNLOAD_DELAY = 0.1
+  DEFAULT_REQUEST_HEADERS = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en',
+    'User-Agent': 'Mozilla/5.0',
+  }
+  ITEM_PIPELINES = {
+     'So.pipelines.SoPipeline': 300,
+  }
+  IMAGES_STORE = './images/'
+  ```
+
+- **6、运行爬虫(run.py)**
+
+  ```python
+  from scrapy import cmdline
+  
+  cmdline.execute('scrapy crawl so'.split())
+  ```
 
 
 
