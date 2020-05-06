@@ -101,33 +101,16 @@
 
 ### **设置中间件(随机User-Agent)**
 
-- **少量UA设置 - 不使用中间件**
-
-  ```python
-  【1】方法一 : settings.py
-      1.1) USER_AGENT = ''
-      1.2) DEFAULT_REQUEST_HEADERS = {}
-      
-  【2】方法二 : 爬虫文件
-      yield scrapy.Request(url,callback=函数名,headers={})
-  ```
-
 - **大量UA设置 - 使用middlewares.py中间件**
 
   ```python
-  【1】获取User-Agent方式
-      1.1) 方法1 ：新建useragents.py,存放大量User-Agent，random模块随机切换
-      1.2) 方法2 ：使用fake_useragent模块
-          from fake_useragent import UserAgent
-          agent = UserAgent().random
-          
-  【2】middlewares.py新建中间件类
+  【1】middlewares.py新建中间件类
   	class RandomUseragentMiddleware(object):
   		def process_request(self,reuqest,spider):
       		agent = UserAgent().random
       		request.headers['User-Agent'] = agent
               
-  【3】settings.py添加此下载器中间件
+  【2】settings.py添加此下载器中间件
   	DOWNLOADER_MIDDLEWARES = {'' : 优先级}
   ```
 
@@ -172,6 +155,7 @@
   ```python
   将有道翻译案例的cookie使用中间件的方式来实现
   ```
+
 
 ## **分布式爬虫**
 
@@ -319,10 +303,10 @@
       1.1) SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
       1.2) DUPEFILTER_CLASS = 'scrapy_redis.dupefilter.RFPDupeFilter'
       1.3) SCHEDULER_PERSIST = True
-      1.4) REDIS_HOST = '192.168.1.107'
+      1.4) REDIS_HOST = '192.168.1.105'
       1.5) REDIS_PORT = 6379
       1.6) ITEM_PIPELINES = {'Tencent.pipelines.TencentMysqlPipeline' : 300}
-      1.7) MYSQL_HOST = '192.168.1.107'
+      1.7) MYSQL_HOST = '192.168.1.105'
       
   【2】爬虫文件:tencent.py (必须基于start_urls)
       from scrapy_redis.spiders import RedisSpider
@@ -723,9 +707,8 @@ print(result)
   
   
   # 1、打开豆瓣官网 - 并将窗口最大化
-  options = webdriver.ChromeOptions()
-  options.add_argument('--start-maximized')
-  browser = webdriver.Chrome(options=options)
+  browser = webdriver.Chrome()
+  browser.maximize_window()
   browser.get('https://www.douban.com/')
   
   # 2、切换到iframe子页面
@@ -734,8 +717,8 @@ print(result)
   
   # 3、密码登录 + 用户名 + 密码 + 登录豆瓣
   browser.find_element_by_xpath('/html/body/div[1]/div[1]/ul[1]/li[2]').click()
-  browser.find_element_by_xpath('//*[@id="username"]').send_keys('自己的用户名')
-  browser.find_element_by_xpath('//*[@id="password"]').send_keys('自己的密码')
+  browser.find_element_by_xpath('//*[@id="username"]').send_keys('15110225726')
+  browser.find_element_by_xpath('//*[@id="password"]').send_keys('zhanshen001')
   browser.find_element_by_xpath('/html/body/div[1]/div[2]/div[1]/div[5]/a').click()
   time.sleep(4)
   

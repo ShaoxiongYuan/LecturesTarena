@@ -1,0 +1,80 @@
+给你一个网站，让你去抓取一些数据，整体思路：
+
+情况1：
+1、右键 - 查看网页源代码 - 发现数据存在！！
+2、观察URL地址规律
+3、使用正则表达式 或者 xpath 解析提取数据
+     import re
+     pattern = re.compile(regex, re.S)
+     r_list = pattern.findall(html)
+
+     from lxml import etree
+     parse_html = etree.HTML(html)
+     r_list = parse_html.xpath('xpath表达式')
+     for r in r_list:
+          name = r.xpath('./xxx/text()')[0].strip()
+
+
+情况2
+1、右键 - 查看网页源代码 - 发现数据不存在！！
+2、F12 - network，刷新页面或者执行滚动鼠标、点击行为产生新的数据
+3、Network - XHR|All - 点击具体的网络数据包，在右侧查看Preview，确定是否返回具体的所抓取的数据
+4、找到具体的数据包后，点击 Headers 进行分析
+     4.1） GET请求
+              > General  -> Request URL
+              > Request Headers
+              > QueryString Paramters
+
+     4.2) POST请求
+              > General -> Request URL
+              > Request Headers
+              > Form Data
+
+5、如果Form Data 或者 QueryString Paramters 有相关加密的字符串，则寻找相关JS文件
+     右上角 - Search - 关键字 - 找到相关JS - 格式化输出 - 具体的JS代码
+     5.1) 如果可以破解，则使用python将加密算法再实现一遍
+     5.2) 如果JS很复杂，很难破解，则使用 execjs 模块进行测试
+
+
+数据持久化方式
+1、csv文件
+    import csv
+    with open('xxx.csv', 'w') as f:
+           writer = csv.writer(f)
+           writer.writerow([])
+           writer.writerows([(),()])
+
+2、MySQL
+    import pymysql
+    db = pymysql.connect(xx,xx,xx)
+    cur = db.cursor()
+    cur.execute(sql, [])
+    cur.executemany(sql, [(),(),()])
+
+3、MongoDB
+   import pymongo
+   conn = pymongo.MongoClient(xx, xx)
+   db = conn['xx']
+   myset = db['xx']
+   myset.insert_one({})
+   myset.insert_many([{},{},{}])
+
+4、Json
+   import json
+   with open('xxx.json', 'w') as f:
+        json.dump(python, f, ensure_ascii=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
