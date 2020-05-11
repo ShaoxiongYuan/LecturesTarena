@@ -1,9 +1,5 @@
 # 数据分析
 
-总结后端知识体系，了解数据分析、人工智能与后端的关系。
-
-课程体系设计。学习的重点。学习方法。
-
 **什么是数据分析？**
 
 数据分析是指用适当的统计分析方法对收集来的大量数据进行分析，提取有用信息和形成结论而对数据加以详细研究和概括总结的过程。
@@ -43,6 +39,18 @@
 3. 算法与编程
 
 通过三种技能贯穿数据分析思想，培养自己的业务需求分析能力与编程能力，解决具体行业场景的数据分析问题。
+
+
+
+**课程设计**
+
+总结后端知识体系，了解数据分析、人工智能与后端的关系。
+
+课程体系设计。学习的重点。学习方法。
+
+徐铭  xuming@tedu.cn	 15201603213       251041263
+
+
 
 **使用python做数据分析的常用库**
 
@@ -214,6 +222,7 @@ for i in range(a.shape[0]):
 | 浮点型       | float16 / float32 / float64             |
 | 复数型       | complex64 / complex128                  |
 | 字串型       | str_，每个字符用32位Unicode编码表示     |
+| 日期类型     | datetime64                              |
 
 **自定义复合类型**
 
@@ -234,7 +243,7 @@ print("=====================================")
 #第二种设置dtype的方式
 b = np.array(data, dtype=[('name', 'str_', 2),
                     ('scores', 'int32', 3),
-                    ('ages', 'int32', 1)])
+                    ('age', 'int32', 1)])
 print(b[0]['name'], ":", b[0]['scores'])
 print("=====================================")
 
@@ -245,9 +254,9 @@ print(c[0]['name'], ":", c[0]['scores'], ":", c.itemsize)
 print("=====================================")
 
 #第四种设置dtype的方式  
-d = np.array(data, dtype={'names': ('U3', 0),
+d = np.array(data, dtype={'name': ('U3', 0),
                     'scores': ('3int32', 16),
-                    'ages': ('int32', 28)})
+                    'age': ('int32', 28)})
 print(d[0]['names'], d[0]['scores'], d.itemsize)
 
 print("=====================================")
@@ -255,8 +264,10 @@ print("=====================================")
 #测试日期类型数组
 f = np.array(['2011', '2012-01-01', '2013-01-01 01:01:01','2011-02-01'])
 f = f.astype('M8[D]')
-f = f.astype('int32')
+f = f.astype('i4')
 print(f[3]-f[0])
+
+f.astype('bool')
 ```
 
 **类型字符码**
@@ -321,11 +332,11 @@ print(a)
 ###### ndarray数组索引操作
 
 ```python
-#数组对象切片的参数设置与列表切面参数类似
+# 数组对象切片的参数设置与列表切面参数类似
 #  步长+：默认切从首到尾
 #  步长-：默认切从尾到首
 数组对象[起始位置:终止位置:步长, ...]
-#默认位置步长：1
+# 默认位置步长：1
 ```
 
 ```python
@@ -366,7 +377,7 @@ print(a[0, :, 1])
 ```python
 import numpy as np
 a = np.arange(1, 10)
-mask = [True, False,True, False,True, False,True, False,True, False]
+mask = [True, False,True, False,True, False,True, False,True]
 print(a[mask])
 ```
 
@@ -396,6 +407,18 @@ c = np.hstack((a, b))
 d, e = np.hsplit(c, 2)
 ```
 
+深度方向操作：（3维）
+
+```python
+import numpy as np
+a = np.arange(1, 7).reshape(2, 3)
+b = np.arange(7, 13).reshape(2, 3)
+# 深度方向（3维）完成组合操作，生成新数组
+i = np.dstack((a, b))
+# 深度方向（3维）完成拆分操作，生成两个数组
+k, l = np.dsplit(i, 2)
+```
+
 长度不等的数组组合：
 
 ```python
@@ -408,18 +431,6 @@ print(b)
 # 垂直方向完成组合操作，生成新数组
 c = np.vstack((a, b))
 print(c)
-```
-
-深度方向操作：（3维）
-
-```python
-import numpy as np
-a = np.arange(1, 7).reshape(2, 3)
-b = np.arange(7, 13).reshape(2, 3)
-# 深度方向（3维）完成组合操作，生成新数组
-i = np.dstack((a, b))
-# 深度方向（3维）完成拆分操作，生成两个数组
-k, l = np.dsplit(i, 2)
 ```
 
 多维数组组合与拆分的相关函数：
