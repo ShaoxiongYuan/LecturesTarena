@@ -484,6 +484,8 @@ $$
 x^n+y^n=z^n,  \int\frac{1}{x} dx = \ln |x| + C,     -\frac{\pi}{2}
 $$
 
+<img src="..\images\LaTeX_eg.gif" style="zoom: 90%;" />
+
 ##### 5）设置坐标轴  
 
 
