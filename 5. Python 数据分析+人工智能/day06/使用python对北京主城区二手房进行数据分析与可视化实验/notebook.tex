@@ -1,0 +1,1076 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Analysis\_4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{二手房源信息数据分析与可视化}\label{ux4e8cux624bux623fux6e90ux4fe1ux606fux6570ux636eux5206ux6790ux4e0eux53efux89c6ux5316}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} 导入模块}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{} 设置使中文显示完整}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.sans\PYZhy{}serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SimHei}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.unicode\PYZus{}minus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{k+kc}{False}
+        
+        \PY{c+c1}{\PYZsh{}所有房源信息}
+        \PY{n}{house}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{house.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{house}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:}    index                      title community               years housetype  \textbackslash{}
+        0      0  宝星华庭一层带花园，客厅挑高，通透四居室。房主自荐    宝星国际三期  底层(共22层)2010年建板塔结合      4室1厅   
+        
+             square               floor              taxtype  totalPrice  unitPrice  \textbackslash{}
+        0  298.79平米  底层(共22层)2010年建板塔结合  距离15号线望京东站680米房本满五年        2598      86951   
+        
+                       followInfo  
+        0  53人关注 / 共44次带看 / 一年前发布  
+\end{Verbatim}
+            
+    \subsection{数据描述性分析}\label{ux6570ux636eux63cfux8ff0ux6027ux5206ux6790}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{house}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 16108 entries, 0 to 16107
+Data columns (total 11 columns):
+index         16108 non-null int64
+title         16108 non-null object
+community     16108 non-null object
+years         16106 non-null object
+housetype     16108 non-null object
+square        16108 non-null object
+floor         16106 non-null object
+taxtype       15361 non-null object
+totalPrice    16108 non-null int64
+unitPrice     16108 non-null int64
+followInfo    16108 non-null object
+dtypes: int64(3), object(8)
+memory usage: 1.4+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} 所有小区信息}
+        \PY{n}{community}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{community\PYZus{}describe.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{community}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    index             id community district bizcircle      tagList  onsale
+        0      0  1111000004310   什坊院甲3号院       海淀        田村          NaN       0
+        1      1  1111027373682    大慧寺6号院       海淀       白石桥          NaN       2
+        2      2  1111027373683   东花市北里东区       东城       东花市   近地铁1号线王府井站       0
+        3      3  1111027373684   东花市北里西区       东城       东花市  近地铁7号线广渠门内站       7
+        4      4  1111027373685   东花市北里中区       东城       东花市   近地铁2号线朝阳门站       9
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} 合并小区信息和房源信息表，可以获得房源更详细的地理位置}
+        \PY{n}{house\PYZus{}detail}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{house}\PY{p}{,}\PY{n}{community}\PY{p}{,}\PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{community}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} 打印数据}
+        \PY{n}{house\PYZus{}detail}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} len(house\PYZus{}detail)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    index\_x                      title community               years housetype  \textbackslash{}
+        0        0  宝星华庭一层带花园，客厅挑高，通透四居室。房主自荐    宝星国际三期  底层(共22层)2010年建板塔结合      4室1厅   
+        
+             square               floor              taxtype  totalPrice  unitPrice  \textbackslash{}
+        0  298.79平米  底层(共22层)2010年建板塔结合  距离15号线望京东站680米房本满五年        2598      86951   
+        
+                       followInfo  index\_y             id district bizcircle  \textbackslash{}
+        0  53人关注 / 共44次带看 / 一年前发布     1535  1111027376204       朝阳        望京   
+        
+               tagList  onsale  
+        0  近地铁15号线望京东站       7  
+\end{Verbatim}
+            
+    \subsection{数值型数据描述}\label{ux6570ux503cux578bux6570ux636eux63cfux8ff0}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{house}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}               index    totalPrice      unitPrice
+        count  16108.000000  16108.000000   16108.000000
+        mean    8053.500000    747.983735   77656.823814
+        std     4650.123403    536.202306   23616.114546
+        min        0.000000     15.000000    2539.000000
+        25\%     4026.750000    439.000000   60449.500000
+        50\%     8053.500000    600.000000   75094.000000
+        75\%    12080.250000    870.000000   91474.250000
+        max    16107.000000  12500.000000  159991.000000
+\end{Verbatim}
+            
+    \subsection{数据预处理1：将数据从字符串提取出来}\label{ux6570ux636eux9884ux5904ux74061ux5c06ux6570ux636eux4eceux5b57ux7b26ux4e32ux63d0ux53d6ux51faux6765}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} 将字符串转换成数字}
+        \PY{k}{def} \PY{n+nf}{data\PYZus{}ad}\PY{p}{(}\PY{n}{select\PYZus{}data}\PY{p}{,}\PY{n+nb}{str}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n+nb}{str} \PY{o+ow}{in} \PY{n}{select\PYZus{}data}\PY{p}{:}
+               \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n}{select\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{select\PYZus{}data}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+               \PY{k}{return} \PY{k+kc}{None}
+        
+        \PY{c+c1}{\PYZsh{} 处理房屋面积数据}
+        \PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{square}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{square}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{data\PYZus{}ad}\PY{p}{,}\PY{n+nb}{str}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{平米}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} 查看数据}
+        \PY{n}{house}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}    index                      title community               years housetype  \textbackslash{}
+        0      0  宝星华庭一层带花园，客厅挑高，通透四居室。房主自荐    宝星国际三期  底层(共22层)2010年建板塔结合      4室1厅   
+        
+           square               floor              taxtype  totalPrice  unitPrice  \textbackslash{}
+        0  298.79  底层(共22层)2010年建板塔结合  距离15号线望京东站680米房本满五年        2598      86951   
+        
+                       followInfo  
+        0  53人关注 / 共44次带看 / 一年前发布  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{house}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}               index        square    totalPrice      unitPrice
+        count  16108.000000  16058.000000  16108.000000   16108.000000
+        mean    8053.500000     95.870368    747.983735   77656.823814
+        std     4650.123403     57.622963    536.202306   23616.114546
+        min        0.000000     11.760000     15.000000    2539.000000
+        25\%     4026.750000     61.042500    439.000000   60449.500000
+        50\%     8053.500000     81.125000    600.000000   75094.000000
+        75\%    12080.250000    112.695000    870.000000   91474.250000
+        max    16107.000000   2623.280000  12500.000000  159991.000000
+\end{Verbatim}
+            
+    \subsection{户型的种类}\label{ux6237ux578bux7684ux79cdux7c7b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{house}\PY{o}{.}\PY{n}{housetype}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 2室1厅     6582
+        3室1厅     2534
+        1室1厅     2472
+        3室2厅     1424
+        2室2厅     1018
+        1室0厅      620
+        4室2厅      496
+        4室1厅      181
+        2房间1卫     100
+        5室2厅       92
+        1房间1卫      87
+        1室2厅       64
+        4室3厅       55
+        3房间1卫      44
+        3室0厅       35
+        2室0厅       34
+        车位         32
+        6室2厅       29
+        5室3厅       22
+        联排别墅       19
+        1房间0卫      16
+        5室1厅       15
+        6室3厅       13
+        独栋别墅       12
+        3室3厅       11
+        4室0厅       10
+        叠拼别墅       10
+        4房间2卫       9
+        双拼别墅        9
+        4房间1卫       6
+        2房间2卫       6
+        6室1厅        5
+        5室4厅        4
+        5室5厅        3
+        7室3厅        3
+        6室4厅        3
+        3房间2卫       3
+        3房间3卫       2
+        2房间0卫       2
+        5房间3卫       2
+        9室4厅        2
+        6房间2卫       2
+        2室3厅        2
+        4房间3卫       2
+        7室2厅        2
+        6房间4卫       2
+        8室2厅        1
+        8室4厅        1
+        7室0厅        1
+        7室1厅        1
+        2房间3卫       1
+        4室4厅        1
+        3室4厅        1
+        5室0厅        1
+        6室0厅        1
+        5房间2卫       1
+        8房间5卫       1
+        6房间3卫       1
+        Name: housetype, dtype: int64
+\end{Verbatim}
+            
+    \subsection{数据预处理2：删除车位信息}\label{ux6570ux636eux9884ux5904ux74062ux5220ux9664ux8f66ux4f4dux4fe1ux606f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{car}\PY{o}{=}\PY{n}{house}\PY{p}{[}\PY{n}{house}\PY{o}{.}\PY{n}{housetype}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{车位}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} 记录中共有车位}
+         \PY{n}{car}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} 删除车位信息}
+         \PY{n}{house}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{car}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} 现在还剩?条记录}
+         \PY{c+c1}{\PYZsh{} car.shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{car}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 32
+\end{Verbatim}
+            
+    \subsection{数据分析1：价格最高的5个别墅}\label{ux6570ux636eux5206ux67901ux4ef7ux683cux6700ux9ad8ux76845ux4e2aux522bux5885}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{villa}\PY{o}{=}\PY{n}{house}\PY{p}{[}\PY{n}{house}\PY{o}{.}\PY{n}{housetype}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{别墅}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} 记录中共有别墅?}
+         \PY{n}{villa}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} 排序}
+         \PY{n}{villa}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totalPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}       index                           title    community     years housetype  \textbackslash{}
+         8020   8020     香山清琴二期独栋别墅，毛坯房原始户型，花园1200平米         香山清琴  2层2007年建      独栋别墅   
+         102     102            千尺独栋 北入户 红顶商人金融界入住社区       龙湖颐和原著  2层2010年建      独栋别墅   
+         2729   2729  临湖独栋别墅 花园半亩 观景湖面和绿化 满五年有车库房主自荐         紫玉山庄  3层2000年建      独栋别墅   
+         3141   3141         银湖别墅 独栋 望京公园旁 五环里 封闭式社区         银湖别墅  3层1998年建      独栋别墅   
+         4112   4112         首排别墅 位置好 全景小区绿化和人工湖 有车库  亚运新新家园朗月园一期  1层2003年建      联排别墅   
+         
+               square     floor            taxtype  totalPrice  unitPrice  \textbackslash{}
+         8020     NaN  2层2007年建              房本满五年       12500     124681   
+         102      NaN  2层2010年建  距离4号线西苑站839米房本满五年       12000     112012   
+         2729     NaN  3层2000年建              房本满五年        6000     148618   
+         3141     NaN  3层1998年建              房本满五年        5000     130348   
+         4112     NaN  1层2003年建              房本满五年        3800      82364   
+         
+                              followInfo  
+         8020    45人关注 / 共7次带看 / 2个月以前发布  
+         102     231人关注 / 共26次带看 / 一年前发布  
+         2729  108人关注 / 共16次带看 / 5个月以前发布  
+         3141     9人关注 / 共3次带看 / 5个月以前发布  
+         4112     0人关注 / 共4次带看 / 4个月以前发布  
+\end{Verbatim}
+            
+    \subsection{数据预处理3：删除别墅信息}\label{ux6570ux636eux9884ux5904ux74063ux5220ux9664ux522bux5885ux4fe1ux606f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{house}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{villa}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} 现在还剩下?条记录}
+         \PY{n}{house}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 16026
+\end{Verbatim}
+            
+    \subsection{数据分析2：找出数据中的住房户型分布}\label{ux6570ux636eux5206ux67902ux627eux51faux6570ux636eux4e2dux7684ux4f4fux623fux6237ux578bux5206ux5e03}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} 户型分布}
+         \PY{n}{house}\PY{o}{.}\PY{n}{housetype}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 2室1厅     6582
+         3室1厅     2534
+         1室1厅     2472
+         3室2厅     1424
+         2室2厅     1018
+         1室0厅      620
+         4室2厅      496
+         4室1厅      181
+         2房间1卫     100
+         5室2厅       92
+         1房间1卫      87
+         1室2厅       64
+         4室3厅       55
+         3房间1卫      44
+         3室0厅       35
+         2室0厅       34
+         6室2厅       29
+         5室3厅       22
+         1房间0卫      16
+         5室1厅       15
+         6室3厅       13
+         3室3厅       11
+         4室0厅       10
+         4房间2卫       9
+         2房间2卫       6
+         4房间1卫       6
+         6室1厅        5
+         5室4厅        4
+         5室5厅        3
+         3房间2卫       3
+         7室3厅        3
+         6室4厅        3
+         2房间0卫       2
+         3房间3卫       2
+         5房间3卫       2
+         2室3厅        2
+         9室4厅        2
+         6房间2卫       2
+         4房间3卫       2
+         7室2厅        2
+         6房间4卫       2
+         8室4厅        1
+         7室0厅        1
+         7室1厅        1
+         2房间3卫       1
+         8室2厅        1
+         3室4厅        1
+         5房间2卫       1
+         6房间3卫       1
+         8房间5卫       1
+         4室4厅        1
+         6室0厅        1
+         5室0厅        1
+         Name: housetype, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} 可视化绘制}
+         \PY{n}{house\PYZus{}type}\PY{o}{=}\PY{n}{house}\PY{o}{.}\PY{n}{housetype}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n}{house\PYZus{}type}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{户型数量分布}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.show()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1ad595cb8d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{数据分析3：找出关注人数最多的五套房子}\label{ux6570ux636eux5206ux67903ux627eux51faux5173ux6ce8ux4ebaux6570ux6700ux591aux7684ux4e94ux5957ux623fux5b50}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{attention}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{followInfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{data\PYZus{}ad}\PY{p}{,}\PY{n+nb}{str}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{人关注}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{house}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{house}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{attention}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}       index                           title community              years  \textbackslash{}
+         47       47               弘善家园南向开间，满两年，免增值税      弘善家园  中楼层(共28层)2009年建塔楼   
+         2313   2313       四惠东 康家园 南向一居室 地铁1号线出行房主自荐       康家园    顶层(共6层)1995年建板楼   
+         990     990  远见名苑  东南两居  满五年家庭唯一住房 诚心出售房主自荐      远见名苑  中楼层(共24层)2004年建塔楼   
+         2331   2331             荣丰二期朝南复式无遮挡全天采光房主自荐    荣丰2008  中楼层(共10层)2005年建塔楼   
+         915     915          通州万达北苑地铁站 天时名苑 大两居可改3居      天时名苑  顶层(共9层)2009年建板塔结合   
+         
+              housetype  square              floor                  taxtype  \textbackslash{}
+         47        1室0厅   42.64  中楼层(共28层)2009年建塔楼  距离10号线十里河站698米房本满两年随时看房   
+         2313      1室1厅   41.97    顶层(共6层)1995年建板楼   距离1号线四惠东站974米房本满五年随时看房   
+         990       2室1厅   90.14  中楼层(共24层)2004年建塔楼       距离7号线达官营站516米房本满五年   
+         2331      1室1厅   32.54  中楼层(共10层)2005年建塔楼  距离7号线达官营站1028米房本满五年随时看房   
+         915       2室2厅  121.30  顶层(共9层)2009年建板塔结合      距离八通线通州北苑站602米房本满五年   
+         
+               totalPrice  unitPrice                  followInfo  attention  
+         47           265      62149   1401人关注 / 共305次带看 / 一年前发布     1401.0  
+         2313         262      62426  1005人关注 / 共86次带看 / 6个月以前发布     1005.0  
+         990          811      89972   979人关注 / 共50次带看 / 8个月以前发布      979.0  
+         2331         400     122926  972人关注 / 共369次带看 / 6个月以前发布      972.0  
+         915          645      53174  894人关注 / 共228次带看 / 8个月以前发布      894.0  
+\end{Verbatim}
+            
+    \subsection{数据分析4：户型和关注人数分布}\label{ux6570ux636eux5206ux67904ux6237ux578bux548cux5173ux6ce8ux4ebaux6570ux5206ux5e03}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}取户型\PYZgt{}50的数据进行可视化}
+         \PY{n}{type\PYZus{}interest\PYZus{}group}\PY{o}{=}\PY{n}{house}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housetype}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housetype}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{attention}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{interest\PYZus{}sort}\PY{o}{=}\PY{n}{type\PYZus{}interest\PYZus{}group}\PY{p}{[}\PY{n}{type\PYZus{}interest\PYZus{}group}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housetype}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{50}\PY{p}{]}
+         \PY{n}{interest\PYZus{}sort}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{二手房户型和关注人数分布}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{interest\PYZus{}sort}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}            housetype  attention
+         housetype                      
+         1室0厅             620    32920.0
+         1室1厅            2472   141893.0
+         1室2厅              64     2614.0
+         1房间1卫             87     2267.0
+         2室1厅            6582   394987.0
+         2室2厅            1018    49526.0
+         2房间1卫            100     3006.0
+         3室1厅            2534   162205.0
+         3室2厅            1424    81140.0
+         4室1厅             181    10667.0
+         4室2厅             496    30661.0
+         4室3厅              55     2846.0
+         5室2厅              92     4703.0
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{数据分析5：面积分布}\label{ux6570ux636eux5206ux67905ux9762ux79efux5206ux5e03}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} 面积分布}
+         \PY{n}{area\PYZus{}level}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{150}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,}\PY{l+m+mi}{250}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{,}\PY{l+m+mi}{350}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{,}\PY{l+m+mi}{450}\PY{p}{,}\PY{l+m+mi}{500}\PY{p}{]}
+         \PY{n}{label\PYZus{}level}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{小于50}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50\PYZhy{}100}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{100\PYZhy{}150}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{150\PYZhy{}200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{200\PYZhy{}250}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{250\PYZhy{}300}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{300\PYZhy{}350}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{350\PYZhy{}400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{400\PYZhy{}450}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{450\PYZhy{}500}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{area\PYZus{}cut}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{square}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n}{area\PYZus{}level}\PY{p}{,}\PY{n}{labels}\PY{o}{=}\PY{n}{label\PYZus{}level}\PY{p}{)}
+         \PY{n}{area\PYZus{}cut}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{grid}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{二手房面积分布}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1ad596a2630>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{数据分析6：各个行政区房源单价均价}\label{ux6570ux636eux5206ux67906ux5404ux4e2aux884cux653fux533aux623fux6e90ux5355ux4ef7ux5747ux4ef7}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{house\PYZus{}unitPrice}\PY{o}{=}\PY{n}{house\PYZus{}detail}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{house\PYZus{}unitPrice}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{各个行政区房源均价}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} agg(\PYZob{}\PYZsq{}unitPrice\PYZsq{}:\PYZsq{}mean\PYZsq{}\PYZcb{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1ad5972e048>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    各个行政区房源价钱箱线图绘制
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{n}{price}\PY{o}{=}\PY{n}{house\PYZus{}detail}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} price}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{price}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1ad5daaa0f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    各个行政区房源在售数量
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{house\PYZus{}onsale}\PY{o}{=}\PY{n}{house\PYZus{}detail}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onsale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{house\PYZus{}onsale}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{各个行政区房源在售数量}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1ad5db84358>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{数据分析7：各个行政区的房源总价对比}\label{ux6570ux636eux5206ux67907ux5404ux4e2aux884cux653fux533aux7684ux623fux6e90ux603bux4ef7ux5bf9ux6bd4}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{price}\PY{o}{=}\PY{n}{house\PYZus{}detail}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totalPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totalPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{price}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{6000}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} (0, 6000)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    通过箱型图看到，各大区域房屋总价中位数都都在1000万以下，且房屋总价离散值较高
+
+    \subsection{数据分析8：按照地铁信息对各个区域每平米均价排序，柱形图绘制}\label{ux6570ux636eux5206ux67908ux6309ux7167ux5730ux94c1ux4fe1ux606fux5bf9ux5404ux4e2aux533aux57dfux6bcfux5e73ux7c73ux5747ux4ef7ux6392ux5e8fux67f1ux5f62ux56feux7ed8ux5236}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{bizcircle\PYZus{}unitPrice}\PY{o}{=}\PY{n}{house\PYZus{}detail}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bizcircle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{bizcircle\PYZus{}unitPrice}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{各个区域均价分布}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{均价}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.show()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} <matplotlib.legend.Legend at 0x1ad5dc10518>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{数据分析9：按小区均价排序}\label{ux6570ux636eux5206ux67909ux6309ux5c0fux533aux5747ux4ef7ux6392ux5e8f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{community\PYZus{}unitPrice}\PY{o}{=}\PY{n}{house\PYZus{}detail}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{community}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unitPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{community\PYZus{}unitPrice}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{各个小区均价分布}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{均价}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <matplotlib.legend.Legend at 0x1ad5dd24978>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{数据分析10：
+楼层的分布情况}\label{ux6570ux636eux5206ux679010-ux697cux5c42ux7684ux5206ux5e03ux60c5ux51b5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} 将字符串转换成数字}
+         \PY{k}{def} \PY{n+nf}{data\PYZus{}ads}\PY{p}{(}\PY{n}{select\PYZus{}data}\PY{p}{,}\PY{n+nb}{str}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{str} \PY{o+ow}{in} \PY{n}{select\PYZus{}data}\PY{p}{:}
+                \PY{k}{return} \PY{p}{(}\PY{n}{select\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{select\PYZus{}data}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{没有提取到楼层信息}\PY{l+s+s1}{\PYZsq{}}
+         \PY{c+c1}{\PYZsh{} 得到楼层}
+         \PY{c+c1}{\PYZsh{} 将字符串转换成数字}
+         \PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{data\PYZus{}ads}\PY{p}{,}\PY{n+nb}{str}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{house}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:}    index                      title community                years housetype  \textbackslash{}
+         0      0  宝星华庭一层带花园，客厅挑高，通透四居室。房主自荐    宝星国际三期   底层(共22层)2010年建板塔结合      4室1厅   
+         1      1        三面采光全明南北朝向 正对小区绿地花园      顶秀青溪  中楼层(共11层)2008年建板塔结合      3室2厅   
+         2      2      沁园公寓 三居室 距离苏州街地铁站383米      沁园公寓    低楼层(共24层)1999年建塔楼      3室2厅   
+         
+            square                floor                  taxtype  totalPrice  \textbackslash{}
+         0  298.79   底层(共22层)2010年建板塔结合      距离15号线望京东站680米房本满五年        2598   
+         1  154.62  中楼层(共11层)2008年建板塔结合  距离5号线立水桥站1170米房本满两年随时看房        1000   
+         2  177.36    低楼层(共24层)1999年建塔楼      距离10号线苏州街站383米房本满五年        1200   
+         
+            unitPrice                followInfo  attention layer  
+         0      86951    53人关注 / 共44次带看 / 一年前发布       53.0    底层  
+         1      64675  323人关注 / 共579次带看 / 一年前发布      323.0   中楼层  
+         2      67659  185人关注 / 共108次带看 / 一年前发布      185.0   低楼层  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} 楼层分布及可视化}
+         \PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1ad5dd1b860>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{数据分析11：绘制2000到2016平均房价（年份与总售价的可视化）}\label{ux6570ux636eux5206ux679011ux7ed8ux52362000ux52302016ux5e73ux5747ux623fux4ef7ux5e74ux4efdux4e0eux603bux552eux4ef7ux7684ux53efux89c6ux5316}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} 得到年份}
+         \PY{k}{def} \PY{n+nf}{data\PYZus{}adst}\PY{p}{(}\PY{n}{select\PYZus{}data}\PY{p}{,}\PY{n+nb}{str}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{str} \PY{o+ow}{in} \PY{n}{select\PYZus{}data}\PY{p}{:}
+                 \PY{k}{return} \PY{p}{(}\PY{n}{select\PYZus{}data}\PY{p}{[}\PY{n}{select\PYZus{}data}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{:}\PY{n}{select\PYZus{}data}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{None}
+         \PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{house}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{data\PYZus{}adst}\PY{p}{,}\PY{n+nb}{str}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{建}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{house}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}    index                      title community                years housetype  \textbackslash{}
+         0      0  宝星华庭一层带花园，客厅挑高，通透四居室。房主自荐    宝星国际三期   底层(共22层)2010年建板塔结合      4室1厅   
+         1      1        三面采光全明南北朝向 正对小区绿地花园      顶秀青溪  中楼层(共11层)2008年建板塔结合      3室2厅   
+         2      2      沁园公寓 三居室 距离苏州街地铁站383米      沁园公寓    低楼层(共24层)1999年建塔楼      3室2厅   
+         3      3        金星园东南向户型，四居室设计，中间楼层       金星园    中楼层(共28层)2007年建塔楼      4室2厅   
+         
+            square                floor                  taxtype  totalPrice  \textbackslash{}
+         0  298.79   底层(共22层)2010年建板塔结合      距离15号线望京东站680米房本满五年        2598   
+         1  154.62  中楼层(共11层)2008年建板塔结合  距离5号线立水桥站1170米房本满两年随时看房        1000   
+         2  177.36    低楼层(共24层)1999年建塔楼      距离10号线苏州街站383米房本满五年        1200   
+         3  245.52    中楼层(共28层)2007年建塔楼      距离机场线三元桥站1153米房本满五年        1650   
+         
+            unitPrice                followInfo  attention layer   year  
+         0      86951    53人关注 / 共44次带看 / 一年前发布       53.0    底层  2010年  
+         1      64675  323人关注 / 共579次带看 / 一年前发布      323.0   中楼层  2008年  
+         2      67659  185人关注 / 共108次带看 / 一年前发布      185.0   低楼层  1999年  
+         3      67205   157人关注 / 共35次带看 / 一年前发布      157.0   中楼层  2007年  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} 绘制2000到2016平均房价}
+         \PY{n}{data}\PY{o}{=}\PY{n}{house}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totalPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{data}
+         \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000年}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2016年}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1ad5dfb33c8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{综合：紧邻望京地铁站,三室一厅，400万-500万，大于80平米的房子}\label{ux7efcux5408ux7d27ux90bbux671bux4eacux5730ux94c1ux7ad9ux4e09ux5ba4ux4e00ux5385400ux4e07-500ux4e07ux5927ux4e8e80ux5e73ux7c73ux7684ux623fux5b50}
+
+    \subsubsection{第一步：找出望京附近的房屋信息}\label{ux7b2cux4e00ux6b65ux627eux51faux671bux4eacux9644ux8fd1ux7684ux623fux5c4bux4fe1ux606f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{myhouse}\PY{o}{=}\PY{n}{house\PYZus{}detail}\PY{p}{[}\PY{n}{house\PYZus{}detail}\PY{o}{.}\PY{n}{bizcircle}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{望京}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} myhouse.head(2)}
+         \PY{n+nb}{len}\PY{p}{(}\PY{n}{myhouse}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} 896
+\end{Verbatim}
+            
+    \subsubsection{第二步：查看分布情况}\label{ux7b2cux4e8cux6b65ux67e5ux770bux5206ux5e03ux60c5ux51b5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{house\PYZus{}type}\PY{o}{=}\PY{n}{myhouse}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housetype}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n}{house\PYZus{}type}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{户型数量分布}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{house\PYZus{}type}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} 2室1厅     230
+         3室2厅     155
+         2室2厅     134
+         1室1厅     117
+         3室1厅     108
+         4室2厅      55
+         1室0厅      25
+         4室1厅      25
+         2房间1卫     13
+         5室2厅       8
+         Name: housetype, dtype: int64
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{第三步：找到三室一厅的房源信息以及400万-500万，大于80平米的房源信息}\label{ux7b2cux4e09ux6b65ux627eux5230ux4e09ux5ba4ux4e00ux5385ux7684ux623fux6e90ux4fe1ux606fux4ee5ux53ca400ux4e07-500ux4e07ux5927ux4e8e80ux5e73ux7c73ux7684ux623fux6e90ux4fe1ux606f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} 1 找到三室一厅的房源信息}
+         \PY{n}{myhouse}\PY{o}{=}\PY{n}{myhouse}\PY{p}{[}\PY{n}{myhouse}\PY{o}{.}\PY{n}{housetype}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3室1厅}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n+nb}{len}\PY{p}{(}\PY{n}{myhouse}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} 108
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} 2 房屋总价400万\PYZhy{}500万之间}
+         \PY{n}{myhouse}\PY{o}{=}\PY{n}{myhouse}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{myhouse}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totalPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{400}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{myhouse}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totalPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{]}
+         \PY{n}{myhouse}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{len}\PY{p}{(}\PY{n}{myhouse}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} 7
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} 将字符串转换成数字}
+         \PY{c+c1}{\PYZsh{} def data\PYZus{}ad(select\PYZus{}data,str):}
+         \PY{c+c1}{\PYZsh{}     if str in select\PYZus{}data:}
+         \PY{c+c1}{\PYZsh{}        return float(select\PYZus{}data[0:select\PYZus{}data.find(str)])}
+         \PY{c+c1}{\PYZsh{}     else:}
+         \PY{c+c1}{\PYZsh{}        return None}
+         
+         \PY{c+c1}{\PYZsh{} 处理房屋面积数据}
+         \PY{n}{myhouse}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{square}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{myhouse}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{square}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{data\PYZus{}ad}\PY{p}{,}\PY{n+nb}{str}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{平米}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} 3 房屋面积大于80平米}
+         \PY{n}{myhouse}\PY{o}{=}\PY{n}{myhouse}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{myhouse}\PY{o}{.}\PY{n}{square}\PY{o}{\PYZgt{}}\PY{l+m+mi}{80}\PY{p}{]}
+         \PY{n+nb}{len}\PY{p}{(}\PY{n}{myhouse}\PY{p}{)}
+         \PY{n}{myhouse}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:}        index\_x                       title community                years  \textbackslash{}
+         7824      2806  花家地西里一区东西向三居室 中间楼层 带电梯房主自荐   花家地西里一区  中楼层(共12层)1997年建板塔结合   
+         14022     8669       经典三居室格局合理社区安静配套成熟房主自荐   中环南路5号院      顶层(共6层)1996年建板楼   
+         
+               housetype  square                floor                  taxtype  \textbackslash{}
+         7824       3室1厅   82.10  中楼层(共12层)1997年建板塔结合                房本满五年随时看房   
+         14022      3室1厅   88.51      顶层(共6层)1996年建板楼  距离14号线(东段)望京南站701米房本满两年   
+         
+                totalPrice  unitPrice                 followInfo  index\_y  \textbackslash{}
+         7824          480      58466  245人关注 / 共75次带看 / 5个月以前发布      820   
+         14022         495      55926    35人关注 / 共0次带看 / 2个月以前发布     4718   
+         
+                           id district bizcircle          tagList  onsale  
+         7824   1111027375067       朝阳        望京   近地铁14号线(东段)阜通站       8  
+         14022  1111027382477       朝阳        望京  近地铁14号线(东段)望京南站       1  
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
