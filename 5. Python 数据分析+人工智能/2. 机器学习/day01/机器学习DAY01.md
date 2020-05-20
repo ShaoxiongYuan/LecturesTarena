@@ -427,7 +427,7 @@ print(inv_samples)
 y = f(x)
 ```
 
-预测函数：y = w<sub>0</sub>+w<sub>1</sub>x
+预测函数：$y=w_0+w_1x$
 x: 输入
 y: 输出
 w<sub>0</sub>和w<sub>1</sub>: 模型参数
@@ -439,15 +439,15 @@ w<sub>0</sub>和w<sub>1</sub>: 模型参数
 
 单样本误差：
 
-根据预测函数求出输入为x时的预测值：y' = w<sub>0</sub> + w<sub>1</sub>x，单样本误差为1/2(y' - y)<sup>2</sup>。
+根据预测函数求出输入为x时的预测值：$y^{'}=w_0+w_1x$，单样本误差为$\frac{1}{2}(y^{'}-y)^2$。
 
 总样本误差：
 
-把所有单样本误差相加即是总样本误差：1/2 &Sigma;(y' - y)<sup>2</sup>
+把所有单样本误差相加即是总样本误差：$\frac{1}{2}\Sigma(y^{'}-y)^2$
 
 损失函数：
 
-loss = 1/2 &Sigma;(w<sub>0</sub> + w<sub>1</sub>x - y)<sup>2</sup>
+loss = $\frac{1}{2}\Sigma(w_0+w_1x-y)^2$
 
 所以损失函数就是总样本误差关于模型参数的函数，该函数属于三维数学模型，即需要找到一组w<sub>0</sub>  w<sub>1</sub>使得loss取极小值。
 
