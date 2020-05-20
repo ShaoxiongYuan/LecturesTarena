@@ -706,7 +706,7 @@ plt.show()
 
 执行结果：
 
-<img src="../images/hist.png" style="zoom:67%;" />
+<img src="../images/直方图.png" style="zoom:120%;" >
 
 绘制直方图相关API：
 
@@ -980,6 +980,8 @@ dataFrame.plot.bar()
 dataFrame.plot.barh()
 ```
 
+![](..\images\pandas_visual6.png)
+
 直方图
 
 ```python
@@ -988,12 +990,16 @@ series.plot.hist(alpha=0.5, bins=5)
 dataFrame.plot.hist(alpha=0.5, bins=5)
 ```
 
+![](..\images\pandas_visual4.png)
+
 散点图
 
 ```python
 # 散点图
 df.plot.scatter(x='a', y='b', c=col, colormap='');
 ```
+
+![](..\images\pandas_visual3.png)
 
 饼状图
 
@@ -1003,9 +1009,11 @@ series.plot.pie(figsize=(6, 6))
 dataFrame.plot.pie(subplots=True, figsize=(6, 6), layout=(2, 2))
 ```
 
+![](..\images\pandas_visual5.png)
+
 箱线图
 
-![](../images/%E7%AE%B1%E7%BA%BF%E5%9B%BE.png)
+<img src="../images/%E7%AE%B1%E7%BA%BF%E5%9B%BE.png" style="zoom:80%;" />
 
 ```python
 # 箱线图
