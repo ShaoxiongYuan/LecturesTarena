@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test_img</folder>
+	<filename>1.jpg</filename>
+	<path>E:\讲义资料\LecturesTarena\5. Python 数据分析+人工智能\3. 深度学习\2. Deep Learning\test_img\1.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>255</width>
+		<height>255</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>apple</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>29</xmin>
+			<ymin>2</ymin>
+			<xmax>241</xmax>
+			<ymax>247</ymax>
+		</bndbox>
+	</object>
+</annotation>
