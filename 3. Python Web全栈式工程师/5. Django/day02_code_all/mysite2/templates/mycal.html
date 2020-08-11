@@ -1,0 +1,16 @@
+
+
+<form action="/mycal" method="post">
+    <input type="text" name="x" value="{{ x }}">
+    <select name="op">
+        <option value="add" {% if op == 'add' %}selected{% endif %} >+</option>
+        <option value="sub" {% if op == 'sub' %}selected{% endif %} >-</option>
+        <option value="mul" {% if op == 'mul' %}selected{% endif %} >*</option>
+        <option value="div" {% if op == 'div' %}selected{% endif %} >/</option>
+    </select>
+    <input type="text" name="y" value="{{ y }}"> =
+    <span>{{ result }}</span>
+    <div>
+        <input type="submit" value="开始计算">
+    </div>
+</form>

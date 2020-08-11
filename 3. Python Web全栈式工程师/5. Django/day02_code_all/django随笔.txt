@@ -1,0 +1,119 @@
+郭君宇 - 郭小闹  88年
+
+Django 8天  redis 3天  ajax 1天  项目8天
+
+11年 python 游戏&CDN 行业 
+
+
+1， 刷题  
+    1,leetcode
+    2,剑指offer - 牛客网 
+
+
+2， 项目 - 比赛
+
+
+
+
+
+web/服务器 后端 - 协议（HTTP） 去 处理数据
+
+
+250919354@qq.com   班级-中心-姓名-问题-性别  
+
+
+/detail/小说id?page=33
+
+
+day01 回顾
+
+django day01 回顾
+
+
+1， Django - web框架 - 工具箱 
+
+    - 2.2.12
+
+
+2，django-admin startproject 项目名
+
+
+   结构 - 
+       1，同名文件夹 - settings.py 大写全局变量=值
+       2，mange.py 
+                python3 manage.py runserver	
+
+   
+
+3, 主路由 - 同名文件夹下/urls.py
+
+
+   urlpatterns = [
+
+       path/re_path('route', views.视图函数 )
+
+
+]
+
+
+4， path(route, views, name=xxx)
+
+    'page/2003/' ->  :8000/page/2003/
+
+
+    path转换器 -> 匹配路由中的变量
+
+    ‘page/<转换器类型:自定义名>/' -> 关键字传参形式
+
+
+5，re_path(re_route, ....)  - 更精准
+
+   r'(?P<name>patt)' -> 关键字传参
+
+
+
+6，请求和响应
+
+	视图函数 request
+
+	request.xxx
+
+
+        视图函数 return HttpResponse(响应体，content_type, status)
+        
+
+7, GET vs POST
+
+   GET ->   向服务器获取数据 [可以用查询字符串 传递少量数据]
+   POST ->  向服务器提交数据[大量数据/隐私性强] - 数据放置在请求体(body)
+
+
+  request.GET
+  request.POST -> 针对form表单的post提交 可获取数据
+                  Content-Type: application/x-www-form-urlencoded
+                
+  request.body
+
+
+如果有启动mysite2时，报错  Error: That port is already in use.
+
+证明 8000端口 被其他进程占用，释放即可
+执行：
+1,sudo lsof -i:8000
+2,sudo kill -9 pid
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面</title>
+</head>
+<body>
+
+<h3> str is {{ str|truncatechars:'5' }}</h3>
+<h3> int is {{ int }}</h3>
+<h3> lst is {{ lst }}</h3>
+<h3> lst 第一个元素 is {{ lst.0 }}</h3>
+<h3> dic is {{ d }}</h3>
+<h3> dic['name'] is {{ d.name }}</h3>
+<h3> function is {{ function }}</h3>
+<h3> class obj is {{ class_obj.say }}</h3>
+<h3> script is {{ script }}</h3>
+</body>
+</html>
+
+
+{% if int > 10 %}
+    今天天气很好
+{% else %}
+    今天天气不是很好
+{% endif %}
+
+
+{% for i in lst %}
+    {% if forloop.first %}<p>=====</p>{% endif %}
+    <p>{{ forloop.revcounter }} 名字: {{ i }} </p>
+    {% if forloop.last %}<p>&&&&&&</p>{% endif %}
+    {% empty %}
+    <p>对不起, 当前无数据</p>
+{% endfor %}
+

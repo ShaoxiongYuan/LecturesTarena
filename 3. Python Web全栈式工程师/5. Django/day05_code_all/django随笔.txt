@@ -1,0 +1,395 @@
+郭君宇 - 郭小闹  88年
+
+Django 8天  redis 3天  ajax 1天  项目8天
+
+11年 python 游戏&CDN 行业 
+
+
+1， 刷题  
+    1,leetcode
+    2,剑指offer - 牛客网 
+
+
+2， 项目 - 比赛
+
+
+
+
+
+web/服务器 后端 - 协议（HTTP） 去 处理数据
+
+
+250919354@qq.com   班级-中心-姓名-问题-性别  
+
+
+/detail/小说id?page=33
+
+
+day01 回顾
+
+django day01 回顾
+
+
+1， Django - web框架 - 工具箱 
+
+    - 2.2.12
+
+
+2，django-admin startproject 项目名
+
+
+   结构 - 
+       1，同名文件夹 - settings.py 大写全局变量=值
+       2，mange.py 
+                python3 manage.py runserver	
+
+   
+
+3, 主路由 - 同名文件夹下/urls.py
+
+
+   urlpatterns = [
+
+       path/re_path('route', views.视图函数 )
+
+
+]
+
+
+4， path(route, views, name=xxx)
+
+    'page/2003/' ->  :8000/page/2003/
+
+
+    path转换器 -> 匹配路由中的变量
+
+    ‘page/<转换器类型:自定义名>/' -> 关键字传参形式
+
+
+5，re_path(re_route, ....)  - 更精准
+
+   r'(?P<name>patt)' -> 关键字传参
+
+
+
+6，请求和响应
+
+	视图函数 request
+
+	request.xxx
+
+
+        视图函数 return HttpResponse(响应体，content_type, status)
+        
+
+7, GET vs POST
+
+   GET ->   向服务器获取数据 [可以用查询字符串 传递少量数据]
+   POST ->  向服务器提交数据[大量数据/隐私性强] - 数据放置在请求体(body)
+
+
+  request.GET
+  request.POST -> 针对form表单的post提交 可获取数据
+                  Content-Type: application/x-www-form-urlencoded
+                
+  request.body
+
+
+如果有启动mysite2时，报错  Error: That port is already in use.
+
+证明 8000端口 被其他进程占用，释放即可
+执行：
+1,sudo lsof -i:8000
+2,sudo kill -9 pid
+
+
+
+day02 回顾
+
+1， MVC 和 MTV
+
+    MVC - V(W+H)
+
+    cMTV - V(W) + T(H)
+
+
+2, 模板层(T)
+    HTML + python变量
+  
+
+   配置： 文件夹 + settings.py告知Django
+
+   
+   加载： return render(request, '模板名', {}数据)
+
+
+   模板传参：  python 结构 - str,int....
+
+               {{ 变量名.xxx }}
+
+
+
+3, xss攻击 - 跨站脚本攻击
+
+     原理：通过对外表单框，提交 恶意的 js 代码
+    
+     防范：html转义 - views[import html html.escape()]/模板转【django自动开启全局转义】
+
+
+4, 标签 - 逻辑控制  {% if x > 10 %}{% endif %}
+
+
+
+5, 过滤器 - {{ 变量|过滤器:'参数'|.... }}
+
+
+6, 继承 - 父：公共样式html + {% block  块名 %}{% endblock%}
+
+
+          子: {% extends '父模板名' %}， 按需重写block
+
+
+7, url反向解析
+    
+     ‘/相对地址’  当前地址栏 协议+ip+端口+ '/相对地址'
+
+      path中的name参数定义别名
+
+         {% url ‘别名’'参数' %}
+         
+         views - reverse('别名', args=[], kwargs={})
+
+
+
+
+day03回顾
+
+1，静态文件 - image css js
+
+   加载静态文件 - 浏览器通过解析html中的 img src='url'
+   ；通过url发送GET请求，获取具体的静态资源
+
+   
+   Django配置 - 
+
+      1，STATIC_URL ->标记了静态请求的标识 '/static/'
+      2，STATICFILES_DIRS = (xxx,)  告知DJANGO静态资源存储位置
+
+
+静态文件解决方案 - 企业 花钱走CDN， src地址都由CDN提供；
+
+
+
+2，应用 - 拆分模块 
+
+   1， 先创建   python3 manage.py startapp xxx
+
+   2,  再注册   settings.py  INSTALLED_APPS =[]
+
+   
+   分布式路由 - 主路由负责请求分发【按一定规则】，应用下子路由负责绑定视图函数
+
+   主路由 path('music/', include('music.urls') )
+   子路由 1，应用下手动创建urls.py
+	  2，子路由结构跟主路由一样 [只匹配后面]
+
+ 
+   3，应用的模板
+
+	1,应用下 可以添加 templates 文件夹 存放模板
+
+	2,应用下t 和 外层t 有同名html时，优先找外面的
+	
+	3,应用和应用之间，按注册顺序查找模板
+
+	music/templates/music/xxx.html
+	return render(request, 'music/xxx.html')
+
+
+3, 模型层 - DB
+
+   Django2.0 需要用 mysqlclient 通信数据库
+
+
+
+安装C版本 - mysqlclient
+
+下列软件包有未满足的依赖关系：
+ libmysqlclient-dev : 依赖: libmysqlclient20 (= 5.7.21-1ubuntu1) 但是 5.7.29-0ubuntu0.18.04.1 正要被安装
+E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
+
+
+sudo apt install libmysqlclient20=5.7.21-1ubuntu1
+
+
+sudo apt-get install default-libmysqlclient-dev
+
+	
+   1，创建数据库 - 手动
+   2，settings.py 配置 
+
+   class Book(models.Model):
+
+	类属性 = models.xxxField(选项)
+
+        class Meta:
+	   db_table = 'xx'
+
+ 
+   makemigrations - 生成迁移文件
+   migrate - 同步迁移文件
+
+	
+插入数据报错
+    1366， Incorrect string value: xxxxxx   - 中文编码问题 - python utf8 -> 注意create database default charset utf8;
+
+
+migrate报错
+
+  django.core.excptions.ValidationEror [“” 必须为十进制数字]
+ 
+
+  Book -   Decimal  default= 0.0
+
+  Author - Integer  default= 1
+
+  参照笔记删库的方案
+
+
+day04 回顾
+    
+   增删改查 
+   
+   
+   增 - 
+
+       1， 模型类.objects.create(类属性=值,...)
+
+       2,  obj = 模型类(类属性=值) 
+           obj.save()
+     
+  
+   django-shell /  python3 manage.py shell / 代码若有改变【m层】，需要重启shell
+
+
+   查 - 模型类.objects.xxx
+    
+     全量查询 -  all()           QuerySet  obj
+                 values('列')    QuerySet  字典  
+                 values_list()   ...       ()   
+      
+
+     排序  -  objects.order_by('-列')  -:降序  
+
+     
+     条件查询 - 
+            
+               filter(条件1，条件2)  QuerySet obj   and
+               exclude(条件)         ...      ..    ..
+               get(条件)             obj   
+                  - 查多了 报错  - try
+                  - 没查到 报错  - try
+
+  
+
+               查询谓词  类属性__谓词 = xxx
+
+
+    聚合查询 - 
+        
+         整表聚合（不分组）
+             1，导入聚合函数
+	     2，模型类.objects.aggregate(变量=聚合函数('列'))
+    
+             3，返回值：字典 {变量：聚合值}
+         
+         分组聚合
+
+             1， 模型类.objects.values('pub')
+
+             2,  QuerySet.annotate(同上)
+         
+             3， 返回值：QuerySet
+
+
+
+  改 - 
+
+      1，单条  - 1）查 2）改 3）保存[obj.save()]
+      2，多条  -  QuerySet.update(类属性=值)
+
+
+
+
+  删 - 
+      1，单条 - 1）查 2）obj.delete()
+      2，多条 - QuerySet.delete()
+
+      伪删除 - is_active 布尔字段 默认True  -> False
+     
+
+  F&Q
+
+     F - 标记字段 
+         场景1： update .... set price = price + 10 
+    
+         场景2： select * from xxx where price > market_price 
+
+
+     Q - 或与非
+         Q（条件1）| Q（条件2） 或
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+

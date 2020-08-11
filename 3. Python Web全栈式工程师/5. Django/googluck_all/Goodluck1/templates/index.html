@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index_page</title>
+    <style type="text/css">
+        td{
+            border: solid 1px black;
+        }
+    </style>
+</head>
+<body>
+    <!-- <img src="/static/images/prize1.jpg" alt="">
+    <img src="/static/images/prize2.jpg" alt=""> -->
+    <!-- 
+        1.   3的倍数换行
+        2.   下标为5需要渲染立即抽奖
+     -->
+    <!-- {% for prize in prizes %}
+    <img src="{{prize}}" alt="">
+    {% endfor %} -->
+    <table>
+            <tr>
+    {% for prize in prizes %}
+    {% if forloop.counter == 5 %}
+    <td> <a href="/v1/index/get_prize/"><img src="/static/images/prize9.jpg" alt=""></a></td>
+    <td><img src="{{prize}}" alt=""></td>
+    {% elif forloop.counter|divisibleby:'3' %}
+    {% if forloop.counter == 6 %}
+    </tr>
+    <tr>
+    <td><img src="{{prize}}" alt=""></td> 
+    {% else %} 
+    <td><img src="{{prize}}" alt=""></td>
+    </tr>
+    <tr>
+    {% endif %}
+    {% else %}
+    <td><img src="{{prize}}" alt=""></td>
+    {% endif %}
+    {% endfor %}
+   </table>
+</body>
+</html>

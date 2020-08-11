@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试静态文件</title>
+</head>
+<body>
+
+<img src="/static/images/http.jpeg" height="200px" width="200px">
+
+<img src="http://127.0.0.1:8000/static/images/http.jpeg" height="200px" width="200px">
+
+
+{% load static %}
+<img src="{% static 'images/http.jpeg' %}" width="200px" height="200px">
+
+
+
+
+
+</body>
+</html>
